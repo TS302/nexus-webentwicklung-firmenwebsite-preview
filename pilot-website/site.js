@@ -1,6 +1,25 @@
 (() => {
   document.documentElement.dataset.js = "true";
   const mobileQuery = window.matchMedia("(max-width: 900px)");
+  const normalizeHash = (hash) => (hash === "#kontakt-status" ? "#kontakt" : hash);
+
+  const onePageLinks = [...document.querySelectorAll('.primary-nav a[href^="#"]')];
+  const markPrimaryCurrent = (hash = window.location.hash) => {
+    if (!onePageLinks.length) return;
+    const targetHash = normalizeHash(hash);
+    const match = onePageLinks.find((link) => normalizeHash(link.hash) === targetHash);
+    onePageLinks.forEach((link) => link.removeAttribute("aria-current"));
+    (match || onePageLinks.find((link) => normalizeHash(link.hash) === "#start"))?.setAttribute(
+      "aria-current",
+      "page"
+    );
+  };
+
+  if (onePageLinks.length) {
+    markPrimaryCurrent();
+    window.addEventListener("hashchange", () => markPrimaryCurrent());
+    onePageLinks.forEach((link) => link.addEventListener("click", () => markPrimaryCurrent(link.hash)));
+  }
 
   document.querySelectorAll(".site-header").forEach((header) => {
     const toggle = header.querySelector("[data-menu-toggle]");
@@ -61,7 +80,7 @@
   };
 
   const markFromHash = () => {
-    const matchingHash = links.find((link) => link.hash === window.location.hash);
+    const matchingHash = links.find((link) => normalizeHash(link.hash) === normalizeHash(window.location.hash));
     markCurrent(matchingHash || links.find((link) => localTargets.includes(document.querySelector(link.hash))) || links[0]);
   };
 

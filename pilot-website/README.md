@@ -2,9 +2,9 @@
 
 **Status: INTERNE VORSCHAU – NICHT VERÖFFENTLICHEN**
 
-Der statische, synthetische Pilotstand setzt Leas Richtung **Light Signal / Floating Glass** um: helle Papierflächen, semantische Blautokens, eine sticky Glas-Pill-Navigation und eine dezente Desktop-Schnellnavigation. `index.html` ist die zentrale One-Page mit den stabilen Marketingzielen `#start`, `#leistungen`, `#ablauf`, `#ueber-nexus` und `#kontakt`. Die Vorschau ist eine lokale Arbeitsgrundlage – keine Marken-, Inhalts-, Rechts- oder Veröffentlichungsfreigabe.
+Der statische, synthetische Pilotstand setzt Leas Richtung **Light Signal / Floating Glass** um: helle Papierflächen, semantische Blautokens, eine sticky Glas-Pill-Navigation und eine dezente Desktop-Schnellnavigation. `index.html` ist die zentrale One-Page mit der freigegebenen Arbeitscopy für Websites und Landingpages, den stabilen Marketingzielen `#start`, `#leistungen`, `#ablauf`, `#ueber-nexus` und `#kontakt` sowie dem Statusziel `#kontakt-status`. Die Vorschau ist eine lokale Arbeitsgrundlage – keine Marken-, Inhalts-, Rechts- oder Veröffentlichungsfreigabe.
 
-**Visuelle Test-Vorschau:** [One-Page im HTML-Preview-Renderer öffnen](https://htmlpreview.github.io/?https://raw.githubusercontent.com/TS302/nexus-webentwicklung-firmenwebsite/c710a2efa98995af1dd2e7bf81966fb9e5e82e90/pilot-website/index.html) · externer Renderer für den Teststand, nicht die Produktionsdomain.
+**Visuelle Test-Vorschau:** [Direkte One-Page-Testvorschau öffnen](https://ts302.github.io/nexus-webentwicklung-firmenwebsite-preview/) · GitHub-Pages-Teststand mit sichtbarer interner Vorschaukennzeichnung, nicht die Produktionsdomain.
 
 Die technische Übergabe mit Änderungen, Befunden, Restpunkten und Nora-Prüfliste liegt in [`PAP-97-technical-handoff.md`](../PAP-97-technical-handoff.md).
 
