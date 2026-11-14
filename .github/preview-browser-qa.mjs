@@ -184,6 +184,7 @@ try {
         const rect = node.getBoundingClientRect();
         const actions = document.querySelector(".hero__actions")?.getBoundingClientRect();
         const nextSection = document.querySelector("#leistungen")?.getBoundingClientRect();
+        const nextHeading = document.querySelector("#leistungen-title")?.getBoundingClientRect();
         return {
           textContent: node.textContent,
           width: rect.width,
@@ -193,6 +194,7 @@ try {
           lineCount: Math.round(rect.height / parseFloat(h1Style.lineHeight)),
           ctaBottom: actions?.bottom || null,
           nextSectionTop: nextSection?.top || null,
+          nextHeadingTop: nextHeading?.top || null,
           viewportHeight: window.innerHeight,
           h1FontSize: h1Style.fontSize,
           h1LineHeight: h1Style.lineHeight,
@@ -207,7 +209,7 @@ try {
       if (viewport >= 1024) {
         assert(headingMetrics.height <= 360, `index.html @ ${viewport}px: desktop H1 reading path is too tall (${headingMetrics.height}px)`);
         assert(headingMetrics.ctaBottom <= headingMetrics.viewportHeight, `index.html @ ${viewport}px: hero CTA is below the first viewport`);
-        assert(headingMetrics.nextSectionTop <= headingMetrics.viewportHeight, `index.html @ ${viewport}px: next section teaser is below the first viewport`);
+        assert(headingMetrics.nextHeadingTop <= headingMetrics.viewportHeight, `index.html @ ${viewport}px: next section teaser is below the first viewport`);
       }
       assert(await page.locator('.hero__actions a[href="#kontakt-status"]').count() === 1, `index.html @ ${viewport}px: hero status CTA is missing`);
       assert(await page.locator('#kontakt-status').count() === 1, `index.html @ ${viewport}px: contact status target is missing`);
