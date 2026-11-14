@@ -13,7 +13,10 @@ const pages = [
   "impressum.html",
   "datenschutz.html",
 ];
-const screenshotDir = path.resolve(".qa-screenshots");
+const artifactDir = path.resolve("qa-artifacts");
+const screenshotDir = path.join(artifactDir, "screenshots");
+const metricsPath = path.join(artifactDir, "browser-qa-metrics.json");
+const metrics = [];
 
 fs.mkdirSync(screenshotDir, { recursive: true });
 
@@ -89,7 +92,9 @@ try {
       assert(lineMetrics.every((line) => line.width <= headingMetrics.width + 1), `index.html @ ${viewport}px: H1 line exceeds available width`);
       assert(lineMetrics[1].top > lineMetrics[0].top, `index.html @ ${viewport}px: H1 lines are not on separate rows`);
 
-      console.log(JSON.stringify({ viewport, overflow, lineMetrics, headingMetrics }));
+      const record = { viewport, overflow, lineMetrics, headingMetrics };
+      metrics.push(record);
+      console.log(JSON.stringify(record));
       await page.screenshot({ path: path.join(screenshotDir, `hero-${viewport}.png`), fullPage: false });
     }
   }
@@ -99,6 +104,7 @@ try {
   assert(requestFailures.length === 0, `browser request failures: ${JSON.stringify(requestFailures)}`);
   console.log(`PASS: public preview ${baseUrl}; ${pages.length} pages × ${viewports.length} viewports; H1 rows, H1/H2 sizes, overflow, logs and screenshots verified`);
 } finally {
+  fs.writeFileSync(metricsPath, `${JSON.stringify(metrics, null, 2)}\n`);
   await context.close();
   await browser.close();
 }

@@ -62,6 +62,6 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: preview-browser-screenshots
-          path: .qa-screenshots
-          if-no-files-found: warn
+          name: preview-browser-qa-artifacts
+          path: qa-artifacts
+          if-no-files-found: error
