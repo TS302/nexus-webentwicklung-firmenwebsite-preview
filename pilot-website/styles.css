@@ -112,14 +112,14 @@ h6 {
 h1 {
   max-width: 11ch;
   margin-block-end: 1.5rem;
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-size: clamp(1.75rem, 4.5vw, 3.75rem);
   font-weight: 800;
 }
 
 h2 {
   max-width: 15ch;
   margin-block-end: 1rem;
-  font-size: clamp(1.85rem, 3.5vw, 3.25rem);
+  font-size: clamp(1.5rem, 3vw, 2.75rem);
   font-weight: 780;
 }
 
@@ -498,8 +498,13 @@ li {
 }
 
 .hero h1 {
-  max-width: 22ch;
+  max-width: none;
   color: var(--color-ink);
+}
+
+.hero-title__line {
+  display: block;
+  white-space: nowrap;
 }
 
 .hero__lead {
