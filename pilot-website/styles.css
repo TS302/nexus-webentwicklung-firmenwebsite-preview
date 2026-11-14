@@ -1425,6 +1425,16 @@ li {
   }
 }
 
+@media (min-width: 1200px) {
+  .hero-grid {
+    padding-block: clamp(2.5rem, 4vw, 4rem) 2rem;
+  }
+
+  .hero + .section {
+    padding-block-start: clamp(2.5rem, 4vw, 4rem);
+  }
+}
+
 @media (max-width: 1023px) and (min-width: 901px) {
   .capability-row {
     grid-template-columns: 3.5rem minmax(9rem, 0.85fr) minmax(0, 1.5fr);
