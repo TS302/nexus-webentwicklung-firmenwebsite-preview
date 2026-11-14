@@ -99,8 +99,14 @@ h2,
 h3 {
   color: var(--color-ink);
   font-family: var(--font-display);
-  letter-spacing: -0.045em;
+  letter-spacing: 0;
   line-height: 1.02;
+}
+
+h4,
+h5,
+h6 {
+  letter-spacing: 0;
 }
 
 h1 {
