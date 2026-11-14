@@ -17,6 +17,7 @@ const artifactDir = path.resolve("qa-artifacts");
 const screenshotDir = path.join(artifactDir, "screenshots");
 const metricsPath = path.join(artifactDir, "browser-qa-metrics.json");
 const metrics = [];
+const expectedHeroTitle = "Websites und Landingpages, die lokale Angebote klar zeigen.";
 
 fs.mkdirSync(screenshotDir, { recursive: true });
 
@@ -58,19 +59,6 @@ try {
       if (filename !== "index.html") continue;
 
       const heading = page.locator("#hero-title");
-      const lines = heading.locator(".hero-title__line");
-      assert(await lines.count() === 2, `index.html @ ${viewport}px: hero H1 must have exactly two lines`);
-
-      const lineMetrics = await lines.evaluateAll((nodes) => nodes.map((node) => {
-        const rect = node.getBoundingClientRect();
-        const style = getComputedStyle(node);
-        return {
-          top: rect.top,
-          width: rect.width,
-          rectCount: node.getClientRects().length,
-          whiteSpace: style.whiteSpace,
-        };
-      }));
       const headingMetrics = await heading.evaluate((node) => {
         const h1Style = getComputedStyle(node);
         const h2 = document.querySelector("#angebot-title");
@@ -87,12 +75,14 @@ try {
         };
       });
 
-      assert(headingMetrics.textContent === "Websites mit Haltung. Klar geführt.", `index.html @ ${viewport}px: H1 text changed`);
-      assert(lineMetrics.every((line) => line.rectCount === 1 && line.whiteSpace === "nowrap"), `index.html @ ${viewport}px: H1 wrapping is not controlled`);
-      assert(lineMetrics.every((line) => line.width <= headingMetrics.width + 1), `index.html @ ${viewport}px: H1 line exceeds available width`);
-      assert(lineMetrics[1].top > lineMetrics[0].top, `index.html @ ${viewport}px: H1 lines are not on separate rows`);
+      const heroTitle = headingMetrics.textContent.replace(/\s+/g, " ").trim();
+      assert(heroTitle === expectedHeroTitle, `index.html @ ${viewport}px: unexpected H1 text`);
+      assert(headingMetrics.width > 0 && headingMetrics.height > 0, `index.html @ ${viewport}px: H1 has no visible box`);
+      assert(await page.locator('.hero__actions a[href="#kontakt-status"]').count() === 1, `index.html @ ${viewport}px: hero status CTA is missing`);
+      assert(await page.locator('#kontakt-status').count() === 1, `index.html @ ${viewport}px: contact status target is missing`);
+      assert(await page.locator('[data-section-rail] a[href="#proof"]').count() === 0, `index.html @ ${viewport}px: proof must remain outside the primary rail`);
 
-      const record = { viewport, overflow, lineMetrics, headingMetrics };
+      const record = { viewport, overflow, headingMetrics, heroTitle };
       metrics.push(record);
       console.log(JSON.stringify(record));
       await page.screenshot({ path: path.join(screenshotDir, `hero-${viewport}.png`), fullPage: false });
