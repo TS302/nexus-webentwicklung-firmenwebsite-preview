@@ -1,5 +1,7 @@
 # Übergabe · Nexus Website / Light Signal · Floating Glass
 
+> **Historischer Stand:** Die aktuelle One-Page-Übergabe mit stabilen Marketing-Ankern, Testbefunden und Nora-Prüfliste steht in [`PAP-97-technical-handoff.md`](../PAP-97-technical-handoff.md). Dieses Dokument beschreibt den vorherigen Mehrseiten-Shell-Stand.
+
 **Arbeitsstand:** lokale Vorschau, nicht veröffentlicht
 **Technische Umsetzung:** PAP-63 / PAP-60
 **Prüfdatum:** 2026-11-13

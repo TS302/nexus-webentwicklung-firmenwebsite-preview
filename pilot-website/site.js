@@ -13,6 +13,7 @@
     const setMenu = (open, returnFocus = false) => {
       header.toggleAttribute("data-menu-open", open);
       toggle.setAttribute("aria-expanded", String(open));
+      toggle.textContent = open ? "Schließen" : "Menü";
 
       if (open && mobileQuery.matches) {
         menu.querySelector("a")?.focus();
@@ -59,8 +60,13 @@
     link?.setAttribute("aria-current", "location");
   };
 
-  const matchingHash = links.find((link) => link.hash === window.location.hash);
-  markCurrent(matchingHash || links.find((link) => localTargets.includes(document.querySelector(link.hash))) || links[0]);
+  const markFromHash = () => {
+    const matchingHash = links.find((link) => link.hash === window.location.hash);
+    markCurrent(matchingHash || links.find((link) => localTargets.includes(document.querySelector(link.hash))) || links[0]);
+  };
+
+  markFromHash();
+  window.addEventListener("hashchange", markFromHash);
 
   links.forEach((link) => {
     link.addEventListener("click", () => markCurrent(link));
