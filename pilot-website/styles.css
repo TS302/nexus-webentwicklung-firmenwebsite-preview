@@ -584,14 +584,15 @@ li {
   align-items: end;
   min-inline-size: 0;
   min-block-size: clamp(22rem, 32vw, 31rem);
-  padding: clamp(2.5rem, 5vw, 4rem) clamp(0.65rem, 2vw, 1.25rem) clamp(1.25rem, 3vw, 2.25rem);
+  padding: clamp(2.5rem, 5vw, 4rem) 0 clamp(1.25rem, 3vw, 2.25rem);
   isolation: isolate;
 }
 
 .hero-visual__website {
   position: absolute;
   inset-block-start: clamp(1.25rem, 4vw, 2.5rem);
-  inset-inline: clamp(0.9rem, 4%, 1.75rem);
+  inset-inline-start: clamp(1rem, 6%, 1.75rem);
+  inset-inline-end: 0;
   z-index: 0;
   block-size: clamp(15rem, 24vw, 21rem);
   border: 1px solid var(--color-line);
@@ -696,8 +697,9 @@ li {
   position: relative;
   z-index: 1;
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: clamp(0.65rem, 1.5vw, 1rem);
+  inline-size: 70%;
 }
 
 .hero-card {
@@ -1659,13 +1661,6 @@ li {
     transform: translateX(-1.25rem);
   }
 
-  .hero-card {
-    padding-inline: 0.4rem;
-  }
-
-  .hero-card strong {
-    font-size: 0.85rem;
-  }
 }
 
 @media (max-width: 1080px) {
@@ -1952,6 +1947,7 @@ li {
   .hero-card--packages,
   .hero-card--process {
     animation: none;
+    transform: translate3d(0, 0, 0);
   }
 
   .hero-visual__website {
