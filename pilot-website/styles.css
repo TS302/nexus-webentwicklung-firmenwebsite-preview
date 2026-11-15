@@ -216,7 +216,7 @@ li {
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 0.75rem 1rem;
-  width: min(100%, 70rem);
+  width: 100%;
   min-block-size: 4.5rem;
   padding: 0.55rem 0.7rem 0.55rem 1rem;
   border: 1px solid rgb(255 255 255 / 0.9);
