@@ -397,7 +397,7 @@ li {
   flex-direction: column;
   align-items: stretch;
   gap: 0.65rem;
-  width: 10rem;
+  width: 11rem;
   padding: 0.7rem;
   border: 1px solid rgb(255 255 255 / 0.9);
   border-radius: 1.2rem;
@@ -1572,7 +1572,7 @@ li {
 
 @media (min-width: 1440px) {
   .site-header > .header-inner {
-    max-inline-size: calc(var(--content-max) - 11rem);
+    max-inline-size: calc(var(--content-max) - 12rem);
   }
 
   .section-rail {
@@ -1582,7 +1582,7 @@ li {
 
   /* Keep the fixed rail outside the content grid with a 1rem focus/text gutter. */
   .section-rail + main .container {
-    max-inline-size: calc(var(--content-max) - 11rem);
+    max-inline-size: calc(var(--content-max) - 12rem);
   }
 }
 
