@@ -2116,7 +2116,7 @@ li {
 
 .hero-visual__browser {
   position: absolute;
-  inset: 1rem 0.75rem 1rem 1.25rem;
+  inset: 1rem clamp(-0.5rem, -1vw, 0.75rem) 1rem clamp(-3rem, -4vw, 1.25rem);
   z-index: 0;
   display: block;
   block-size: auto;
@@ -2207,21 +2207,6 @@ li {
   grid-area: image;
 }
 
-.hero-visual__browser-button {
-  display: inline-flex;
-  align-items: center;
-  min-block-size: 2rem;
-  padding: 0.35rem 0.65rem;
-  margin-block-start: 0.8rem;
-  border-radius: var(--radius-pill);
-  background: var(--color-signal-blue);
-  color: var(--color-white);
-  font-family: var(--font-mono);
-  font-size: 0.59rem;
-  font-weight: 800;
-  letter-spacing: 0.03em;
-}
-
 .hero-visual__image-placeholder {
   min-block-size: 5rem;
   border: 1px solid var(--color-line);
@@ -2257,12 +2242,28 @@ li {
 
 .hero-visual__skeleton-grid > span {
   display: grid;
+  grid-template-columns: 0.9rem minmax(0, 1fr);
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+  grid-template-areas:
+    "icon line"
+    "icon text-one"
+    "icon text-two";
   gap: 0.4rem;
-  min-block-size: 2.85rem;
+  min-block-size: 3.8rem;
+  align-items: center;
   padding: 0.55rem;
   border: 1px solid var(--color-line);
   border-radius: var(--radius-sm);
   background: #f7faff;
+}
+
+.hero-visual__skeleton-grid b {
+  grid-area: icon;
+  inline-size: 0.9rem;
+  block-size: 0.9rem;
+  border: 1px solid var(--color-line);
+  border-radius: 0.25rem;
+  background: var(--color-mist-blue);
 }
 
 .hero-visual__skeleton-grid i {
@@ -2272,8 +2273,18 @@ li {
   background: var(--color-line);
 }
 
-.hero-visual__skeleton-grid i:last-child {
-  inline-size: 68%;
+.hero-visual__skeleton-grid i:nth-of-type(1) {
+  grid-area: line;
+}
+
+.hero-visual__skeleton-grid i:nth-of-type(2) {
+  grid-area: text-one;
+  inline-size: 74%;
+}
+
+.hero-visual__skeleton-grid i:nth-of-type(3) {
+  grid-area: text-two;
+  inline-size: 56%;
   background: var(--color-mist-blue);
 }
 
@@ -2283,12 +2294,12 @@ li {
   display: flex;
   align-items: center;
   gap: 0.7rem;
-  inline-size: clamp(11.5rem, 74%, 16rem);
+  inline-size: clamp(11.5rem, 46%, 14.5rem);
   min-inline-size: 0;
   min-block-size: 0;
-  padding: 0.95rem 1rem;
+  padding: 0.7rem 0.75rem;
   border: 1px solid rgb(89 135 197 / 0.35);
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   background: var(--color-surface);
   box-shadow: var(--shadow-panel), inset 0 1px 0 rgb(255 255 255 / 0.95);
   color: var(--color-ink);
@@ -2315,10 +2326,10 @@ li {
 .hero-visual__icon {
   display: inline-grid;
   grid-area: auto;
-  flex: 0 0 2rem;
+  flex: 0 0 1.9rem;
   place-items: center;
-  inline-size: 2rem;
-  block-size: 2rem;
+  inline-size: 1.9rem;
+  block-size: 1.9rem;
   margin-block-start: 0;
   border-radius: var(--radius-sm);
   background: var(--color-mist-blue);
@@ -2342,7 +2353,7 @@ li {
 .hero-visual__card-label {
   display: block;
   color: var(--color-muted);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 650;
   line-height: 1.25;
 }
@@ -2352,18 +2363,18 @@ li {
   margin-block-start: 0.15rem;
   color: var(--color-ink-deep);
   font-family: var(--font-display);
-  font-size: clamp(1.12rem, 2vw, 1.48rem);
+  font-size: clamp(1.05rem, 1.8vw, 1.35rem);
   font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
 }
 
 .hero-visual__preview-note {
   display: block;
-  margin-block-start: 0.35rem;
+  margin-block-start: 0.3rem;
   color: var(--color-muted);
   font-family: var(--font-mono);
-  font-size: 0.625rem;
+  font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.01em;
   line-height: 1.35;
@@ -2412,11 +2423,15 @@ li {
     min-block-size: clamp(26rem, 65vw, 34rem);
     margin-inline: auto;
   }
+
+  .hero-visual__browser {
+    inset-inline: 0.75rem;
+  }
 }
 
 @media (max-width: 767px) and (min-width: 601px) {
   .hero-visual__card {
-    inline-size: clamp(12rem, 52%, 17rem);
+    inline-size: clamp(11.5rem, 46%, 14.5rem);
   }
 }
 
@@ -2444,7 +2459,7 @@ li {
     position: relative;
     inset: auto;
     grid-column: 1;
-    inline-size: min(82%, 18rem);
+    inline-size: min(86%, 14.5rem);
   }
 
   .hero-visual__card--requests {
@@ -2468,8 +2483,8 @@ li {
   }
 
   .hero-visual__card {
-    inline-size: min(86%, 18rem);
-    padding: 0.85rem;
+    inline-size: min(86%, 14.5rem);
+    padding: 0.7rem 0.75rem;
   }
 
   .hero-visual__browser-content {
@@ -2500,7 +2515,8 @@ li {
 
   .hero-visual__icon,
   .hero-visual__browser-address,
-  .hero-visual__skeleton-grid > span {
+  .hero-visual__skeleton-grid > span,
+  .hero-visual__skeleton-grid b {
     border: 1px solid CanvasText;
     background: Canvas;
     color: CanvasText;
