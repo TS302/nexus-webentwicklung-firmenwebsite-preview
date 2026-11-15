@@ -220,7 +220,7 @@ li {
   min-block-size: 4.5rem;
   padding: 0.55rem 0.7rem 0.55rem 1rem;
   border: 1px solid rgb(255 255 255 / 0.9);
-  border-radius: var(--radius-pill);
+  border-radius: 1.25rem;
   /* Opaque first: this remains legible when backdrop-filter is unavailable. */
   background: rgb(255 255 255 / 0.96);
   box-shadow: var(--shadow-glass);
