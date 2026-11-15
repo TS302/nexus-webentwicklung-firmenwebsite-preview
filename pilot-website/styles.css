@@ -2059,7 +2059,8 @@ li {
     animation-iteration-count: 1 !important;
   }
 
-  .hero-visual__card-inner {
+  .hero-visual__card--structure .hero-visual__card-inner,
+  .hero-visual__card--process .hero-visual__card-inner {
     animation: none;
     transform: none;
   }
