@@ -70,6 +70,17 @@ async function checkHeroVisual(page, viewport) {
       websiteRotation: toRotation(websiteStyle.transform),
       cardRotations: cardNodes.map((card) => toRotation(getComputedStyle(card).transform)),
       cardRects,
+      cardPositions: cardNodes.map((card) => {
+        const style = getComputedStyle(card);
+        return {
+          className: card.className,
+          left: style.left,
+          right: style.right,
+          insetInlineStart: style.insetInlineStart,
+          insetInlineEnd: style.insetInlineEnd,
+          direction: style.direction,
+        };
+      }),
       websiteAriaHidden: website?.getAttribute("aria-hidden"),
     };
   });
@@ -82,7 +93,7 @@ async function checkHeroVisual(page, viewport) {
     assert(heroMetrics.cardRects[1].top >= heroMetrics.cardRects[0].bottom - 1, `index.html @ ${viewport}px: hero cards did not stack at this breakpoint (${JSON.stringify(heroMetrics.cardRects)})`);
   } else {
     assert(heroMetrics.cardRects[0].top < heroMetrics.cardRects[1].top, `index.html @ ${viewport}px: hero cards lost their vertical order (${JSON.stringify(heroMetrics.cardRects)})`);
-    assert(heroMetrics.cardRects[0].left < heroMetrics.cardRects[1].left, `index.html @ ${viewport}px: hero cards lost their horizontal order (${JSON.stringify(heroMetrics.cardRects)})`);
+    assert(heroMetrics.cardRects[0].left < heroMetrics.cardRects[1].left, `index.html @ ${viewport}px: hero cards lost their horizontal order (${JSON.stringify({ rects: heroMetrics.cardRects, positions: heroMetrics.cardPositions })})`);
   }
 
   return heroMetrics;
