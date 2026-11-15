@@ -18,12 +18,69 @@ const screenshotDir = path.join(artifactDir, "screenshots");
 const metricsPath = path.join(artifactDir, "browser-qa-metrics.json");
 const metrics = [];
 const expectedHeroTitle = "Ihre Website sollte mehr können, als nur gut aussehen.";
+const expectedHeroCards = [
+  { label: "KLAR KALKULIERT", statement: "TRANSPARENTE PAKETE" },
+  { label: "KLARER ABLAUF", statement: "VON DER IDEE BIS ZUR ÜBERGABE" },
+];
 const expectedAnchors = ["start", "leistungen", "ablauf", "pakete", "referenzen", "faq", "ueber-nexus", "kontakt"];
 
 fs.mkdirSync(screenshotDir, { recursive: true });
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
+}
+
+async function checkHeroVisual(page, viewport) {
+  const visual = page.locator(".hero-visual");
+  assert(await visual.count() === 1, `index.html @ ${viewport}px: hero visual is missing`);
+  assert(await visual.locator(".hero-visual__website").count() === 1, `index.html @ ${viewport}px: decorative website mockup is missing`);
+
+  const cards = visual.locator(".hero-card");
+  assert(await cards.count() === expectedHeroCards.length, `index.html @ ${viewport}px: hero card count is incorrect`);
+  assert(await cards.locator("a, button, [tabindex]").count() === 0, `index.html @ ${viewport}px: hero cards must remain non-interactive`);
+
+  const cardContent = await cards.evaluateAll((nodes) => nodes.map((node) => ({
+    label: node.querySelector(".hero-card__label")?.textContent.trim() || "",
+    statement: node.querySelector("strong")?.textContent.trim() || "",
+  })));
+  assert(JSON.stringify(cardContent) === JSON.stringify(expectedHeroCards), `index.html @ ${viewport}px: hero card copy or order is incorrect`);
+
+  const heroMetrics = await visual.evaluate((node) => {
+    const website = node.querySelector(".hero-visual__website");
+    const cardNodes = [...node.querySelectorAll(".hero-card")];
+    const toRotation = (transform) => {
+      if (!transform || transform === "none") return 0;
+      const values = transform.startsWith("matrix3d(")
+        ? transform.slice(9, -1).split(",").map(Number)
+        : transform.startsWith("matrix(")
+          ? transform.slice(7, -1).split(",").map(Number)
+          : [];
+      return values.length >= 2 ? Math.atan2(values[1], values[0]) * 180 / Math.PI : null;
+    };
+    const cardRects = cardNodes.map((card) => {
+      const rect = card.getBoundingClientRect();
+      return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+    });
+    const websiteStyle = getComputedStyle(website);
+    return {
+      websiteRotation: toRotation(websiteStyle.transform),
+      cardRotations: cardNodes.map((card) => toRotation(getComputedStyle(card).transform)),
+      cardRects,
+      websiteAriaHidden: website?.getAttribute("aria-hidden"),
+    };
+  });
+
+  assert(heroMetrics.websiteAriaHidden === "true", `index.html @ ${viewport}px: website mockup must be decorative`);
+  assert(typeof heroMetrics.websiteRotation === "number" && Math.abs(heroMetrics.websiteRotation) >= 1, `index.html @ ${viewport}px: website mockup is not visibly rotated`);
+  assert(heroMetrics.cardRotations.every((rotation) => typeof rotation === "number" && Math.abs(rotation) < 0.1), `index.html @ ${viewport}px: front cards must remain horizontal`);
+  assert(heroMetrics.cardRects.every((rect) => rect.left >= -1 && rect.right <= viewport + 1), `index.html @ ${viewport}px: hero card leaves the viewport horizontally`);
+
+  const shouldStack = viewport <= 767 || (viewport >= 901 && viewport <= 1199);
+  if (shouldStack) {
+    assert(heroMetrics.cardRects[1].top >= heroMetrics.cardRects[0].bottom - 1, `index.html @ ${viewport}px: hero cards did not stack at this breakpoint`);
+  }
+
+  return heroMetrics;
 }
 
 async function checkMenuAndKeyboard(page, indexUrl, viewport) {
@@ -135,10 +192,15 @@ async function checkReducedMotion(page, indexUrl, viewport) {
       scrollBehavior: rootStyle.scrollBehavior,
       transitionDuration: rowStyle?.transitionDuration || "",
       animationDuration: rowStyle?.animationDuration || "",
+      heroAnimationNames: [
+        getComputedStyle(document.querySelector(".hero-visual__website")).animationName,
+        ...[...document.querySelectorAll(".hero-card")].map((card) => getComputedStyle(card).animationName),
+      ],
     };
   });
   assert(motion.scrollBehavior === "auto", `index.html @ ${viewport}px: reduced motion did not disable smooth scrolling`);
   assert(parseFloat(motion.transitionDuration) <= 0.02 && parseFloat(motion.animationDuration) <= 0.02, `index.html @ ${viewport}px: reduced motion did not collapse transitions/animations`);
+  assert(motion.heroAnimationNames.length === 3 && motion.heroAnimationNames.every((name) => name === "none"), `index.html @ ${viewport}px: reduced motion did not stop hero visual motion`);
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto(indexUrl, { waitUntil: "networkidle" });
   return { viewport, checked: true, motion };
@@ -227,6 +289,7 @@ try {
       assert(await page.locator('a[href*="leistungen.html"], a[href*="ablauf.html"], a[href*="ueber-nexus.html"], a[href*="kontakt.html"]').count() === 0, `index.html @ ${viewport}px: canonical page still links to a legacy marketing page`);
 
       const record = { viewport, overflow, headingMetrics, heroTitle };
+      record.heroVisual = await checkHeroVisual(page, viewport);
       metrics.push(record);
       console.log(JSON.stringify(record));
       await page.screenshot({ path: path.join(screenshotDir, `hero-${viewport}.png`), fullPage: false });
