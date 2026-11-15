@@ -2281,12 +2281,17 @@ li {
 .hero-visual__card--requests {
   inset-block-start: 0.5rem;
   inset-inline-start: 0;
+  inset-inline-end: auto;
+  left: 0;
+  right: auto;
   animation: hero-card-drift-one 6.8s ease-in-out infinite;
 }
 
 .hero-visual__card--next-step {
   inset-inline-end: 0;
   inset-block-end: 0.5rem;
+  left: auto;
+  right: 0;
   animation: hero-card-drift-two 7.6s ease-in-out -2.1s infinite;
 }
 
