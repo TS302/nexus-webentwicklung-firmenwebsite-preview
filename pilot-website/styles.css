@@ -2170,10 +2170,21 @@ li {
 
 .hero-visual__browser-content {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas:
+    "intro"
+    "image"
+    "placeholder"
+    "skeleton";
   grid-template-rows: auto minmax(5rem, 1fr) auto auto;
   gap: clamp(0.65rem, 1.5vw, 1rem);
   block-size: calc(100% - 2.5rem);
   padding: clamp(1rem, 2.2vw, 1.5rem);
+}
+
+.hero-visual__browser-intro {
+  grid-area: intro;
+  min-inline-size: 0;
 }
 
 .hero-visual__browser-intro h3 {
@@ -2190,6 +2201,10 @@ li {
   color: var(--color-muted);
   font-size: clamp(0.76rem, 1.25vw, 0.95rem);
   line-height: 1.45;
+}
+
+.hero-visual__image-placeholder {
+  grid-area: image;
 }
 
 .hero-visual__browser-button {
@@ -2217,6 +2232,7 @@ li {
 }
 
 .hero-visual__placeholder-row {
+  grid-area: placeholder;
   display: grid;
   grid-template-columns: minmax(0, 1.4fr) minmax(0, 0.8fr);
   gap: 0.55rem;
@@ -2233,6 +2249,7 @@ li {
 }
 
 .hero-visual__skeleton-grid {
+  grid-area: skeleton;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.55rem;
@@ -2339,6 +2356,28 @@ li {
   font-weight: 800;
   letter-spacing: -0.035em;
   line-height: 1.05;
+}
+
+.hero-visual__preview-note {
+  display: block;
+  margin-block-start: 0.35rem;
+  color: var(--color-muted);
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  line-height: 1.35;
+}
+
+@media (min-width: 1024px) {
+  .hero-visual__browser-content {
+    grid-template-columns: minmax(0, 1.2fr) minmax(5rem, 0.8fr);
+    grid-template-areas:
+      "intro image"
+      "placeholder placeholder"
+      "skeleton skeleton";
+    grid-template-rows: auto minmax(3rem, 1fr) auto;
+  }
 }
 
 @keyframes hero-card-drift-one {
@@ -2469,6 +2508,7 @@ li {
 
   .hero-visual__card-label,
   .hero-visual__card-value,
+  .hero-visual__preview-note,
   .hero-visual__browser-intro h3,
   .hero-visual__browser-intro p {
     color: CanvasText;
