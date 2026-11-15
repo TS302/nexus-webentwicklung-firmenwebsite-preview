@@ -3,7 +3,7 @@ import path from "node:path";
 import { chromium } from "playwright";
 
 const baseUrl = (process.env.PREVIEW_URL || "https://ts302.github.io/nexus-webentwicklung-firmenwebsite-preview/").replace(/\/?$/, "/");
-const viewports = [375, 768, 1024, 1440];
+const viewports = [375, 480, 600, 768, 900, 1024, 1440];
 const pages = [
   "index.html",
   "leistungen.html",
