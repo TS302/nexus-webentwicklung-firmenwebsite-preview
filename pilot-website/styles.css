@@ -1660,7 +1660,7 @@ li {
   }
 
   .hero-card {
-    padding-inline: clamp(0.75rem, 1vw, 1rem);
+    padding-inline: 0.5rem;
   }
 
   .hero-card strong {
