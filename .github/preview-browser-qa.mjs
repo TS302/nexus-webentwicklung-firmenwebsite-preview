@@ -36,7 +36,7 @@ async function checkHeroVisual(page, viewport) {
   assert(await visual.locator(".hero-visual__browser").count() === 1, `index.html @ ${viewport}px: decorative website mockup is missing`);
   assert(await visual.locator(".hero-visual__browser[aria-hidden='true']").count() === 1, `index.html @ ${viewport}px: website mockup must be decorative`);
   assert(await visual.locator(".hero-visual__browser-button, .hero-visual button, .hero-visual a").count() === 0, `index.html @ ${viewport}px: website mockup must not contain a CTA or link`);
-  assert(await visual.locator(".hero-visual__browser-address").textContent() === "Nexus / Vorschau", `index.html @ ${viewport}px: browser address label is incorrect`);
+  assert(await visual.locator(".hero-visual__browser-address").textContent() === "Nexus / Website", `index.html @ ${viewport}px: browser address label is incorrect`);
   assert(await visual.locator(".hero-visual__browser-intro h3").textContent() === "Leistungen klar zeigen.", `index.html @ ${viewport}px: browser intro title is incorrect`);
   assert(await visual.locator(".hero-visual__browser-intro p").textContent() === "Struktur, Gestaltung und der nächste Schritt auf einen Blick.", `index.html @ ${viewport}px: browser intro copy is incorrect`);
 
@@ -48,6 +48,7 @@ async function checkHeroVisual(page, viewport) {
   const cards = visual.locator(".hero-visual__card");
   assert(await cards.count() === expectedHeroCards.length, `index.html @ ${viewport}px: hero card count is incorrect`);
   assert(await cards.locator("a, button, [tabindex]").count() === 0, `index.html @ ${viewport}px: hero cards must remain non-interactive`);
+  assert(await visual.locator(".hero-visual__preview-note").count() === 0, `index.html @ ${viewport}px: visible hero card disclaimer must be removed`);
 
   const cardContent = await cards.evaluateAll((nodes) => nodes.map((node) => ({
     label: node.querySelector(".hero-visual__card-label")?.textContent.trim() || "",
@@ -56,7 +57,7 @@ async function checkHeroVisual(page, viewport) {
   })));
   assert(JSON.stringify(cardContent) === JSON.stringify(expectedHeroCards), `index.html @ ${viewport}px: hero card copy or order is incorrect`);
   assert(await visual.locator("[data-preview-only='true'][aria-describedby='hero-preview-note']").count() === 1, `index.html @ ${viewport}px: preview-only card marker or description is missing`);
-  assert(await visual.locator("#hero-preview-note").textContent() === "Interne Preview – der Wert plus 800 Prozent ist ein Konzeptplatzhalter und kein belegtes Nexus-Ergebnis.", `index.html @ ${viewport}px: preview-only note is incorrect`);
+  assert(await visual.locator("#hero-preview-note").textContent() === "Konzeptwert: Der Wert plus 800 Prozent ist ein Platzhalter und kein belegtes Nexus-Ergebnis.", `index.html @ ${viewport}px: preview-only note is incorrect`);
 
   const heroMetrics = await visual.evaluate((node) => {
     const website = node.querySelector(".hero-visual__browser");
@@ -72,13 +73,18 @@ async function checkHeroVisual(page, viewport) {
     };
     const cardRects = cardNodes.map((card) => {
       const rect = card.getBoundingClientRect();
-      return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom };
+      return { left: rect.left, right: rect.right, top: rect.top, bottom: rect.bottom, width: rect.width, height: rect.height };
     });
+    const visualRect = node.getBoundingClientRect();
+    const websiteRect = website.getBoundingClientRect();
     const websiteStyle = getComputedStyle(website);
     return {
       websiteRotation: toRotation(websiteStyle.transform),
       cardRotations: cardNodes.map((card) => toRotation(getComputedStyle(card).transform)),
       cardRects,
+      cardRatios: cardRects.map((rect) => rect.width / rect.height),
+      visualRect: { left: visualRect.left, right: visualRect.right, top: visualRect.top, bottom: visualRect.bottom },
+      websiteRect: { width: websiteRect.width, height: websiteRect.height },
       cardPositions: cardNodes.map((card) => {
         const style = getComputedStyle(card);
         return {
@@ -96,6 +102,9 @@ async function checkHeroVisual(page, viewport) {
 
   assert(typeof heroMetrics.websiteRotation === "number" && Math.abs(heroMetrics.websiteRotation) >= 1, `index.html @ ${viewport}px: website mockup is not visibly rotated`);
   assert(heroMetrics.cardRotations.every((rotation) => typeof rotation === "number" && Math.abs(rotation) < 0.1), `index.html @ ${viewport}px: front cards must remain horizontal`);
+  assert(heroMetrics.cardRatios.every((ratio) => ratio >= 2), `index.html @ ${viewport}px: hero cards must remain at least 2:1 rectangles (${JSON.stringify(heroMetrics.cardRatios)})`);
+  assert(heroMetrics.cardRects.every((rect) => rect.left >= heroMetrics.visualRect.left - 8 && rect.right <= heroMetrics.visualRect.right + 8 && rect.top >= heroMetrics.visualRect.top - 8 && rect.bottom <= heroMetrics.visualRect.bottom + 8), `index.html @ ${viewport}px: hero card leaves its visual stage (${JSON.stringify({ cards: heroMetrics.cardRects, visual: heroMetrics.visualRect })})`);
+  assert(heroMetrics.websiteRect.width > Math.max(...heroMetrics.cardRects.map((rect) => rect.width)) && heroMetrics.websiteRect.height > Math.max(...heroMetrics.cardRects.map((rect) => rect.height)), `index.html @ ${viewport}px: browser mockup must remain larger than both hero cards`);
   assert(heroMetrics.cardRects.every((rect) => rect.left >= -1 && rect.right <= viewport + 1), `index.html @ ${viewport}px: hero card leaves the viewport horizontally`);
 
   if (viewport <= 767) {
@@ -307,6 +316,13 @@ try {
         assert(await page.getByText(price, { exact: true }).count() >= 1, `index.html @ ${viewport}px: package price ${price} is missing`);
       }
       assert(await page.locator('meta[name="robots"]').getAttribute("content") === "noindex,nofollow,noarchive", `index.html @ ${viewport}px: preview robots gate is missing`);
+      assert(await page.title() === "Nexus Webagentur · Websites und Landingpages", `index.html @ ${viewport}px: public title is incorrect`);
+      assert(await page.locator('meta[name="description"]').getAttribute("content") === "Nexus entwickelt klare Firmenwebsites und Landingpages für Unternehmen – strukturiert, verständlich und auf den nächsten Schritt ausgerichtet.", `index.html @ ${viewport}px: public meta description is incorrect`);
+      assert(await page.locator(".preview-banner, .hero__status, .cta-band__status, .wordmark__meta").count() === 0, `index.html @ ${viewport}px: internal status or wordmark meta is still rendered`);
+      const publicCopy = (await page.locator("body").innerText()).toLowerCase();
+      for (const internalPhrase of ["interne vorschau", "interne preview", "nicht veröffentlichen", "veröffentlichungsfreigabe", "arbeitsannahme", "arbeitsprobe", "im pilot", "nexus / vorschau"]) {
+        assert(!publicCopy.includes(internalPhrase), `index.html @ ${viewport}px: internal phrase remains visible: ${internalPhrase}`);
+      }
       assert(await page.locator("main > section").evaluateAll((sections, anchors) => sections.map((section) => section.id).join(",") === anchors.join(","), expectedAnchors), `index.html @ ${viewport}px: canonical section order is incomplete`);
       assert(await page.locator(".primary-nav a").evaluateAll((links, anchors) => links.length === anchors.length, expectedAnchors), `index.html @ ${viewport}px: primary navigation is incomplete`);
       assert(await page.locator('.primary-nav a[href="#start"]').getAttribute("aria-current") === "location", `index.html @ ${viewport}px: initial route is not represented as a location target`);
