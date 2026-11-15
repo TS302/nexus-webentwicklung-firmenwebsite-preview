@@ -13,6 +13,36 @@ const pages = [
   "impressum.html",
   "datenschutz.html",
 ];
+const sourcePages = [...pages, "nexus-vorschau-standalone.html"];
+const internalPhrases = [
+  "interne vorschau",
+  "interne preview",
+  "interner",
+  "nicht veröffentlichen",
+  "veröffentlichungsfreigabe",
+  "arbeitsannahme",
+  "arbeitsprobe",
+  "synthetische",
+  "pilotstand",
+  "im pilot",
+  "nexus-intern",
+  "nexus / vorschau",
+  "kompatibilitätsziel",
+  "nicht kanonisch",
+  "lokale arbeitsgrundlage",
+  "rechtstext fehlt",
+  "rechtlich ungeprüft",
+  "interner status",
+  "zweite contentquelle",
+  "kontaktstatus",
+];
+const internalMarkers = [
+  "preview-banner",
+  "wordmark__meta",
+  "footer-status",
+  "hero__status",
+  "cta-band__status",
+];
 const artifactDir = path.resolve("qa-artifacts");
 const screenshotDir = path.join(artifactDir, "screenshots");
 const metricsPath = path.join(artifactDir, "browser-qa-metrics.json");
@@ -28,6 +58,20 @@ fs.mkdirSync(screenshotDir, { recursive: true });
 
 function assert(condition, message) {
   if (!condition) throw new Error(message);
+}
+
+async function checkSourceCopy() {
+  for (const filename of sourcePages) {
+    const response = await fetch(new URL(filename, baseUrl));
+    assert(response.ok, `${filename}: source HTTP response is not OK`);
+    const source = (await response.text()).toLowerCase();
+    for (const internalMarker of internalMarkers) {
+      assert(!source.includes(internalMarker), `${filename}: internal source marker remains: ${internalMarker}`);
+    }
+    for (const internalPhrase of internalPhrases) {
+      assert(!source.includes(internalPhrase), `${filename}: internal source phrase remains: ${internalPhrase}`);
+    }
+  }
 }
 
 async function checkHeroVisual(page, viewport) {
@@ -240,6 +284,8 @@ async function checkReducedMotion(page, indexUrl, viewport) {
   return { viewport, checked: true, motion };
 }
 
+await checkSourceCopy();
+
 const browser = await chromium.launch({ headless: true });
 const context = await browser.newContext();
 const page = await context.newPage();
@@ -270,6 +316,11 @@ try {
         document.body.scrollWidth - window.innerWidth,
       ));
       assert(overflow <= 1, `${filename} @ ${viewport}px: horizontal overflow is ${overflow}px`);
+
+      const renderedCopy = (await page.locator("body").innerText()).toLowerCase();
+      for (const internalPhrase of internalPhrases) {
+        assert(!renderedCopy.includes(internalPhrase), `${filename} @ ${viewport}px: internal phrase remains visible: ${internalPhrase}`);
+      }
 
       if (filename !== "index.html") continue;
 
@@ -319,10 +370,6 @@ try {
       assert(await page.title() === "Nexus Webagentur · Websites und Landingpages", `index.html @ ${viewport}px: public title is incorrect`);
       assert(await page.locator('meta[name="description"]').getAttribute("content") === "Nexus entwickelt klare Firmenwebsites und Landingpages für Unternehmen – strukturiert, verständlich und auf den nächsten Schritt ausgerichtet.", `index.html @ ${viewport}px: public meta description is incorrect`);
       assert(await page.locator(".preview-banner, .hero__status, .cta-band__status, .wordmark__meta").count() === 0, `index.html @ ${viewport}px: internal status or wordmark meta is still rendered`);
-      const publicCopy = (await page.locator("body").innerText()).toLowerCase();
-      for (const internalPhrase of ["interne vorschau", "interne preview", "nicht veröffentlichen", "veröffentlichungsfreigabe", "arbeitsannahme", "arbeitsprobe", "im pilot", "nexus / vorschau"]) {
-        assert(!publicCopy.includes(internalPhrase), `index.html @ ${viewport}px: internal phrase remains visible: ${internalPhrase}`);
-      }
       assert(await page.locator("main > section").evaluateAll((sections, anchors) => sections.map((section) => section.id).join(",") === anchors.join(","), expectedAnchors), `index.html @ ${viewport}px: canonical section order is incomplete`);
       assert(await page.locator(".primary-nav a").evaluateAll((links, anchors) => links.length === anchors.length, expectedAnchors), `index.html @ ${viewport}px: primary navigation is incomplete`);
       assert(await page.locator('.primary-nav a[href="#start"]').getAttribute("aria-current") === "location", `index.html @ ${viewport}px: initial route is not represented as a location target`);
