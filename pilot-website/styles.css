@@ -1396,6 +1396,10 @@ li {
 }
 
 @media (min-width: 1440px) {
+  .site-header > .header-inner {
+    max-inline-size: calc(var(--content-max) - 3rem);
+  }
+
   .section-rail {
     display: flex;
     inset-inline-end: 1rem;
