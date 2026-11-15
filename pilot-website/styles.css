@@ -2364,7 +2364,12 @@ li {
 }
 
 @media (max-width: 900px) {
+  .hero-grid {
+    grid-template-columns: 1fr;
+  }
+
   .hero-visual {
+    inline-size: 100%;
     min-block-size: clamp(26rem, 65vw, 34rem);
     margin-inline: auto;
   }
