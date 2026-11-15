@@ -206,7 +206,6 @@ li {
   position: sticky;
   inset-block-start: max(0.75rem, env(safe-area-inset-top));
   z-index: 30;
-  padding-inline: var(--gutter);
   margin-block: 1rem 0;
   background: transparent;
 }
