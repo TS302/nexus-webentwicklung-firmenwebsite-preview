@@ -736,13 +736,16 @@ li {
 
 .hero-card strong {
   display: block;
-  max-inline-size: 17ch;
+  inline-size: 100%;
+  min-inline-size: 0;
+  max-inline-size: none;
   color: var(--color-on-dark);
   font-family: var(--font-display);
   font-size: clamp(0.85rem, 1.35vw, 1.2rem);
   font-weight: 780;
   letter-spacing: -0.025em;
   line-height: 1.08;
+  overflow-wrap: anywhere;
   text-wrap: balance;
 }
 
@@ -1649,6 +1652,19 @@ li {
   /* Keep the fixed rail outside the content grid with a 1rem focus/text gutter. */
   .section-rail + main .container {
     max-inline-size: calc(var(--content-max) - 13rem);
+  }
+
+  /* Keep the floating composition visibly clear of the fixed section rail. */
+  .hero-visual {
+    transform: translateX(-1.25rem);
+  }
+
+  .hero-card {
+    padding-inline: clamp(0.85rem, 1.25vw, 1.1rem);
+  }
+
+  .hero-card strong {
+    font-size: clamp(0.85rem, 1.15vw, 1.1rem);
   }
 }
 
