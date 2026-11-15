@@ -19,8 +19,8 @@ const metricsPath = path.join(artifactDir, "browser-qa-metrics.json");
 const metrics = [];
 const expectedHeroTitle = "Ihre Website sollte mehr können, als nur gut aussehen.";
 const expectedHeroCards = [
-  { metric: "1", unit: "SEITE", caption: "Angebot · Ablauf · nächster Schritt" },
-  { metric: "4", unit: "SCHRITTE", caption: "Vom Briefing bis zur Übergabe" },
+  { label: "Anfragen gesteigert", value: "+ 800 %", previewOnly: "true" },
+  { label: "Klarer nächster Schritt", value: "Von der Idee zur Website", previewOnly: null },
 ];
 const expectedAnchors = ["start", "leistungen", "ablauf", "pakete", "referenzen", "faq", "ueber-nexus", "kontakt"];
 
@@ -34,17 +34,20 @@ async function checkHeroVisual(page, viewport) {
   const visual = page.locator(".hero-visual");
   assert(await visual.count() === 1, `index.html @ ${viewport}px: hero visual is missing`);
   assert(await visual.locator(".hero-visual__browser").count() === 1, `index.html @ ${viewport}px: decorative website mockup is missing`);
+  assert(await visual.locator(".hero-visual__browser[aria-hidden='true']").count() === 1, `index.html @ ${viewport}px: website mockup must be decorative`);
 
   const cards = visual.locator(".hero-visual__card");
   assert(await cards.count() === expectedHeroCards.length, `index.html @ ${viewport}px: hero card count is incorrect`);
   assert(await cards.locator("a, button, [tabindex]").count() === 0, `index.html @ ${viewport}px: hero cards must remain non-interactive`);
 
   const cardContent = await cards.evaluateAll((nodes) => nodes.map((node) => ({
-    metric: node.querySelector(".hero-visual__metric")?.textContent.trim() || "",
-    unit: node.querySelector(".hero-visual__unit")?.textContent.trim() || "",
-    caption: node.querySelector(".hero-visual__caption")?.textContent.trim() || "",
+    label: node.querySelector(".hero-visual__card-label")?.textContent.trim() || "",
+    value: node.querySelector(".hero-visual__card-value")?.textContent.trim() || "",
+    previewOnly: node.getAttribute("data-preview-only"),
   })));
   assert(JSON.stringify(cardContent) === JSON.stringify(expectedHeroCards), `index.html @ ${viewport}px: hero card copy or order is incorrect`);
+  assert(await visual.locator("[data-preview-only='true'][aria-describedby='hero-preview-note']").count() === 1, `index.html @ ${viewport}px: preview-only card marker or description is missing`);
+  assert(await visual.locator("#hero-preview-note").textContent() === "Interne Preview – der Wert plus 800 Prozent ist ein Konzeptplatzhalter und kein belegtes Nexus-Ergebnis.", `index.html @ ${viewport}px: preview-only note is incorrect`);
 
   const heroMetrics = await visual.evaluate((node) => {
     const website = node.querySelector(".hero-visual__browser");
@@ -71,7 +74,6 @@ async function checkHeroVisual(page, viewport) {
     };
   });
 
-  assert(heroMetrics.websiteAriaHidden === "true", `index.html @ ${viewport}px: website mockup must be decorative`);
   assert(typeof heroMetrics.websiteRotation === "number" && Math.abs(heroMetrics.websiteRotation) >= 1, `index.html @ ${viewport}px: website mockup is not visibly rotated`);
   assert(heroMetrics.cardRotations.every((rotation) => typeof rotation === "number" && Math.abs(rotation) < 0.1), `index.html @ ${viewport}px: front cards must remain horizontal`);
   assert(heroMetrics.cardRects.every((rect) => rect.left >= -1 && rect.right <= viewport + 1), `index.html @ ${viewport}px: hero card leaves the viewport horizontally`);
@@ -196,7 +198,7 @@ async function checkReducedMotion(page, indexUrl, viewport) {
       animationDuration: rowStyle?.animationDuration || "",
       heroAnimationNames: [
         getComputedStyle(document.querySelector(".hero-visual__browser")).animationName,
-        ...[...document.querySelectorAll(".hero-visual__card-inner")].map((card) => getComputedStyle(card).animationName),
+        ...[...document.querySelectorAll(".hero-visual__card")].map((card) => getComputedStyle(card).animationName),
       ],
     };
   });
