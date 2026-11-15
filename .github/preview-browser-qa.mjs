@@ -35,6 +35,15 @@ async function checkHeroVisual(page, viewport) {
   assert(await visual.count() === 1, `index.html @ ${viewport}px: hero visual is missing`);
   assert(await visual.locator(".hero-visual__browser").count() === 1, `index.html @ ${viewport}px: decorative website mockup is missing`);
   assert(await visual.locator(".hero-visual__browser[aria-hidden='true']").count() === 1, `index.html @ ${viewport}px: website mockup must be decorative`);
+  assert(await visual.locator(".hero-visual__browser-button, .hero-visual button, .hero-visual a").count() === 0, `index.html @ ${viewport}px: website mockup must not contain a CTA or link`);
+  assert(await visual.locator(".hero-visual__browser-address").textContent() === "Nexus / Vorschau", `index.html @ ${viewport}px: browser address label is incorrect`);
+  assert(await visual.locator(".hero-visual__browser-intro h3").textContent() === "Leistungen klar zeigen.", `index.html @ ${viewport}px: browser intro title is incorrect`);
+  assert(await visual.locator(".hero-visual__browser-intro p").textContent() === "Struktur, Gestaltung und der nächste Schritt auf einen Blick.", `index.html @ ${viewport}px: browser intro copy is incorrect`);
+
+  const skeletonCards = visual.locator(".hero-visual__skeleton-grid > span");
+  assert(await skeletonCards.count() === 3, `index.html @ ${viewport}px: three equal mini cards are required`);
+  assert(await skeletonCards.locator("b[aria-hidden='true']").count() === 3, `index.html @ ${viewport}px: each mini card needs a decorative icon area`);
+  assert(await skeletonCards.locator("i").count() === 9, `index.html @ ${viewport}px: each mini card needs one skeleton line and two text lines`);
 
   const cards = visual.locator(".hero-visual__card");
   assert(await cards.count() === expectedHeroCards.length, `index.html @ ${viewport}px: hero card count is incorrect`);
