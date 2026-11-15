@@ -2,7 +2,7 @@
 
 **Stand:** 15.11.2026
 **Verantwortung:** Lea · UI/UX und Brand-Design
-**Adressat:** Jonas · Umsetzung; Nora · unabhängige visuelle, responsive und barrierearme Prüfung
+**Adressat:** Jonas · Umsetzung; Mara/CEO · Preview-Entscheidung und interne Abnahme
 **Scope:** interne `pilot-website`-Vorschau im Preview-Repository
 **Status:** Arbeitsgrundlage, keine Veröffentlichung und keine Abnahmefreigabe
 
@@ -21,14 +21,18 @@ Die Content-Integration aus PAP-118 ist inzwischen als Commit `8ca94a4` gesicher
 
 Geprüfte Grundlagen:
 
-- `pilot-website/UI-UX-SPEZIFIKATION-GLAS-MENUE.md` · Light-Signal-Tokens, Komponenten, Breakpoints und Nora-Kriterien.
+- `pilot-website/UI-UX-SPEZIFIKATION-GLAS-MENUE.md` · Light-Signal-Tokens, Komponenten, Breakpoints und bestehende Review-Kriterien.
 - `pilot-website/UEBERGABE-v3.md` · Shell, Menülogik, Glas-Fallback, Right-Rail und bekannte offene Punkte.
 - `PAP-118-content-integration.md` · bestätigte One-Page-/Kontaktstatus-Copy und der explizite Hinweis auf ältere Migrationsseiten.
 - `pilot-website/styles.css`, `pilot-website/site.js` und die sieben HTML-Seiten im aktuellen Preview-Arbeitsbaum.
 - PAP-112 · Navigation ohne Flächen, animierte Unterstreichung.
 - PAP-114 · Header-Radius als Hero-Card-Radius.
 
-Der Browserlauf gegen den aktuellen Arbeitsbaum konnte in dieser Umgebung nicht gestartet werden: Playwright/Chromium brach wegen der fehlenden Systembibliothek `libglib-2.0.so.0` ab. Vorhandene ältere Browsermetriken stammen aus einem anderen Arbeitsstand und werden nicht als aktuelle visuelle Freigabe verwendet. Statische Checks sind deshalb belastbar; Screenshot-, Fokus- und echte Bounding-Box-Befunde bleiben Nora-Aufgabe.
+### Nachtrag zur neuesten Quellenanforderung
+
+Die im aktuellen Wake-Kommentar genannten Dateien `Mara-Umsetzungsbrief` (`3ad14e15-db39-483e-a21d-bb13b6a1f871`) und `Nexus-Website-Konzept` (`b3b6f73e-d396-4835-bd8b-cddcbb184417`) liegen unter `.paperclip-inbound/process-7-1794632295-1d75-acd6-e2a5-4af2-9744-b4e281b7c557/` im Task-Workspace. Beide Dateien wurden geprüft, enthalten aktuell jedoch 0 Bytes und damit keine lesbaren, bestätigten Inhalte. Aus Dateinamen oder Pfaden wurden keine Aussagen abgeleitet; diese Revision bleibt auf den oben genannten lesbaren Grundlagen und dem Preview-Code beschränkt. Für eine inhaltliche Nachschärfung anhand dieser Briefings müssen die Quellen mit ihren tatsächlichen Bytes erneut staged werden.
+
+Die aktuelle Richtlinie „keine Nora-QA; PAP-121 ist cancelled“ ist berücksichtigt: Dieses Dokument beauftragt keinen Nora-QA-Lauf, führt PAP-121 nicht als Restarbeit und behauptet keine visuelle oder responsive Freigabe. Der frühere Browserlauf gegen den Arbeitsbaum konnte wegen der fehlenden Systembibliothek `libglib-2.0.so.0` nicht gestartet werden; ältere Browsermetriken stammen aus einem anderen Arbeitsstand und werden nicht als aktuelle visuelle Freigabe verwendet. Statische Checks sind belastbar; Screenshot-, Fokus- und echte Bounding-Box-Befunde sind in diesem Review nicht ausgeführt.
 
 ## 1. Designsystem als verbindliche Leitplanke
 
@@ -46,12 +50,12 @@ Der Browserlauf gegen den aktuellen Arbeitsbaum konnte in dieser Umgebung nicht 
 
 | ID | Priorität | Befund / Beleg | Nutzerwirkung | Konkrete Korrektur und Zuständigkeit |
 | --- | --- | --- | --- | --- |
-| D-01 | P0 | `index.html:13–18` und die bereits ergänzten Footer-Statusbänder werden durch `styles.css:1681–1684` versteckt. | Eine interne Vorschau kann wie eine veröffentlichte Website wirken; Vertrauen und Scope-Grenze sind unklar. | Jonas: die globale Ausblendung entfernen oder auf einen bewusst freigegebenen Zustand begrenzen. Banner und Footer-Status auf allen echten Preview-Seiten sichtbar halten; bei 375px umbrechen lassen, nicht abschneiden. Nora: Sichtbarkeit, Kontrast und Screenshot prüfen. |
+| D-01 | P0 | `index.html:13–18` und die bereits ergänzten Footer-Statusbänder werden durch `styles.css:1681–1684` versteckt. | Eine interne Vorschau kann wie eine veröffentlichte Website wirken; Vertrauen und Scope-Grenze sind unklar. | Jonas: die globale Ausblendung entfernen oder auf einen bewusst freigegebenen Zustand begrenzen. Banner und Footer-Status auf allen echten Preview-Seiten sichtbar halten; bei 375px umbrechen lassen, nicht abschneiden. Sichtbarkeit und Kontrast sind als Akzeptanzkriterium zu prüfen, hier aber nicht als ausgeführt behauptet. |
 | D-02 | P0 | `index.html`/`kontakt.html`/Rechtstexte tragen interne Previewcopy; `leistungen.html`, `ablauf.html` und `ueber-nexus.html` tragen im Arbeitsbaum weiter `Webagentur`-/Marketingcopy und keinen Preview-Banner. Auf drei Inhaltsseiten fehlt außerdem `meta name="robots"`. | Header, Footer, CTA-Ton und Status wechseln beim Seitenwechsel. Nutzer können nicht sicher unterscheiden, was Pilotannahme und was freigegebene Aussage ist. | Mara/CEO entscheiden den Preview-Scope; empfohlen ist eine einheitliche interne Shell auf allen sieben echten Seiten. Jonas übernimmt Banner, `noindex,nofollow,noarchive`, Wortmarken-Meta und Statuscopy erst nach dieser Entscheidung. Mila liefert/prüft die Copy; Tessa prüft Labels und Abschnittsnamen. |
-| D-03 | P1 | Der feste Right-Rail ist bei `min-width:1440px` 10rem breit und beginnt bei 1440px rechnerisch bei ca. x=1264. Der angepasste Hauptcontainer reicht mit `calc(77rem - 3rem)` bis ca. x=1312 (`styles.css:1412–1425`). | Rail und Hero-/Inhaltsfläche können sich um ca. 48px überlagern; Fokus, Text oder UI-Spezimen können unter der Schiene liegen. | Jonas: Rail als reservierte Außenspalte oder mit ausreichendem Content-Reserve-Raum umsetzen. Akzeptanzkriterium: bei 1440px mindestens 16px Abstand zwischen Rail und jeder Inhalts-/Fokusbox; bei 1280px/1024px keine sichtbare Rail. Nora misst per Bounding Box und Tastatur. |
+| D-03 | P1 | Der feste Right-Rail ist bei `min-width:1440px` 10rem breit und beginnt bei 1440px rechnerisch bei ca. x=1264. Der angepasste Hauptcontainer reicht mit `calc(77rem - 3rem)` bis ca. x=1312 (`styles.css:1412–1425`). | Rail und Hero-/Inhaltsfläche können sich um ca. 48px überlagern; Fokus, Text oder UI-Spezimen können unter der Schiene liegen. | Jonas: Rail als reservierte Außenspalte oder mit ausreichendem Content-Reserve-Raum umsetzen. Akzeptanzkriterium: bei 1440px mindestens 16px Abstand zwischen Rail und jeder Inhalts-/Fokusbox; bei 1280px/1024px keine sichtbare Rail. Die Messung ist in diesem Review nicht ausgeführt. |
 | D-04 | P1 | Die Arbeitscopy setzt auf Start/Kontakt `Kontaktstatus öffnen`, während Leistungen/Ablauf/Über Nexus noch `Projekt besprechen` verwenden. | Ein scheinbarer Kontakt-CTA kann eine Verarbeitung versprechen, die im Pilot bewusst nicht existiert. | Bis zur Kontaktfreigabe nur `Kontaktstatus öffnen` beziehungsweise einen gleichwertigen Status-Link verwenden. Keine Formular-, Mail- oder Versandaktion ergänzen. Verantwortlich: Mila für Copy, Mara/CEO für Freigabe, Jonas für konsistente Einbindung. |
 | D-05 | P1 | `nexus-vorschau-standalone.html` ist ein Redirect ohne `h1`, `main` oder Footer; das ist in der statischen Seitenzählung eine bewusste Ausnahme. | Ein generischer „jede HTML-Datei braucht H1“-Test meldet einen falschen Fehler oder prüft den Redirect nicht. | QA-Regel explizit als Redirect-Ausnahme dokumentieren: HTTP/Meta-Redirect, Ziel `index.html`, `noindex` und keine doppelte Shell prüfen. Keine zweite Standalone-IA erzeugen. |
-| D-06 | P1 | Browser-/Screenshot-/echter Tastaturlauf für den aktuellen Arbeitsbaum ist wegen fehlender Systembibliothek **NOT RUN**. | Responsive und visuelle Übergabereife sind nicht belegt, auch wenn statische CSS-Regeln plausibel sind. | Nora wiederholt den Browserlauf auf einer Umgebung mit Chromium und archiviert Screenshots für 375/768/1024/1440px sowie Focus, Menü offen und Reduced Motion. |
+| D-06 | P1 | Browser-/Screenshot-/echter Tastaturlauf für den aktuellen Arbeitsbaum ist wegen fehlender Systembibliothek **NOT RUN**. | Responsive und visuelle Übergabereife sind nicht belegt, auch wenn statische CSS-Regeln plausibel sind. | Die untenstehenden Browserkriterien bleiben als spätere interne Validierung dokumentiert. In diesem Auftrag wird kein Nora-QA-Lauf beauftragt oder als erledigt behauptet. |
 
 ## 3. Komponenten-Spezifikation
 
@@ -192,7 +196,7 @@ Der Browserlauf gegen den aktuellen Arbeitsbaum konnte in dieser Umgebung nicht 
 
 ## 5. Offene Entscheidungen und Übergabe
 
-| Entscheidung | Zuständigkeit | Warum sie vor Nora-QA nötig ist |
+| Entscheidung | Zuständigkeit | Warum sie vor der internen Preview-Entscheidung nötig ist |
 | --- | --- | --- |
 | Preview-Banner, Footerstatus und `noindex` auf allen sieben Seiten | Mara / CEO + Jonas | Sonst ist die interne Grenze visuell und technisch uneinheitlich. |
 | Finale Navigation und Rail-Ziele | Tessa | Labels, IDs und Haupt-/Nebenhierarchie dürfen nicht still wechseln. |
@@ -200,7 +204,7 @@ Der Browserlauf gegen den aktuellen Arbeitsbaum konnte in dieser Umgebung nicht 
 | Logo, Blautöne, Schrift, Bilder, Tonalität | Mara / CEO | Aktuelle Tokens sind Arbeitsannahmen, keine Markenfreigabe. |
 | Kontaktweg und Datenverarbeitung | Mara / zuständige menschliche Stelle | Erst danach sind echte Formular-, Erfolg- und Fehlerzustände spezifizierbar. |
 
-## 6. Prüfliste für Jonas und Nora
+## 6. Prüfliste für Jonas und interne Designprüfung
 
 ### Statisch
 
@@ -211,7 +215,7 @@ Der Browserlauf gegen den aktuellen Arbeitsbaum konnte in dieser Umgebung nicht 
 - [ ] Standalone wird als Redirect geprüft, nicht als achte Inhaltsseite.
 - [ ] Lokale Links, Fragmente und CSS-/JS-Pfade lösen auf.
 
-### Browser / visuell
+### Browser / visuelle Kriterien (nicht ausgeführt)
 
 - [ ] 375×812, 768×900, 1024×900 und 1440×900: kein horizontaler Overflow und keine abgeschnittene Statuscopy.
 - [ ] Header vor und nach mindestens zwei Viewporthöhen sticky sichtbar; kein Text unter der Shell.
@@ -222,4 +226,4 @@ Der Browserlauf gegen den aktuellen Arbeitsbaum konnte in dieser Umgebung nicht 
 - [ ] Glas-Fallback ohne `backdrop-filter` bleibt opak, kontrastreich und verständlich.
 - [ ] Konsole, Page Errors und Request Failures bleiben leer; keine externen Assets, Tracker oder Versandpfade.
 
-**Übergabestatus:** Die Designrichtung ist als Arbeitsannahme brauchbar. D-01 und D-02 blockieren eine belastbare interne Preview-Abnahme; D-03 bis D-06 müssen vor Nora-QA beziehungsweise vor jeder Veröffentlichungsentscheidung geschlossen oder ausdrücklich akzeptiert werden. Keine Veröffentlichung, kein Kundenkontakt und keine Produktionsänderung aus diesem Dokument ableiten.
+**Übergabestatus:** Die Designrichtung ist als Arbeitsannahme brauchbar. D-01 und D-02 blockieren eine belastbare interne Preview-Abnahme; D-03 bis D-06 bleiben als offene Integrations- beziehungsweise Validierungshinweise dokumentiert und müssen vor einer internen Preview-Entscheidung geschlossen oder ausdrücklich akzeptiert werden. Keine Nora-QA, keine PAP-121-Fortsetzung, keine Veröffentlichung, kein Kundenkontakt und keine Produktionsänderung aus diesem Dokument ableiten.
