@@ -1649,3 +1649,7 @@ li {
     animation-iteration-count: 1 !important;
   }
 }
+.preview-banner,
+.footer-status {
+  display: none;
+}
