@@ -27,11 +27,14 @@
         <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-menu">Menü</button>
         <nav class="primary-nav" id="primary-menu" aria-label="Hauptnavigation" data-content-plan-id="C-002">
           <ul>
-            <li><a href="#start" aria-current="page">Start</a></li>
+            <li><a href="#start" aria-current="location">Start</a></li>
             <li><a href="#leistungen">Leistungen</a></li>
             <li><a href="#ablauf">Ablauf</a></li>
+            <li><a href="#pakete">Pakete</a></li>
+            <li><a href="#referenzen">Referenzen</a></li>
+            <li><a href="#faq">FAQ</a></li>
             <li><a href="#ueber-nexus">Über Nexus</a></li>
-            <li><a class="nav-cta" href="kontakt.html#kontakt-status">Kontaktstatus öffnen</a></li>
+            <li><a class="nav-cta" href="#kontakt">Kontakt</a></li>
           </ul>
         </nav>
       </div>
@@ -43,8 +46,11 @@
         <a href="#start" aria-label="Zum Abschnitt Start" aria-current="location"><span class="section-rail__number">01</span><span class="section-rail__name">Start</span></a>
         <a href="#leistungen" aria-label="Zum Abschnitt Leistungen"><span class="section-rail__number">02</span><span class="section-rail__name">Leistungen</span></a>
         <a href="#ablauf" aria-label="Zum Abschnitt Ablauf"><span class="section-rail__number">03</span><span class="section-rail__name">Ablauf</span></a>
-        <a href="#ueber-nexus" aria-label="Zum Abschnitt Über Nexus"><span class="section-rail__number">04</span><span class="section-rail__name">Über Nexus</span></a>
-        <a href="#kontakt" aria-label="Zum Abschnitt Kontakt"><span class="section-rail__number">05</span><span class="section-rail__name">Kontakt</span></a>
+        <a href="#pakete" aria-label="Zum Abschnitt Pakete"><span class="section-rail__number">04</span><span class="section-rail__name">Pakete</span></a>
+        <a href="#referenzen" aria-label="Zum Abschnitt Referenzen und Arbeitsproben"><span class="section-rail__number">05</span><span class="section-rail__name">Referenzen</span></a>
+        <a href="#faq" aria-label="Zum Abschnitt FAQ"><span class="section-rail__number">06</span><span class="section-rail__name">FAQ</span></a>
+        <a href="#ueber-nexus" aria-label="Zum Abschnitt Über Nexus"><span class="section-rail__number">07</span><span class="section-rail__name">Über Nexus</span></a>
+        <a href="#kontakt" aria-label="Zum Abschnitt Kontakt"><span class="section-rail__number">08</span><span class="section-rail__name">Kontakt</span></a>
       </nav>
     </aside>
 
@@ -52,12 +58,12 @@
       <section class="hero" id="start" aria-labelledby="hero-title">
         <div class="container hero-grid">
           <div class="hero__copy">
-            <p class="eyebrow">Nexus / Webdesign und Systeme</p>
+            <p class="eyebrow">01 / Start · interne Vorschau</p>
             <h1 id="hero-title">Websites und Landingpages, die lokale Angebote klar zeigen.</h1>
             <p class="hero__lead">Für Unternehmen, die Leistungen, Ablauf und den nächsten Schritt in eine verständliche Reihenfolge bringen wollen.</p>
             <div class="hero__actions">
-              <a class="button button--signal" href="kontakt.html#kontakt-status">Kontaktstatus öffnen</a>
-              <a class="button button--outline-light" href="#leistungen">Leistungen ansehen</a>
+              <a class="button button--signal" href="#leistungen">Leistungen ansehen</a>
+              <a class="button button--outline-light" href="#kontakt-status">Kontaktstatus öffnen</a>
             </div>
             <p class="hero__status">Keine Datenübertragung · keine Veröffentlichung · interne Vorschau</p>
             <p class="hero__meta">Arbeitsannahme · keine Preis- oder Leistungszusage</p>
@@ -100,45 +106,124 @@
               <h3>Richtung</h3>
               <p>Seitenhierarchie, Inhaltsplan und visuelle Leitidee geben dem Angebot eine erkennbare Ordnung.</p>
               <span class="capability-row__status">Arbeitsannahme</span>
-              <a class="text-link" href="#ueber-nexus">Prinzipien prüfen <span aria-hidden="true">↗</span></a>
+              <a class="text-link" href="#ablauf">Ablauf ansehen <span aria-hidden="true">↗</span></a>
             </article>
             <article class="capability-row">
               <span class="capability-row__number">02</span>
               <h3>Interface</h3>
               <p>Typografie, Komponenten und responsive Zustände bilden eine verständliche Oberfläche.</p>
               <span class="capability-row__status">Arbeitsannahme</span>
-              <a class="text-link" href="#ablauf">Ablauf öffnen <span aria-hidden="true">↗</span></a>
+              <a class="text-link" href="#pakete">Pakete ansehen <span aria-hidden="true">↗</span></a>
             </article>
             <article class="capability-row">
               <span class="capability-row__number">03</span>
               <h3>Übergabe</h3>
-              <p>Lokale Vorschau, Linkpfade und Prüfhinweise halten Entscheidungen für die nächste Rolle nachvollziehbar.</p>
+              <p>Vorschau, Linkpfade und Prüfhinweise halten Entscheidungen für die nächste Rolle nachvollziehbar.</p>
               <span class="capability-row__status">Arbeitsannahme</span>
-              <a class="text-link" href="kontakt.html#kontakt-status">Kontaktstatus öffnen <span aria-hidden="true">↗</span></a>
+              <a class="text-link" href="#kontakt-status">Kontaktstatus öffnen <span aria-hidden="true">↗</span></a>
             </article>
           </div>
 
           <div class="boundary-grid">
             <article class="boundary-card">
-              <span class="meta-label">Abgrenzung</span>
-              <h3>Was der Pilot bewusst getrennt hält.</h3>
-              <p>Im Pilot werden Struktur und lokale Oberfläche gezeigt. Produktiver Betrieb, Veröffentlichung, Kontaktverarbeitung, reale Referenzen und rechtliche Freigabe sind nicht enthalten.</p>
+              <span class="meta-label">Enthalten im Pilot</span>
+              <h3>Struktur und lokale Oberfläche.</h3>
+              <p>Abschnitte, Navigation, responsive Zustände, lokale Linkpfade und statische Prüfhinweise sind als Arbeitsstand sichtbar.</p>
             </article>
             <article class="boundary-card boundary-card--dark">
-              <span class="meta-label">Arbeitsannahme</span>
-              <h3>Die tatsächlichen Bausteine bleiben offen.</h3>
-              <p>Richtung, Interface und Übergabe sind Beschreibungen der Pilotstrecke. Ob sie als Leistungen oder Phasen gelten, ist noch zu bestätigen.</p>
+              <span class="meta-label">Nicht enthalten</span>
+              <h3>Kein produktiver Betrieb.</h3>
+              <p>Veröffentlichung, Kontaktverarbeitung, reale Referenzen und rechtliche Freigabe gehören nicht zum Pilotumfang.</p>
             </article>
+          </div>
+
+          <div class="stack-actions">
+            <a class="button button--signal" href="#ablauf">Ablauf ansehen</a>
+            <a class="button button--outline" href="#kontakt-status">Kontaktstatus öffnen</a>
           </div>
         </div>
       </section>
 
-      <section class="section" id="proof" aria-labelledby="proof-title">
+      <section class="section section--dark" id="ablauf" aria-labelledby="ablauf-title" data-content-plan-id="C-105">
         <div class="container">
           <div class="section-intro">
             <div>
-              <p class="section-index section-index--subordinate">Nutzen &amp; Beleg</p>
-              <h2 id="proof-title">Vertrauen braucht belegbare Inhalte.</h2>
+              <p class="section-index">03 / Ablauf</p>
+              <h2 id="ablauf-title">Vom offenen Briefing zur prüfbaren Vorschau.</h2>
+            </div>
+            <p class="section-intro__lead">Vier Schritte machen Ziele, Struktur, Gestaltung und offene Entscheidungen sichtbar.</p>
+          </div>
+
+          <ol class="process-rail">
+            <li class="process-step"><span class="process-step__number">01 / Einordnen</span><h3>Einordnen</h3><p>Ziele, Zielgruppe und offene Inhalte benennen.</p></li>
+            <li class="process-step"><span class="process-step__number">02 / Strukturieren</span><h3>Strukturieren</h3><p>Abschnitte, Navigation und primäre Handlung zusammenführen.</p></li>
+            <li class="process-step"><span class="process-step__number">03 / Systematisieren</span><h3>Systematisieren</h3><p>Typografie, Komponenten und responsive Zustände definieren.</p></li>
+            <li class="process-step"><span class="process-step__number">04 / Übergeben</span><h3>Übergeben</h3><p>Links, Semantik, Kontrast und Restpunkte dokumentieren.</p></li>
+          </ol>
+
+          <div class="stack-actions">
+            <a class="button button--signal" href="#pakete">Pakete ansehen</a>
+            <a class="button button--outline-light" href="#kontakt-status">Kontaktstatus öffnen</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--surface" id="pakete" aria-labelledby="pakete-title">
+        <div class="container">
+          <div class="section-intro">
+            <div>
+              <p class="section-index">04 / Pakete</p>
+              <h2 id="pakete-title">Pakete bleiben im Pilot offen.</h2>
+            </div>
+            <p class="section-intro__lead">Konkrete Namen, Umfänge und Preise sind noch nicht fachlich freigegeben. Die Slots zeigen, welche Angaben vor einer öffentlichen Fassung fehlen.</p>
+          </div>
+
+          <div class="package-grid">
+            <article class="package-slot">
+              <span class="package-slot__type">Paket-Slot 01</span>
+              <span class="status-chip">Nicht freigegeben</span>
+              <h3>Name und Passung fehlen.</h3>
+              <p>[PLATZHALTER – Zielgruppe, Umfang und enthaltene Bausteine ergänzen]</p>
+              <dl class="package-slot__facts">
+                <div><dt>Status</dt><dd>Arbeitsannahme</dd></div>
+                <div><dt>Preis</dt><dd>Nicht freigegeben</dd></div>
+              </dl>
+            </article>
+            <article class="package-slot">
+              <span class="package-slot__type">Paket-Slot 02</span>
+              <span class="status-chip">Inhalt offen</span>
+              <h3>Bausteine und Ausschlüsse fehlen.</h3>
+              <p>[PLATZHALTER – enthaltene Leistungen, Ausschlüsse und Abhängigkeiten ergänzen]</p>
+              <dl class="package-slot__facts">
+                <div><dt>Status</dt><dd>Arbeitsannahme</dd></div>
+                <div><dt>Preis</dt><dd>Nicht freigegeben</dd></div>
+              </dl>
+            </article>
+            <article class="package-slot package-slot--dark">
+              <span class="package-slot__type">Paket-Slot 03</span>
+              <span class="status-chip">Freigabe offen</span>
+              <h3>Preislogik bleibt bewusst leer.</h3>
+              <p>Keine Preis-, Dauer- oder Lieferzusage aus dem Pilot ableiten.</p>
+              <dl class="package-slot__facts">
+                <div><dt>Status</dt><dd>Blockiert für live</dd></div>
+                <div><dt>Preis</dt><dd>Nicht freigegeben</dd></div>
+              </dl>
+            </article>
+          </div>
+
+          <div class="stack-actions">
+            <a class="text-link" href="#referenzen">Referenzen ansehen <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="#faq">FAQ lesen <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="referenzen" aria-labelledby="referenzen-title">
+        <div class="container">
+          <div class="section-intro">
+            <div>
+              <p class="section-index">05 / Referenzen &amp; Arbeitsproben</p>
+              <h2 id="referenzen-title">Vertrauen braucht belegbare Inhalte.</h2>
             </div>
             <p class="section-intro__lead">Referenzen, Stimmen und Ergebnisse werden erst ergänzt, wenn Quelle, Nutzungsrecht und Freigabe vorliegen.</p>
           </div>
@@ -160,40 +245,74 @@
               <span class="proof-slot__type">Arbeitsqualität</span>
               <span class="status-chip">Im Pilot sichtbar</span>
               <h3>Arbeitsartefakte statt Marketingzahl.</h3>
-              <p>Struktur, Zustände, Linkprüfung und Übergabehinweise sind im lokalen Piloten als Prüfspur angelegt.</p>
+              <p>Struktur, Zustände, Linkprüfung und Übergabehinweise sind als lokale Prüfspur angelegt.</p>
             </article>
           </div>
-        </div>
-      </section>
-
-      <section class="section section--dark" id="ablauf" aria-labelledby="ablauf-title" data-content-plan-id="C-105">
-        <div class="container">
-          <div class="section-intro">
-            <div>
-              <p class="section-index">03 / Ablauf</p>
-              <h2 id="ablauf-title">Vom offenen Briefing zur prüfbaren Vorschau.</h2>
-            </div>
-            <p class="section-intro__lead">Vier Schritte halten Ziele, Struktur, Gestaltung und offene Entscheidungen sichtbar.</p>
-          </div>
-
-          <ol class="process-rail">
-            <li class="process-step"><span class="process-step__number">01 / Einordnen</span><h3>Einordnen</h3><p>Ziele, Zielgruppe und offene Inhalte benennen.</p></li>
-            <li class="process-step"><span class="process-step__number">02 / Strukturieren</span><h3>Strukturieren</h3><p>Seiten, Navigation und primäre Aktion zusammenführen.</p></li>
-            <li class="process-step"><span class="process-step__number">03 / Systematisieren</span><h3>Systematisieren</h3><p>Typografie, Komponenten und responsive Zustände definieren.</p></li>
-            <li class="process-step"><span class="process-step__number">04 / Übergeben</span><h3>Übergeben</h3><p>Links, Semantik, Kontrast und Restpunkte dokumentieren.</p></li>
-          </ol>
 
           <div class="stack-actions">
-            <a class="button button--outline-light" href="kontakt.html#kontakt-status">Kontaktstatus öffnen</a>
+            <a class="text-link" href="#faq">Fragen prüfen <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="#kontakt-status">Kontaktstatus öffnen <span aria-hidden="true">↗</span></a>
           </div>
         </div>
       </section>
 
-      <section class="section section--surface" id="ueber-nexus" aria-labelledby="ueber-nexus-title">
+      <section class="section section--surface" id="faq" aria-labelledby="faq-title">
         <div class="container">
           <div class="section-intro">
             <div>
-              <p class="section-index">04 / Über Nexus</p>
+              <p class="section-index">06 / FAQ</p>
+              <h2 id="faq-title">Häufige Fragen.</h2>
+            </div>
+            <p class="section-intro__lead">Entwurfsantworten helfen bei der Einordnung, ohne Preise, Dauer, Rechts- oder Kontaktzusagen zu erfinden.</p>
+          </div>
+
+          <div class="faq-list">
+            <details class="faq-item" open>
+              <summary>Für wen ist das Angebot gedacht?</summary>
+              <div class="faq-item__answer"><p>Als Arbeitsannahme für lokale Geschäfte, Handwerksbetriebe, Restaurants und weitere Unternehmen, die eine einfache Firmenwebsite oder Landingpage benötigen. Welche Zielgruppen zuerst angesprochen werden, ist noch zu bestätigen.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Was ist der Unterschied zwischen Firmenwebsite und Landingpage?</summary>
+              <div class="faq-item__answer"><p>Eine Firmenwebsite kann mehrere Informationsbereiche bündeln. Eine Landingpage konzentriert sich auf eine klar definierte Aufgabe oder ein Angebot. Die passende Struktur hängt vom Vorhaben und den freigegebenen Inhalten ab.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Sind Onlineshops Teil des Standardangebots?</summary>
+              <div class="faq-item__answer"><p>Nein. Der aktuelle Standardrahmen bezieht sich auf einfache Firmenwebsites und Landingpages, nicht auf Onlineshops. Ein abweichender Bedarf müsste separat geprüft und freigegeben werden.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Welche Inhalte werden für den Start benötigt?</summary>
+              <div class="faq-item__answer"><p>Mindestens ein klares Ziel, die gewünschte Zielgruppe, die Leistungen oder das Angebot, ein freigegebener Kontaktweg und die Rechte an gelieferten Bildern, Logos und Aussagen. Konkrete Anforderungen hängen vom Projekt ab.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Gibt es Referenzen oder Kundenstimmen?</summary>
+              <div class="faq-item__answer"><p>Im aktuellen Pilot nicht. Referenzen, Stimmen und Projektbilder werden erst mit Quelle, Nutzungsrecht und Einwilligung ergänzt.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Was kostet eine Website?</summary>
+              <div class="faq-item__answer"><p>Im aktuellen Material sind keine Preise freigegeben. Eine Preisangabe darf erst nach Klärung von Leistungsumfang und Freigabe ergänzt werden.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Wie lange dauert die Umsetzung?</summary>
+              <div class="faq-item__answer"><p>Im aktuellen Material ist keine Dauer zugesagt. Termine und Abhängigkeiten müssen projektbezogen bestätigt werden.</p></div>
+            </details>
+            <details class="faq-item">
+              <summary>Wie kann ich im Pilot Kontakt aufnehmen?</summary>
+              <div class="faq-item__answer"><p>Der Pilot zeigt nur einen Kontaktstatus. Er enthält kein Formular, keinen Versandweg und keine Datenübertragung. Ein öffentlicher Kontaktkanal muss separat freigegeben und technisch geprüft werden.</p></div>
+            </details>
+          </div>
+
+          <div class="stack-actions">
+            <a class="button button--signal" href="#leistungen">Leistungsrahmen prüfen</a>
+            <a class="button button--outline" href="#kontakt-status">Kontaktstatus öffnen</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="ueber-nexus" aria-labelledby="ueber-nexus-title">
+        <div class="container">
+          <div class="section-intro">
+            <div>
+              <p class="section-index">07 / Über Nexus</p>
               <h2 id="ueber-nexus-title">Klarheit vor Dekoration.</h2>
             </div>
             <p class="section-intro__lead">Die Vorschau zeigt eine mögliche Arbeitsrichtung. Sie ersetzt keine Marken-, Inhalts- oder Leistungsfreigabe.</p>
@@ -201,14 +320,14 @@
 
           <div class="principle-grid">
             <article class="principle"><span class="principle__number">01 / FÜHRUNG</span><h3>Ein nächster Schritt.</h3><p>Die Oberfläche ordnet Inhalte, statt mehrere gleich laute Aktionen nebeneinanderzustellen.</p></article>
-            <article class="principle"><span class="principle__number">02 / SIGNAL</span><h3>Akzente mit Aufgabe.</h3><p>Farbe und Typografie unterstützen die Orientierung und geben der Marke ihren eigenen Charakter.</p></article>
+            <article class="principle"><span class="principle__number">02 / SIGNAL</span><h3>Akzente mit Aufgabe.</h3><p>Farbe dient der Orientierung und ist kein Beleg für Qualität.</p></article>
             <article class="principle"><span class="principle__number">03 / ÜBERGABE</span><h3>Offenes bleibt benannt.</h3><p>Fehlende Inhalte, Rechte und Prüfungen werden sichtbar gehalten.</p></article>
           </div>
 
           <div class="fit-block">
             <div class="fit-block__intro">
               <h3>Für Angebote, die ohne Umwege verstanden werden sollen.</h3>
-              <p>Zielsegmente sind im Pilot Arbeitsannahmen. Die Seite beschreibt eine mögliche Informationsführung, keine bestätigte Marktposition.</p>
+              <p>Die Zielsegmente sind im Pilot Arbeitsannahmen. Die Seite beschreibt eine mögliche Informationsführung, keine bestätigte Marktposition.</p>
             </div>
             <div class="boundary-grid fit-block__grid">
               <article class="boundary-card"><span class="meta-label">Arbeitsannahme A</span><h3>Unternehmen mit erklärungsbedürftigem Angebot.</h3><p>Wenn Leistungen, Ablauf und nächster Schritt auf einer Seite sauber zusammenfinden sollen.</p></article>
@@ -216,7 +335,7 @@
             </div>
             <div class="stack-actions fit-block__actions">
               <a class="text-link" href="#leistungen">Leistungsrahmen prüfen <span aria-hidden="true">↗</span></a>
-              <a class="text-link" href="kontakt.html#kontakt-status">Kontaktstatus öffnen <span aria-hidden="true">↗</span></a>
+              <a class="text-link" href="#kontakt-status">Kontaktstatus öffnen <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </div>
@@ -226,14 +345,14 @@
         <div class="container">
           <div class="cta-band">
             <div>
-              <p class="eyebrow">05 / Kontakt · offen im Pilot</p>
+              <p class="eyebrow">08 / Kontakt · offen im Pilot</p>
               <h2 id="kontakt-title">Eine klare Richtung ist der nächste Schritt.</h2>
               <p>Die Kontaktstelle ist im Pilot sichtbar, aber noch nicht aktiv.</p>
               <span class="cta-band__label">Platzhalter · keine Verarbeitung</span>
               <span class="cta-band__status" id="kontakt-status">Keine Datenübertragung · keine Veröffentlichung · interne Vorschau</span>
             </div>
             <div class="cta-band__actions">
-              <a class="button button--signal" href="kontakt.html#kontakt-status">Kontaktstatus öffnen</a>
+              <a class="button button--signal" href="#kontakt-status">Kontaktstatus öffnen</a>
               <a class="button button--outline-light" href="#ablauf">Ablauf ansehen</a>
             </div>
           </div>
@@ -256,12 +375,15 @@
             <li><a href="#start">Start</a></li>
             <li><a href="#leistungen">Leistungen</a></li>
             <li><a href="#ablauf">Ablauf</a></li>
+            <li><a href="#pakete">Pakete</a></li>
+            <li><a href="#referenzen">Referenzen</a></li>
+            <li><a href="#faq">FAQ</a></li>
             <li><a href="#ueber-nexus">Über Nexus</a></li>
-            <li><a href="kontakt.html#kontakt-status">Kontaktstatus öffnen</a></li>
+            <li><a href="#kontakt">Kontakt</a></li>
           </ul>
         </nav>
-        <nav aria-label="Footer Pflichtseiten">
-          <p class="footer-heading">Offene Pflichtseiten</p>
+        <nav aria-label="Footer Rechtliches">
+          <p class="footer-heading">Rechtliches</p>
           <ul class="footer-links">
             <li><a href="impressum.html">Impressum</a></li>
             <li><a href="datenschutz.html">Datenschutz</a></li>

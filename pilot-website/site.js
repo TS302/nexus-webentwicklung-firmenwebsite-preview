@@ -1,25 +1,39 @@
 (() => {
   document.documentElement.dataset.js = "true";
-  const mobileQuery = window.matchMedia("(max-width: 900px)");
-  const normalizeHash = (hash) => (hash === "#kontakt-status" ? "#kontakt" : hash);
 
-  const onePageLinks = [...document.querySelectorAll('.primary-nav a[href^="#"]')];
+  const mobileQuery = window.matchMedia("(max-width: 900px)");
+  const normalizeHash = (hash) => (hash === "#kontakt-status" ? "#kontakt" : hash || "#start");
+  const normalizePath = (pathname) => {
+    const path = pathname.split("/").pop();
+    return path || "index.html";
+  };
+  const currentPath = normalizePath(window.location.pathname);
+
+  const primaryLinks = [...document.querySelectorAll(".primary-nav a[href]")];
+  const localPrimaryLinks = primaryLinks.filter((link) => {
+    const url = new URL(link.href, window.location.href);
+    return Boolean(url.hash) && normalizePath(url.pathname) === currentPath;
+  });
+
   const markPrimaryCurrent = (hash = window.location.hash) => {
-    if (!onePageLinks.length) return;
+    if (!localPrimaryLinks.length) return;
     const targetHash = normalizeHash(hash);
-    const match = onePageLinks.find((link) => normalizeHash(link.hash) === targetHash);
-    onePageLinks.forEach((link) => link.removeAttribute("aria-current"));
-    (match || onePageLinks.find((link) => normalizeHash(link.hash) === "#start"))?.setAttribute(
-      "aria-current",
-      "page"
-    );
+    const match = localPrimaryLinks.find((link) => {
+      const url = new URL(link.href, window.location.href);
+      return normalizeHash(url.hash) === targetHash;
+    });
+    localPrimaryLinks.forEach((link) => link.removeAttribute("aria-current"));
+    match?.setAttribute("aria-current", "location");
   };
 
-  if (onePageLinks.length) {
-    markPrimaryCurrent();
-    window.addEventListener("hashchange", () => markPrimaryCurrent());
-    onePageLinks.forEach((link) => link.addEventListener("click", () => markPrimaryCurrent(link.hash)));
-  }
+  markPrimaryCurrent();
+  window.addEventListener("hashchange", () => markPrimaryCurrent());
+  primaryLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      const url = new URL(link.href, window.location.href);
+      if (normalizePath(url.pathname) === currentPath && url.hash) markPrimaryCurrent(url.hash);
+    });
+  });
 
   document.querySelectorAll(".site-header").forEach((header) => {
     const toggle = header.querySelector("[data-menu-toggle]");
@@ -56,20 +70,24 @@
       }
     });
 
-    mobileQuery.addEventListener("change", (event) => {
+    const handleViewportChange = (event) => {
       if (!event.matches) setMenu(false);
-    });
+    };
+    if (typeof mobileQuery.addEventListener === "function") {
+      mobileQuery.addEventListener("change", handleViewportChange);
+    } else {
+      mobileQuery.addListener(handleViewportChange);
+    }
   });
 
   const rail = document.querySelector("[data-section-rail]");
   if (!rail) return;
 
   const links = [...rail.querySelectorAll("a[href]")];
-  const currentPath = window.location.pathname.split("/").pop() || "index.html";
   const localTargets = links
     .map((link) => {
       const url = new URL(link.href, window.location.href);
-      const targetPath = url.pathname.split("/").pop() || "index.html";
+      const targetPath = normalizePath(url.pathname);
       return targetPath === currentPath && url.hash ? document.querySelector(url.hash) : null;
     })
     .filter(Boolean);
@@ -80,8 +98,10 @@
   };
 
   const markFromHash = () => {
-    const matchingHash = links.find((link) => normalizeHash(link.hash) === normalizeHash(window.location.hash));
-    markCurrent(matchingHash || links.find((link) => localTargets.includes(document.querySelector(link.hash))) || links[0]);
+    const targetHash = normalizeHash(window.location.hash);
+    const matchingHash = links.find((link) => normalizeHash(link.hash) === targetHash);
+    const fallback = links.find((link) => localTargets.includes(document.querySelector(link.hash))) || links[0];
+    markCurrent(matchingHash || fallback);
   };
 
   markFromHash();

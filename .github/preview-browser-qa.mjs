@@ -18,6 +18,7 @@ const screenshotDir = path.join(artifactDir, "screenshots");
 const metricsPath = path.join(artifactDir, "browser-qa-metrics.json");
 const metrics = [];
 const expectedHeroTitle = "Websites und Landingpages, die lokale Angebote klar zeigen.";
+const expectedAnchors = ["start", "leistungen", "ablauf", "pakete", "referenzen", "faq", "ueber-nexus", "kontakt"];
 
 fs.mkdirSync(screenshotDir, { recursive: true });
 
@@ -92,7 +93,7 @@ async function checkRailAndScroll(page, indexUrl, viewport) {
     return { left: rect.left, right: rect.right, width: rect.width, links };
   });
   assert(railMetrics.left >= 0 && railMetrics.right <= viewport, `index.html @ ${viewport}px: section rail leaves the viewport`);
-  assert(railMetrics.links.length >= 5, `index.html @ ${viewport}px: section rail is incomplete`);
+  assert(railMetrics.links.length === expectedAnchors.length, `index.html @ ${viewport}px: section rail is incomplete`);
   assert(railMetrics.links.every((link) => link.height >= 44 && link.right <= viewport && link.labelWidth >= link.labelScrollWidth), `index.html @ ${viewport}px: section rail focus/touch target or label is clipped`);
 
   for (const link of await rail.locator("a").all()) {
@@ -211,9 +212,15 @@ try {
         assert(headingMetrics.ctaBottom <= headingMetrics.viewportHeight, `index.html @ ${viewport}px: hero CTA is below the first viewport`);
         assert(headingMetrics.nextHeadingTop <= headingMetrics.viewportHeight, `index.html @ ${viewport}px: next section teaser is below the first viewport`);
       }
+      assert(await page.locator('.hero__actions a[href="#leistungen"]').count() === 1, `index.html @ ${viewport}px: hero services CTA is missing`);
       assert(await page.locator('.hero__actions a[href="#kontakt-status"]').count() === 1, `index.html @ ${viewport}px: hero status CTA is missing`);
       assert(await page.locator('#kontakt-status').count() === 1, `index.html @ ${viewport}px: contact status target is missing`);
+      assert(await page.locator('meta[name="robots"]').getAttribute("content") === "noindex,nofollow,noarchive", `index.html @ ${viewport}px: preview robots gate is missing`);
+      assert(await page.locator("main > section").evaluateAll((sections, anchors) => sections.map((section) => section.id).join(",") === anchors.join(","), expectedAnchors), `index.html @ ${viewport}px: canonical section order is incomplete`);
+      assert(await page.locator(".primary-nav a").evaluateAll((links, anchors) => links.length === anchors.length, expectedAnchors), `index.html @ ${viewport}px: primary navigation is incomplete`);
+      assert(await page.locator('.primary-nav a[href="#start"]').getAttribute("aria-current") === "location", `index.html @ ${viewport}px: initial route is not represented as a location target`);
       assert(await page.locator('[data-section-rail] a[href="#proof"]').count() === 0, `index.html @ ${viewport}px: proof must remain outside the primary rail`);
+      assert(await page.locator('a[href*="leistungen.html"], a[href*="ablauf.html"], a[href*="ueber-nexus.html"], a[href*="kontakt.html"]').count() === 0, `index.html @ ${viewport}px: canonical page still links to a legacy marketing page`);
 
       const record = { viewport, overflow, headingMetrics, heroTitle };
       metrics.push(record);

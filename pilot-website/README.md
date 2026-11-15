@@ -1,64 +1,41 @@
-# Nexus Website · lokale Vorschau
+# Nexus Website · lokale Preview
 
 **Status: INTERNE VORSCHAU – NICHT VERÖFFENTLICHEN**
 
-Der statische, synthetische Pilotstand setzt Leas Richtung **Light Signal / Floating Glass** um: helle Papierflächen, semantische Blautokens, eine sticky Glas-Pill-Navigation und eine dezente Desktop-Schnellnavigation. `index.html` ist die zentrale One-Page mit der freigegebenen Arbeitscopy für Websites und Landingpages, den stabilen Marketingzielen `#start`, `#leistungen`, `#ablauf`, `#ueber-nexus` und `#kontakt` sowie dem Statusziel `#kontakt-status`. Die Vorschau ist eine lokale Arbeitsgrundlage – keine Marken-, Inhalts-, Rechts- oder Veröffentlichungsfreigabe.
+`index.html` ist die einzige kanonische Marketingseite. Die durchgehende Lesespur nutzt die stabilen Anker `#start`, `#leistungen`, `#ablauf`, `#pakete`, `#referenzen`, `#faq`, `#ueber-nexus` und `#kontakt`; `#kontakt-status` bleibt der statische Unteranker ohne Datenübertragung. `impressum.html` und `datenschutz.html` sind die einzigen separaten Pflichtseiten und bleiben rechtlich ungeprüfte Platzhalter.
 
-**Visuelle Test-Vorschau:** [Direkte One-Page-Testvorschau öffnen](https://ts302.github.io/nexus-webentwicklung-firmenwebsite-preview/) · GitHub-Pages-Teststand mit sichtbarer interner Vorschaukennzeichnung, nicht die Produktionsdomain.
-
-Die technische Übergabe mit Änderungen, Befunden, Restpunkten und Nora-Prüfliste liegt in [`PAP-97-technical-handoff.md`](../PAP-97-technical-handoff.md).
+Die visuelle Richtung **Light Signal / Floating Glass** bleibt erhalten: Papierflächen, semantische Blautokens, schwebende Header-Shell, statische Unterstreichung und klare Touch-Ziele. Die Vorschau verwendet keine externen Assets, Fonts, Tracker, Formulare, `mailto:`- oder Telefonlinks.
 
 ## Lokal starten
 
-Die zentrale Vorschau kann direkt geöffnet werden:
-
-```text
-pilot-website/index.html
-```
-
-Die alternative Einstiegdatei `nexus-vorschau-standalone.html` verwendet dieselbe lokale `styles.css` und `site.js` und führt ebenfalls über stabile One-Page-Ziele. Die Pflichtseiten bleiben als separate, klar markierte Platzhalter erreichbar.
-
-Für einen lokalen HTTP-Smoke-Test aus dem Projektverzeichnis:
-
 ```sh
 cd pilot-website
-python3 -m http.server 8080
+python3 -m http.server 8766
 ```
 
-Danach `http://127.0.0.1:8080/` öffnen. Der Server ist ausschließlich für die lokale Prüfung gedacht; es gibt kein Deployment und keine Veröffentlichung.
+Danach `http://127.0.0.1:8766/index.html` öffnen. Der Server ist ausschließlich für die lokale Prüfung gedacht. Die Legacy-Dateien `leistungen.html`, `ablauf.html`, `ueber-nexus.html` und `kontakt.html` sind noindex-Kompatibilitätsziele und führen auf die passenden One-Page-Anker zurück. `nexus-vorschau-standalone.html` bleibt ein technischer Redirect-Alias.
 
-## Seiten und lokale Ziele
-
-| Seite | Zweck |
-| --- | --- |
-| `index.html` | zentrale One-Page: Positionierung, Leistungen, Proof, Ablauf, Über Nexus und Kontaktstatus |
-| `leistungen.html` | lokale Detail-/Migrationsansicht für Leistungsbausteine und Scope-Abgrenzung |
-| `ablauf.html` | lokale Detail-/Migrationsansicht für vier Schritte und Prüfspur |
-| `ueber-nexus.html` | lokale Detail-/Migrationsansicht für Arbeitsannahmen und offene Markenfragen |
-| `kontakt.html#kontakt-status` | statischer Kontaktstatus ohne Formular oder Versand |
-| `impressum.html` | rechtlich ungeprüfter Platzhalter |
-| `datenschutz.html` | rechtlich ungeprüfter Platzhalter |
-
-Die Hauptnavigation von `index.html` bleibt vollständig auf der One-Page; Impressum und Datenschutz sind die einzigen separaten Pflichtseiten in der Footer-Navigation. Detailseiten bleiben für die lokale Migration erreichbar und verweisen für Marketingziele zurück auf die stabilen One-Page-Anker. Es gibt keine externen Assets, Fonts, Tracker, `mailto:`-/Telefonlinks oder Netzwerkabhängigkeiten. `site.js` steuert ausschließlich das lokale Menü und die lokale Abschnittsmarkierung.
-
-## Prüfschritte
-
-Die reproduzierbare Prüfroutine liegt in [`qa_preview.py`](../qa_preview.py):
+## Statische Prüfungen
 
 ```sh
-python3 qa_preview.py --base-url http://127.0.0.1:8766 --mode preview
+node --check pilot-website/site.js
+git diff --check
 ```
 
-Sie prüft die sieben lokalen Seiten bei 375px, 768px, 1024px und 1440px, die One-Page-Ziele, Shell-Semantik, Fokus, Touch-Ziele, horizontale Überbreite, Sticky-Header, Schnellnavigation, Reduced Motion, Browserfehler und externe Requests. Statische CSS-Prüfungen decken die Dark-Surface-Kontraste, den opaken Glas-Fallback und den sicheren Rail-Abstand ab. Der Browserlauf benötigt Playwright/Chromium. In der aktuellen Sandbox war das Python-Modul nicht installiert; deshalb ist der Browserbefund hier **NOT RUN** und nicht als bestanden zu verstehen.
+Der GitHub-Pages-Workflow liegt unter `.github/workflows/pages.yml`. Er baut ausschließlich den Inhalt von `pilot-website` im Preview-Repository auf `main`; ein Produktions-Repository ist nicht Bestandteil dieses Workflows.
 
-Zusätzlich geprüft:
+## Browserprüfung
 
-- statischer Shell-/Link-/Fragment-Check für sieben Seiten plus Standalone-Datei: **PASS**;
-- One-Page-Struktur, fünf stabile Marketingziele und Hash-Navigation auf `index.html`: **PASS**;
-- statische Dark-Surface-/Glas-Fallback-/Rail-Kontrastprüfung: **PASS**;
-- HTTP-Smoke-Test für zehn lokale HTML-/CSS-/JS-Dateien: **PASS**;
-- `node --check pilot-website/site.js`: **PASS**.
+Der Workflow installiert Playwright/Chromium in CI und prüft die sieben echten Seiten bei 375, 768, 1024 und 1440 Pixeln. Geprüft werden unter anderem:
+
+- acht kanonische Abschnitte und vollständige Hashnavigation;
+- mobiles Menü, Fokus beim Öffnen, Escape-Rückgabe und Link-Schließen;
+- sichtbarer Preview-Banner/Footerstatus, `noindex` und keine Legacy-Marketinglinks;
+- horizontale Überbreite, Desktop-Schnellnavigation, `aria-current` und Reduced Motion;
+- Browserkonsole, Page Errors, Request Failures und Screenshots.
+
+Der lokale Browserlauf ist nur dann als PASS zu dokumentieren, wenn Playwright/Chromium in der Umgebung tatsächlich verfügbar ist. Eine nicht ausgeführte visuelle oder Tastaturprüfung bleibt **NOT RUN**.
 
 ## Offene Freigaben
 
-Vor Veröffentlichung oder verbindlicher Abnahme fehlen weiterhin: finales Logo und Markenwerte, fachlich freigegebene Copy, echte Cases oder Stimmen mit Quellen und Rechten, reale Kontaktdaten und ein geprüfter Kontaktweg, rechtlich geprüfte Fassungen von Impressum und Datenschutz sowie die separate menschliche Veröffentlichungsentscheidung.
+Markenname und Logo, finale Zielgruppe/Region, fachlich bestätigte Bausteine und Pakete, echte Referenzen mit Quellen/Rechten, ein realer Kontaktweg sowie rechtlich geprüfte Fassungen von Impressum und Datenschutz sind weiterhin offen. Bis dahin bleiben Preview-Banner, Statuslabels, Platzhalter und `noindex,nofollow,noarchive` aktiv.
