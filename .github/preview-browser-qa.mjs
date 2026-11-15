@@ -79,9 +79,10 @@ async function checkHeroVisual(page, viewport) {
   assert(heroMetrics.cardRects.every((rect) => rect.left >= -1 && rect.right <= viewport + 1), `index.html @ ${viewport}px: hero card leaves the viewport horizontally`);
 
   if (viewport <= 767) {
-    assert(heroMetrics.cardRects[1].top >= heroMetrics.cardRects[0].bottom - 1, `index.html @ ${viewport}px: hero cards did not stack at this breakpoint`);
+    assert(heroMetrics.cardRects[1].top >= heroMetrics.cardRects[0].bottom - 1, `index.html @ ${viewport}px: hero cards did not stack at this breakpoint (${JSON.stringify(heroMetrics.cardRects)})`);
   } else {
-    assert(heroMetrics.cardRects[0].top < heroMetrics.cardRects[1].top && heroMetrics.cardRects[0].left < heroMetrics.cardRects[1].left, `index.html @ ${viewport}px: hero cards lost their diagonal order`);
+    assert(heroMetrics.cardRects[0].top < heroMetrics.cardRects[1].top, `index.html @ ${viewport}px: hero cards lost their vertical order (${JSON.stringify(heroMetrics.cardRects)})`);
+    assert(heroMetrics.cardRects[0].left < heroMetrics.cardRects[1].left, `index.html @ ${viewport}px: hero cards lost their horizontal order (${JSON.stringify(heroMetrics.cardRects)})`);
   }
 
   return heroMetrics;
