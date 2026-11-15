@@ -23,6 +23,7 @@
   --content-max: 77rem;
   --measure: 68ch;
   --gutter: clamp(1rem, 4vw, 4rem);
+  --header-overlap: 5.5rem;
   --space-section: clamp(4rem, 9vw, 8rem);
   --radius-sm: 0.5rem;
   --radius-md: 1rem;
@@ -206,7 +207,8 @@ li {
   position: sticky;
   inset-block-start: max(0.75rem, env(safe-area-inset-top));
   z-index: 30;
-  margin-block: 1rem 0;
+  /* Let the first hero surface begin beneath the floating pill. */
+  margin-block: 1rem calc(-1 * var(--header-overlap));
   background: transparent;
 }
 
@@ -475,7 +477,8 @@ li {
   gap: clamp(2rem, 4vw, 4rem);
   align-items: center;
   min-block-size: min(42rem, calc(100vh - 11rem));
-  padding-block: clamp(3rem, 6vw, 6rem) clamp(2.5rem, 4vw, 4rem);
+  /* Clear the pill while its background continues behind it. */
+  padding-block: calc(clamp(3rem, 6vw, 6rem) + var(--header-overlap)) clamp(2.5rem, 4vw, 4rem);
 }
 
 .hero__copy {
@@ -1073,7 +1076,8 @@ li {
 }
 
 .page-hero {
-  padding-block: clamp(4rem, 9vw, 8rem) clamp(3rem, 7vw, 6rem);
+  /* Keep inner-page hero copy below the same floating shell. */
+  padding-block: calc(clamp(4rem, 9vw, 8rem) + var(--header-overlap)) clamp(3rem, 7vw, 6rem);
   border-block-end: 1px solid var(--color-line);
   background:
     radial-gradient(circle at 90% 20%, rgb(220 235 255 / 0.82), transparent 26rem),
@@ -1429,7 +1433,7 @@ li {
 
 @media (min-width: 1200px) {
   .hero-grid {
-    padding-block: clamp(2.5rem, 4vw, 4rem) 2rem;
+    padding-block: calc(clamp(2.5rem, 4vw, 4rem) + var(--header-overlap)) 2rem;
   }
 
   .hero + .section {
