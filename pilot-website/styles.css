@@ -1600,6 +1600,12 @@ li {
 }
 
 @media (max-width: 480px) {
+  .primary-nav ul {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
   .preview-banner__inner {
     align-items: flex-start;
   }
