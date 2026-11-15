@@ -316,13 +316,7 @@ li {
   white-space: nowrap;
 }
 
-.primary-nav a:hover,
-.primary-nav a[aria-current="page"] {
-  background: var(--color-mist-blue);
-  color: var(--color-signal-blue-dark);
-}
-
-.primary-nav a[aria-current="page"]::after {
+.primary-nav a:not(.nav-cta)::after {
   position: absolute;
   inset-inline: 0.75rem;
   inset-block-end: 0.2rem;
@@ -330,6 +324,22 @@ li {
   border-radius: var(--radius-pill);
   background: var(--color-signal-blue);
   content: "";
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 180ms ease;
+}
+
+.primary-nav a:not(.nav-cta):hover,
+.primary-nav a:not(.nav-cta):focus-visible,
+.primary-nav a:not(.nav-cta)[aria-current="page"] {
+  background: transparent;
+  color: var(--color-signal-blue-dark);
+}
+
+.primary-nav a:not(.nav-cta):hover::after,
+.primary-nav a:not(.nav-cta):focus-visible::after,
+.primary-nav a:not(.nav-cta)[aria-current="page"]::after {
+  transform: scaleX(1);
 }
 
 .primary-nav .nav-cta {
@@ -345,11 +355,11 @@ li {
   color: var(--color-white);
 }
 
-.primary-nav .nav-cta[aria-current="page"]::after {
-  display: none;
+.primary-nav a:not(.nav-cta):active {
+  background: transparent;
+  color: var(--color-signal-blue-dark);
 }
 
-.primary-nav a:active,
 .primary-nav .nav-cta:active {
   background: var(--color-signal-blue-dark);
   color: var(--color-white);
@@ -1494,8 +1504,14 @@ li {
     background: rgb(255 255 255 / 0.52);
   }
 
-  .primary-nav a[aria-current="page"]::after {
+  .primary-nav a:not(.nav-cta)::after {
     inset-inline: 0.6rem;
+  }
+
+  .primary-nav a:not(.nav-cta):hover,
+  .primary-nav a:not(.nav-cta):focus-visible,
+  .primary-nav a:not(.nav-cta)[aria-current="page"] {
+    background: transparent;
   }
 
   .primary-nav .nav-cta {
