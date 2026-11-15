@@ -2351,6 +2351,12 @@ li {
   overflow-wrap: anywhere;
 }
 
+@media (min-width: 1200px) {
+  .hero-visual__card-value {
+    font-size: 1rem;
+  }
+}
+
 @media (min-width: 1024px) {
   .hero-visual__browser-content {
     grid-template-columns: minmax(0, 1.2fr) minmax(5rem, 0.8fr);
