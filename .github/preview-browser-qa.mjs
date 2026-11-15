@@ -19,8 +19,8 @@ const metricsPath = path.join(artifactDir, "browser-qa-metrics.json");
 const metrics = [];
 const expectedHeroTitle = "Ihre Website sollte mehr können, als nur gut aussehen.";
 const expectedHeroCards = [
-  { label: "KLAR KALKULIERT", statement: "TRANSPARENTE PAKETE" },
-  { label: "KLARER ABLAUF", statement: "VON DER IDEE BIS ZUR ÜBERGABE" },
+  { metric: "1", unit: "SEITE", caption: "Angebot · Ablauf · nächster Schritt" },
+  { metric: "4", unit: "SCHRITTE", caption: "Vom Briefing bis zur Übergabe" },
 ];
 const expectedAnchors = ["start", "leistungen", "ablauf", "pakete", "referenzen", "faq", "ueber-nexus", "kontakt"];
 
@@ -33,21 +33,22 @@ function assert(condition, message) {
 async function checkHeroVisual(page, viewport) {
   const visual = page.locator(".hero-visual");
   assert(await visual.count() === 1, `index.html @ ${viewport}px: hero visual is missing`);
-  assert(await visual.locator(".hero-visual__website").count() === 1, `index.html @ ${viewport}px: decorative website mockup is missing`);
+  assert(await visual.locator(".hero-visual__browser").count() === 1, `index.html @ ${viewport}px: decorative website mockup is missing`);
 
-  const cards = visual.locator(".hero-card");
+  const cards = visual.locator(".hero-visual__card");
   assert(await cards.count() === expectedHeroCards.length, `index.html @ ${viewport}px: hero card count is incorrect`);
   assert(await cards.locator("a, button, [tabindex]").count() === 0, `index.html @ ${viewport}px: hero cards must remain non-interactive`);
 
   const cardContent = await cards.evaluateAll((nodes) => nodes.map((node) => ({
-    label: node.querySelector(".hero-card__label")?.textContent.trim() || "",
-    statement: node.querySelector("strong")?.textContent.trim() || "",
+    metric: node.querySelector(".hero-visual__metric")?.textContent.trim() || "",
+    unit: node.querySelector(".hero-visual__unit")?.textContent.trim() || "",
+    caption: node.querySelector(".hero-visual__caption")?.textContent.trim() || "",
   })));
   assert(JSON.stringify(cardContent) === JSON.stringify(expectedHeroCards), `index.html @ ${viewport}px: hero card copy or order is incorrect`);
 
   const heroMetrics = await visual.evaluate((node) => {
-    const website = node.querySelector(".hero-visual__website");
-    const cardNodes = [...node.querySelectorAll(".hero-card")];
+    const website = node.querySelector(".hero-visual__browser");
+    const cardNodes = [...node.querySelectorAll(".hero-visual__card")];
     const toRotation = (transform) => {
       if (!transform || transform === "none") return 0;
       const values = transform.startsWith("matrix3d(")
@@ -75,9 +76,10 @@ async function checkHeroVisual(page, viewport) {
   assert(heroMetrics.cardRotations.every((rotation) => typeof rotation === "number" && Math.abs(rotation) < 0.1), `index.html @ ${viewport}px: front cards must remain horizontal`);
   assert(heroMetrics.cardRects.every((rect) => rect.left >= -1 && rect.right <= viewport + 1), `index.html @ ${viewport}px: hero card leaves the viewport horizontally`);
 
-  const shouldStack = viewport <= 767 || (viewport >= 901 && viewport <= 1199);
-  if (shouldStack) {
+  if (viewport <= 767) {
     assert(heroMetrics.cardRects[1].top >= heroMetrics.cardRects[0].bottom - 1, `index.html @ ${viewport}px: hero cards did not stack at this breakpoint`);
+  } else {
+    assert(heroMetrics.cardRects[0].top < heroMetrics.cardRects[1].top && heroMetrics.cardRects[0].left < heroMetrics.cardRects[1].left, `index.html @ ${viewport}px: hero cards lost their diagonal order`);
   }
 
   return heroMetrics;
@@ -193,8 +195,8 @@ async function checkReducedMotion(page, indexUrl, viewport) {
       transitionDuration: rowStyle?.transitionDuration || "",
       animationDuration: rowStyle?.animationDuration || "",
       heroAnimationNames: [
-        getComputedStyle(document.querySelector(".hero-visual__website")).animationName,
-        ...[...document.querySelectorAll(".hero-card")].map((card) => getComputedStyle(card).animationName),
+        getComputedStyle(document.querySelector(".hero-visual__browser")).animationName,
+        ...[...document.querySelectorAll(".hero-visual__card-inner")].map((card) => getComputedStyle(card).animationName),
       ],
     };
   });
