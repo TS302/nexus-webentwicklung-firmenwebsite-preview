@@ -17,7 +17,7 @@ const artifactDir = path.resolve("qa-artifacts");
 const screenshotDir = path.join(artifactDir, "screenshots");
 const metricsPath = path.join(artifactDir, "browser-qa-metrics.json");
 const metrics = [];
-const expectedHeroTitle = "Websites und Landingpages, die lokale Angebote klar zeigen.";
+const expectedHeroTitle = "Ihre Website sollte mehr können, als nur gut aussehen.";
 const expectedAnchors = ["start", "leistungen", "ablauf", "pakete", "referenzen", "faq", "ueber-nexus", "kontakt"];
 
 fs.mkdirSync(screenshotDir, { recursive: true });
@@ -213,8 +213,12 @@ try {
         assert(headingMetrics.nextHeadingTop <= headingMetrics.viewportHeight, `index.html @ ${viewport}px: next section teaser is below the first viewport`);
       }
       assert(await page.locator('.hero__actions a[href="#leistungen"]').count() === 1, `index.html @ ${viewport}px: hero services CTA is missing`);
-      assert(await page.locator('.hero__actions a[href="#kontakt-status"]').count() === 1, `index.html @ ${viewport}px: hero status CTA is missing`);
+      assert(await page.locator('.hero__actions a[href="#kontakt"]').count() === 1, `index.html @ ${viewport}px: hero contact CTA is missing`);
       assert(await page.locator('#kontakt-status').count() === 1, `index.html @ ${viewport}px: contact status target is missing`);
+      assert(await page.locator('#kontakt-status').innerText().then((text) => text.includes("Tom Salli") && text.includes("0155 62171510") && text.includes("info@nexus-webagentur.de")), `index.html @ ${viewport}px: confirmed contact details are missing`);
+      for (const price of ["ab 790 €", "ab 1.490 €", "ab 2.490 €"]) {
+        assert(await page.getByText(price, { exact: true }).count() >= 1, `index.html @ ${viewport}px: package price ${price} is missing`);
+      }
       assert(await page.locator('meta[name="robots"]').getAttribute("content") === "noindex,nofollow,noarchive", `index.html @ ${viewport}px: preview robots gate is missing`);
       assert(await page.locator("main > section").evaluateAll((sections, anchors) => sections.map((section) => section.id).join(",") === anchors.join(","), expectedAnchors), `index.html @ ${viewport}px: canonical section order is incomplete`);
       assert(await page.locator(".primary-nav a").evaluateAll((links, anchors) => links.length === anchors.length, expectedAnchors), `index.html @ ${viewport}px: primary navigation is incomplete`);

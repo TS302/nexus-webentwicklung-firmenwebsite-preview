@@ -2,9 +2,9 @@
 
 **Status: INTERNE VORSCHAU – NICHT VERÖFFENTLICHEN**
 
-`index.html` ist die einzige kanonische Marketingseite. Die durchgehende Lesespur nutzt die stabilen Anker `#start`, `#leistungen`, `#ablauf`, `#pakete`, `#referenzen`, `#faq`, `#ueber-nexus` und `#kontakt`; `#kontakt-status` bleibt der statische Unteranker ohne Datenübertragung. `impressum.html` und `datenschutz.html` sind die einzigen separaten Pflichtseiten und bleiben rechtlich ungeprüfte Platzhalter.
+`index.html` ist die einzige kanonische Marketingseite. Die durchgehende Lesespur nutzt die stabilen Anker `#start`, `#leistungen`, `#ablauf`, `#pakete`, `#referenzen`, `#faq`, `#ueber-nexus` und `#kontakt`; `#kontakt-status` bleibt als stabiler Unteranker für die Kontaktdaten erhalten. `impressum.html` und `datenschutz.html` sind die einzigen separaten Pflichtseiten und bleiben rechtlich ungeprüfte Platzhalter.
 
-Die visuelle Richtung **Light Signal / Floating Glass** bleibt erhalten: Papierflächen, semantische Blautokens, schwebende Header-Shell, statische Unterstreichung und klare Touch-Ziele. Die Vorschau verwendet keine externen Assets, Fonts, Tracker, Formulare, `mailto:`- oder Telefonlinks.
+Die visuelle Richtung **Light Signal / Floating Glass** bleibt erhalten: Papierflächen, semantische Blautokens, schwebende Header-Shell, statische Unterstreichung und klare Touch-Ziele. Die Vorschau verwendet keine externen Assets, Fonts, Tracker oder Formulare; die bestätigten Kontaktangaben sind als `mailto:`- und Telefonlinks im Kontaktabschnitt sichtbar.
 
 ## Lokal starten
 
@@ -38,4 +38,4 @@ Der lokale Browserlauf ist nur dann als PASS zu dokumentieren, wenn Playwright/C
 
 ## Offene Freigaben
 
-Markenname und Logo, finale Zielgruppe/Region, fachlich bestätigte Bausteine und Pakete, echte Referenzen mit Quellen/Rechten, ein realer Kontaktweg sowie rechtlich geprüfte Fassungen von Impressum und Datenschutz sind weiterhin offen. Bis dahin bleiben Preview-Banner, Statuslabels, Platzhalter und `noindex,nofollow,noarchive` aktiv.
+Markenname und Logo, finale Zielgruppe/Region, der genaue Umfang der Pakete sowie rechtlich geprüfte Fassungen von Impressum und Datenschutz sind weiterhin offen. Konzeptarbeiten ersetzen im Preview bewusst Kundenreferenzen. Bis dahin bleiben Preview-Banner, Statuslabels, Platzhalter und `noindex,nofollow,noarchive` aktiv.

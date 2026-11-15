@@ -13,14 +13,14 @@
 
 ## Umgesetzt
 
-- Eine kanonische One-Page mit acht semantischen Abschnitten: Start, Leistungen, Ablauf, Pakete, Referenzen & Arbeitsproben, FAQ, Über Nexus und Kontakt.
-- `#proof` durch `#referenzen` ersetzt; Pakete und FAQ als sichtbare Status-/Entwurfsabschnitte ergänzt.
+- Eine kanonische One-Page mit acht semantischen Abschnitten: Start, Leistungen, Ablauf, Pakete, Konzeptarbeiten, FAQ, Über Nexus und Kontakt.
+- `#proof` durch den kompatiblen Anker `#referenzen` für den sichtbaren Abschnitt „Konzeptarbeiten“ ersetzt; Pakete und FAQ als sichtbare Abschnitte ergänzt.
 - Alle Marketingnavigationen, Inline-Links und Footer-Ziele auf die One-Page-Anker ausgerichtet; nur Impressum und Datenschutz bleiben separat.
 - Mobiles Menü mit `aria-expanded`, Fokus beim Öffnen, Escape-Rückgabe und Link-Schließen beibehalten/geschärft.
 - Aktive Hashroute über `aria-current="location"`; separate Rechtstexte verwenden `aria-current="page"` nur in ihrer Rechtliches-Navigation.
 - Preview-Banner und Footer-Status sichtbar gemacht; `noindex,nofollow,noarchive` und Status-/Rechtehinweise erhalten.
 - Floating-Glass-Richtung, Tokens, Typografie, Radius und reduzierte Bewegung erhalten; Desktop-Rail auf acht Ziele erweitert und vom Inhaltsraster abgerückt.
-- Keine Formulare, Versandwege, Tracker, externen Assets, erfundenen Referenzen, Preise, Kontaktdaten oder rechtlichen Aussagen ergänzt.
+- Keine Formulare, Tracker, externen Assets oder erfundenen Kundenreferenzen ergänzt; die bestätigten Paketeinstiegspreise und Kontaktdaten stehen ausschließlich auf der kanonischen One-Page.
 
 ## Lokal nachvollziehbare Prüfung
 
@@ -40,8 +40,9 @@ Der GitHub-Pages-Workflow prüft nach dem Preview-Deployment per Playwright die 
 
 ## Bekannte Restpunkte / offene Entscheidungen
 
-- Der aktuelle Stand bleibt wegen ungeklärter Marken-, Zielgruppen-, Leistungs-, Paket-, Referenz-, Kontakt- und Rechtsfreigaben eine interne Preview.
-- Paketkarten und FAQ sind redaktionelle Arbeitsgrundlagen; sie sind nicht als Preis-, Dauer-, Leistungs- oder Rechtszusage zu lesen.
+- Der aktuelle Stand bleibt wegen ungeklärter Marken-, Zielgruppen-, Leistungs- und Rechtsfreigaben eine interne Preview.
+- Paketkarten zeigen die bestätigten Einstiegspreise ab 790 €, 1.490 € und 2.490 €; der genaue Projektumfang bleibt abhängig von den Anforderungen.
+- Konzeptarbeiten sind Arbeitsproben und keine Kundenreferenzen.
 - Legacy-Dateien bleiben vorerst als noindex-Aliase für alte lokale Pfade bestehen; die spätere Entfernung ist eine separate technische Entscheidung.
 - Ein lokaler Browserlauf gilt nur bei verfügbarer Playwright-/Chromium-Umgebung als PASS. Nicht ausgeführte visuelle, Fokus- oder Screenshot-Prüfungen bleiben NOT RUN.
 
