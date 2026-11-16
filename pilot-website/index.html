@@ -16,9 +16,9 @@
       }
 
       .site-header > .header-inner {
-        width: 100%;
-        max-inline-size: none;
-        margin-inline: 0;
+        width: min(calc(100% - 2 * var(--gutter)), var(--content-max));
+        max-inline-size: var(--content-max);
+        margin-inline: auto;
         border: 0;
         border-block-end: 1px solid rgb(11 35 65 / 0.08);
         border-radius: 0;
@@ -53,12 +53,12 @@
 
       .hero {
         background:
-          radial-gradient(circle at 78% 24%, rgb(255 255 255 / 0.7), transparent 24rem),
-          linear-gradient(135deg, #f3f8ff 0%, #dce9fb 100%);
+          radial-gradient(circle at 78% 25%, rgb(220 235 255 / 0.95), transparent 30rem),
+          linear-gradient(145deg, var(--color-surface) 0%, #f0f6ff 62%, #e7f0ff 100%);
       }
 
       .hero::before {
-        display: none;
+        display: block;
       }
 
       .hero-grid {
