@@ -31,10 +31,13 @@
         width: min(calc(100% - 2 * var(--gutter)), var(--content-max));
         max-inline-size: var(--content-max);
         margin-inline: auto;
-        border: 0;
-        border-radius: 0;
-        background: transparent;
-        box-shadow: none;
+        /* Keep the full-width header as the only translucent surface. */
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
       }
 
       .primary-nav {
