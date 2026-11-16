@@ -37,15 +37,15 @@
       }
 
       .site-header[data-scrolled] {
-        background: transparent !important;
+        /* The sticky header itself owns the single full-width surface. */
+        background: rgb(245 249 254 / 0.96) !important;
         box-shadow: none;
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
       }
 
       .site-header[data-scrolled]::before {
-        /* One uniform, full-width translucent surface while scrolling. */
-        background: rgb(245 249 254 / 0.96);
+        background: transparent;
       }
 
       .site-header > .header-inner {
