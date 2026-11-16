@@ -7,6 +7,130 @@
     <meta name="description" content="Nexus entwickelt klare Firmenwebsites und Landingpages für Unternehmen – strukturiert, verständlich und auf den nächsten Schritt ausgerichtet.">
     <title>Nexus Webagentur · Websites und Landingpages</title>
     <link rel="stylesheet" href="styles.css">
+    <style id="nexus-hero-override">
+      /* Nexus hero direction: full-width sticky navigation and the supplied original asset. */
+      .site-header {
+        inset-block-start: 0;
+        margin-block: 0;
+        background: transparent;
+      }
+
+      .site-header > .header-inner {
+        width: 100%;
+        max-inline-size: none;
+        margin-inline: 0;
+        border: 0;
+        border-block-end: 1px solid rgb(11 35 65 / 0.08);
+        border-radius: 0;
+        background: rgb(255 255 255 / 0.82);
+        box-shadow: 0 0.45rem 1.6rem rgb(11 35 65 / 0.07);
+        -webkit-backdrop-filter: blur(1rem) saturate(1.25);
+        backdrop-filter: blur(1rem) saturate(1.25);
+      }
+
+      .site-header[data-scrolled] > .header-inner {
+        background: rgb(255 255 255 / 0.72);
+        box-shadow: 0 0.55rem 1.75rem rgb(11 35 65 / 0.11);
+      }
+
+      .primary-nav {
+        justify-self: center;
+      }
+
+      .primary-nav ul {
+        justify-content: center;
+        gap: 0.3rem;
+      }
+
+      .primary-nav .nav-cta {
+        margin-inline-start: 1rem;
+        border-radius: 0.75rem;
+      }
+
+      .section-rail {
+        display: none !important;
+      }
+
+      .hero {
+        background:
+          radial-gradient(circle at 78% 24%, rgb(255 255 255 / 0.7), transparent 24rem),
+          linear-gradient(135deg, #f3f8ff 0%, #dce9fb 100%);
+      }
+
+      .hero::before {
+        display: none;
+      }
+
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(2rem, 5vw, 5rem);
+        min-block-size: auto;
+        padding-block: clamp(5rem, 9vw, 8rem) clamp(4rem, 7vw, 6rem);
+      }
+
+      .hero h1 {
+        max-width: 18ch;
+        font-size: clamp(2.8rem, 4.6vw, 4.7rem);
+        line-height: 0.98;
+      }
+
+      .hero-title__accent {
+        color: var(--color-signal-blue);
+      }
+
+      .hero__lead {
+        max-width: 34ch;
+      }
+
+      .hero__actions .button,
+      .button {
+        border-radius: 0.75rem;
+      }
+
+      .hero__actions .button {
+        padding-inline: 1.35rem;
+      }
+
+      .button__arrow {
+        margin-inline-start: 0.6rem;
+        font-size: 1.15em;
+        line-height: 1;
+      }
+
+      .hero-media {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-inline-size: 0;
+        min-block-size: clamp(20rem, 37vw, 34rem);
+      }
+
+      .hero-media img {
+        display: block;
+        inline-size: min(100%, 40rem);
+        block-size: auto;
+        object-fit: contain;
+      }
+
+      @media (max-width: 900px) {
+        .primary-nav {
+          justify-self: stretch;
+        }
+
+        .hero-grid {
+          grid-template-columns: 1fr;
+          padding-block-start: 3rem;
+        }
+
+        .hero-media {
+          min-block-size: clamp(18rem, 76vw, 30rem);
+        }
+
+        .hero-media img {
+          inline-size: min(100%, 34rem);
+        }
+      }
+    </style>
     <script src="site.js" defer></script>
   </head>
   <body>
@@ -52,14 +176,13 @@
       <section class="hero" id="start" aria-labelledby="hero-title">
         <div class="container hero-grid">
           <div class="hero__copy">
-            <p class="eyebrow">01 / Start</p>
-            <h1 id="hero-title">Ihre Website sollte mehr können, als nur gut aussehen.</h1>
+            <p class="eyebrow">WEBAGENTUR / 01</p>
+            <h1 id="hero-title">Ihre Website sollte mehr können, als nur <span class="hero-title__accent">gut aussehen.</span></h1>
             <p class="hero__lead">Sie möchten Ihr Angebot online klar zeigen und Interessierte sicher zum nächsten Schritt führen? Nexus entwickelt dafür passende Firmenwebsites und Landingpages.</p>
             <div class="hero__actions">
-              <a class="button button--signal" href="#leistungen">Leistungen ansehen</a>
-              <a class="button button--outline-light" href="#kontakt">Kontakt aufnehmen</a>
+              <a class="button button--signal" href="#leistungen">Leistungen ansehen <span class="button__arrow" aria-hidden="true">→</span></a>
+              <a class="button button--outline-light" href="#kontakt">Projekt besprechen</a>
             </div>
-            <p class="hero__meta">Websites und Landingpages für Ihr Unternehmen</p>
             <div class="hero__signal-rail" aria-label="Arbeitsfelder">
               <span>Strategie</span>
               <span>Interface</span>
@@ -67,59 +190,9 @@
             </div>
           </div>
 
-          <aside class="hero-visual" aria-labelledby="hero-visual-title">
-            <h2 id="hero-visual-title" class="sr-only">Beispielhafte Website-Struktur</h2>
-
-            <div class="hero-visual__browser" aria-hidden="true">
-              <div class="hero-visual__browser-bar">
-                <span class="hero-visual__browser-dots" aria-hidden="true">
-                  <span></span><span></span><span></span>
-                </span>
-                <span class="hero-visual__browser-address">Nexus / Website</span>
-              </div>
-
-              <div class="hero-visual__browser-content">
-                <div class="hero-visual__browser-intro">
-                  <h3>Leistungen klar zeigen.</h3>
-                  <p>Struktur, Gestaltung und der nächste Schritt auf einen Blick.</p>
-                </div>
-
-                <div class="hero-visual__image-placeholder"></div>
-
-                <div class="hero-visual__placeholder-row">
-                  <span></span><span></span>
-                </div>
-
-                <div class="hero-visual__skeleton-grid">
-                  <span><b aria-hidden="true"></b><i></i><i></i><i></i></span>
-                  <span><b aria-hidden="true"></b><i></i><i></i><i></i></span>
-                  <span><b aria-hidden="true"></b><i></i><i></i><i></i></span>
-                </div>
-              </div>
-            </div>
-
-            <div class="hero-visual__card hero-visual__card--requests" data-preview-only="true" aria-describedby="hero-preview-note">
-              <span class="hero-visual__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false"><path d="M5 17V9m7 8V5m7 12v-5"/><path d="m4 7 3-3 3 2 5-4 4 3"/></svg>
-              </span>
-              <span class="hero-visual__card-copy">
-                <span class="hero-visual__card-label">Anfragen gesteigert</span>
-                <strong class="hero-visual__card-value">+ 800 %</strong>
-              </span>
-            </div>
-
-            <div class="hero-visual__card hero-visual__card--next-step">
-              <span class="hero-visual__icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false"><circle cx="6" cy="6" r="2"/><circle cx="18" cy="18" r="2"/><path d="M7.5 7.5 16.5 16.5"/><path d="M15 16.5h2.5V14"/></svg>
-              </span>
-              <span class="hero-visual__card-copy">
-                <span class="hero-visual__card-label">Klarer nächster Schritt</span>
-                <strong class="hero-visual__card-value">Von der Idee zur Website</strong>
-              </span>
-            </div>
-
-            <p class="sr-only" id="hero-preview-note">Konzeptwert: Der Wert plus 800 Prozent ist ein Platzhalter und kein belegtes Nexus-Ergebnis.</p>
-          </aside>
+          <div class="hero-media">
+            <img src="assets/laptop-mit-natuerlichem-bodenschatten.png" alt="Laptop mit Smartphone und Analyse-Karten">
+          </div>
         </div>
       </section>
 

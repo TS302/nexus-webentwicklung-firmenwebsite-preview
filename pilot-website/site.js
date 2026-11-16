@@ -36,6 +36,12 @@
   });
 
   document.querySelectorAll(".site-header").forEach((header) => {
+    const syncHeader = () => header.toggleAttribute("data-scrolled", window.scrollY > 12);
+    syncHeader();
+    window.addEventListener("scroll", syncHeader, { passive: true });
+  });
+
+  document.querySelectorAll(".site-header").forEach((header) => {
     const toggle = header.querySelector("[data-menu-toggle]");
     if (!toggle) return;
 
