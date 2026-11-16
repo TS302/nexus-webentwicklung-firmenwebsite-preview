@@ -116,6 +116,13 @@
         object-fit: contain;
       }
 
+      @media (min-width: 1440px) {
+        .site-header > .header-inner {
+          width: min(calc(100% - 2 * var(--gutter)), calc(var(--content-max) - 13rem));
+          max-inline-size: calc(var(--content-max) - 13rem);
+        }
+      }
+
       @media (max-width: 900px) {
         .primary-nav {
           justify-self: stretch;
