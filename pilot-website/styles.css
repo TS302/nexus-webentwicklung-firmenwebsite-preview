@@ -2481,7 +2481,7 @@ li {
 }
 
 .about-copy h2 {
-  max-width: 12ch;
+  max-width: none;
   margin-block-end: 2rem;
   line-height: 0.98;
   text-wrap: balance;
@@ -3403,7 +3403,7 @@ li {
   }
 
   .about-copy h2 {
-    max-width: 15ch;
+    max-width: none;
   }
 
   .about-placeholder {
