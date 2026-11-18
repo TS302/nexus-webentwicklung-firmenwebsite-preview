@@ -5681,7 +5681,15 @@ li {
 /* PAP-166: tighten the mobile service-detail intro spacing without changing desktop. */
 @media (max-width: 600px) {
   .service-detail-hero {
-    padding-block-start: calc(3rem + var(--header-overlap));
+    padding-block-start: 2.25rem;
+  }
+
+  .service-detail-layout {
+    gap: 1.25rem;
+  }
+
+  .service-detail-heading h1 {
+    margin-block-end: 1rem;
   }
 }
 
