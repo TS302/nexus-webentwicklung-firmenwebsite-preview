@@ -5991,6 +5991,11 @@ li {
     display: none;
   }
 
+  .hero__actions .button:first-child {
+    inline-size: 50%;
+    justify-self: start;
+  }
+
   .hero__actions .button {
     min-inline-size: 0;
     inline-size: 100%;
