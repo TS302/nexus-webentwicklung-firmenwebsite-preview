@@ -6,27 +6,205 @@
     <meta name="robots" content="noindex,nofollow,noarchive">
     <meta name="description" content="Informationen zum Datenschutz der Nexus Webagentur.">
     <title>Datenschutz · Nexus Webagentur</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20261118p">
+    <style id="nexus-header-override">
+      .site-header {
+        position: sticky;
+        inset-block-start: 0;
+        inline-size: 100%;
+        margin-block: 0 -4.5rem;
+        border-block-end: 1px solid rgb(13 35 74 / 0.08);
+        background: transparent !important;
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+
+      .site-header::before {
+        position: fixed;
+        inset-block-start: 0;
+        inset-inline-start: 50%;
+        inset-inline-end: auto;
+        z-index: 0;
+        inline-size: 100vw;
+        block-size: 4.5rem;
+        background: rgb(255 255 255 / 1);
+        box-shadow: 0 0.35rem 1rem rgb(13 35 74 / 0.06);
+        content: "";
+        pointer-events: none;
+        transform: translateX(-50%);
+        transition: background 180ms ease;
+      }
+
+      .site-header[data-scrolled] {
+        background: transparent !important;
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+      }
+
+      .site-header[data-scrolled]::before {
+        background: rgb(255 255 255 / 0.78);
+        box-shadow: 0 0.6rem 1.5rem rgb(13 35 74 / 0.1);
+        -webkit-backdrop-filter: blur(1rem);
+        backdrop-filter: blur(1rem);
+      }
+
+      .site-header > .header-inner {
+        width: min(calc(100% - 2 * var(--gutter)), var(--content-max));
+        max-inline-size: var(--content-max);
+        margin-inline: auto;
+        padding-inline-end: 0;
+        position: relative;
+        z-index: 1;
+        border: 0 !important;
+        border-radius: 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        -webkit-backdrop-filter: none !important;
+        backdrop-filter: none !important;
+      }
+
+      .primary-nav {
+        justify-self: end;
+      }
+
+      .primary-nav ul {
+        justify-content: flex-end;
+        gap: 0.3rem;
+      }
+
+      .wordmark__logo {
+        display: block;
+        inline-size: clamp(7.5rem, 10vw, 9rem);
+        block-size: auto;
+        max-block-size: 2.35rem;
+        object-fit: contain;
+      }
+
+      @media (min-width: 901px) {
+        .primary-nav {
+          grid-column: 2 / -1;
+        }
+
+        .primary-nav li:last-child a {
+          padding-inline-end: 0;
+        }
+      }
+
+      @media (max-width: 900px) {
+        .site-header {
+          margin-block-end: 0;
+        }
+
+        .primary-nav {
+          justify-self: stretch;
+        }
+      }
+    </style>
     <script src="site.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#main">Zum Inhalt springen</a>
     <header class="site-header">
       <div class="container header-inner">
-        <a class="wordmark" href="index.html#start" aria-label="Nexus Startseite"><span class="wordmark__mark" aria-hidden="true">N</span><span><span class="wordmark__name">Nexus</span></span></a>
+        <a class="wordmark" href="index.html#start" aria-label="Nexus Startseite"><img class="wordmark__logo" src="assets/nexus-logo.svg" alt="Nexus"></a>
         <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-menu">Menü</button>
         <nav class="primary-nav" id="primary-menu" aria-label="Hauptnavigation"><ul>
-          <li><a href="index.html#start">Start</a></li><li><a href="index.html#leistungen">Leistungen</a></li><li><a href="index.html#ablauf">Ablauf</a></li><li><a href="index.html#pakete">Pakete</a></li><li><a href="index.html#referenzen">Konzeptarbeiten</a></li><li><a href="index.html#faq">FAQ</a></li><li><a href="index.html#ueber-nexus">Über Nexus</a></li><li><a class="nav-cta" href="index.html#kontakt">Kontakt</a></li>
+          <li><a href="index.html#start">Start</a></li><li><a href="index.html#ueber-nexus">Über Nexus</a></li><li><a href="index.html#leistungen">Leistungen</a></li><li><a href="index.html#pakete">Pakete</a></li><li><a href="index.html#ablauf">Ablauf</a></li><li><a href="index.html#anfrage">Anfrage</a></li>
         </ul></nav>
       </div>
     </header>
 
     <main id="main" tabindex="-1">
-      <section class="page-hero" aria-labelledby="page-title"><div class="container page-hero__grid"><div><p class="eyebrow">Datenschutz</p><h1 id="page-title">Datenschutz</h1><p class="page-hero__lead">Informationen zur Verarbeitung personenbezogener Daten bei Nexus.</p></div><div class="page-hero__index">Rechtliches<small>Datenschutz</small></div></div></section>
-      <section class="section section--surface" aria-labelledby="privacy-status-title"><div class="container"><div class="status-card" role="note"><span class="status-card__label">Datenschutz</span><h2 id="privacy-status-title">Verarbeitung personenbezogener Daten</h2><p>Datenschutzinformationen beschreiben Zwecke, Rechtsgrundlagen, Empfänger, Speicherdauer und Betroffenenrechte.</p></div></div></section>
-      <section class="section" id="privacy-next" aria-labelledby="privacy-next-title"><div class="container legal-content"><p class="eyebrow">Rechtliches</p><h2 id="privacy-next-title">Weitere Datenschutzinformationen</h2><p>Zu den weiteren Angaben gehören Kontaktmöglichkeit, Rechte betroffener Personen und Hinweise zur Datensicherheit.</p><a class="text-link" href="impressum.html">Zum Impressum <span aria-hidden="true">↗</span></a></div></section>
+      <section class="section section--surface legal-document legal-document--standalone" aria-labelledby="page-title">
+        <div class="container legal-document__inner">
+          <div class="legal-document__intro">
+            <p class="section-index">02 / Rechtliches</p>
+            <h1 id="page-title">Datenschutz</h1>
+            <p>Hier findest du die Informationen zur Verarbeitung personenbezogener Daten bei Nexus.</p>
+          </div>
+
+          <div class="legal-document__body legal-document__body--plain">
+            <section class="legal-document__section legal-document__section--wide" aria-labelledby="privacy-verantwortlicher">
+              <p class="legal-document__number">01</p>
+              <h3 id="privacy-verantwortlicher">Verantwortlicher</h3>
+              <p>Verantwortlich für die Verarbeitung personenbezogener Daten auf dieser Website ist:</p>
+              <address>
+                <strong class="legal-placeholder">[Vollständiger Name oder Unternehmensname]</strong><br>
+                Geschäftsbezeichnung: Nexus Webagentur<br>
+                <strong class="legal-placeholder">[Straße und Hausnummer, PLZ Ort]</strong><br>
+                E-Mail: <strong class="legal-placeholder">[E-Mail-Adresse]</strong><br>
+                Telefon: <strong class="legal-placeholder">[Telefonnummer]</strong>
+              </address>
+            </section>
+
+            <section class="legal-document__section" aria-labelledby="privacy-dpo">
+              <p class="legal-document__number">02</p>
+              <h3 id="privacy-dpo">Datenschutzbeauftragte Person</h3>
+              <p><strong class="legal-placeholder">[Falls bestellt: Name und Kontaktdaten; andernfalls „Es wurde keine Datenschutzbeauftragte Person bestellt.“]</strong></p>
+            </section>
+
+            <section class="legal-document__section" aria-labelledby="privacy-hosting">
+              <p class="legal-document__number">03</p>
+              <h3 id="privacy-hosting">Hosting und Server-Logfiles</h3>
+              <p>Beim Aufruf der Website können technisch erforderliche Verbindungsdaten verarbeitet werden, etwa IP-Adresse, Datum und Uhrzeit, angeforderte Seite, Referrer, Browsertyp und Statuscode. Hosting-Anbieter, Serverstandort und konkrete Speicherdauer:</p>
+              <p><strong class="legal-placeholder">[Hosting-Anbieter, Auftragsverarbeiter, Serverstandort und Speicherdauer ergänzen]</strong></p>
+            </section>
+
+            <section class="legal-document__section" aria-labelledby="privacy-formular">
+              <p class="legal-document__number">04</p>
+              <h3 id="privacy-formular">Anfrageformular</h3>
+              <p>Wenn du das Formular nutzt, werden die von dir eingegebenen Daten verarbeitet: Name, E-Mail-Adresse, Unternehmen, Projektart und Nachricht. Die Verarbeitung erfolgt zur Bearbeitung der Anfrage und zur Kontaktaufnahme.</p>
+              <p>Soweit du ausdrücklich einwilligst, ist Art. 6 Abs. 1 lit. a DSGVO die Rechtsgrundlage. Bei vorvertraglichen Anfragen kann Art. 6 Abs. 1 lit. b DSGVO maßgeblich sein; für sonstige erforderliche Kommunikation kommt gegebenenfalls Art. 6 Abs. 1 lit. f DSGVO in Betracht. Die konkrete Rechtsgrundlage ist vor Veröffentlichung mit dem tatsächlichen Formular- und Versandweg abzugleichen.</p>
+            </section>
+
+            <section class="legal-document__section" aria-labelledby="privacy-empfaenger">
+              <p class="legal-document__number">05</p>
+              <h3 id="privacy-empfaenger">Empfänger und Auftragsverarbeitung</h3>
+              <p>Eine Weitergabe erfolgt nur, soweit sie zur Bearbeitung, technischen Bereitstellung oder aufgrund gesetzlicher Pflichten erforderlich ist.</p>
+              <p><strong class="legal-placeholder">[Formular-/E-Mail-Dienst, Hosting, Auftragsverarbeitungsverträge und mögliche Empfänger ergänzen]</strong></p>
+            </section>
+
+            <section class="legal-document__section" aria-labelledby="privacy-speicherfrist">
+              <p class="legal-document__number">06</p>
+              <h3 id="privacy-speicherfrist">Speicherdauer</h3>
+              <p>Anfrage- und Kommunikationsdaten werden gelöscht, sobald der Zweck entfällt und keine gesetzlichen Aufbewahrungspflichten oder berechtigten Gründe für eine weitere Speicherung bestehen.</p>
+              <p><strong class="legal-placeholder">[Konkrete Frist oder Löschkonzept ergänzen]</strong></p>
+            </section>
+
+            <section class="legal-document__section" aria-labelledby="privacy-cookies">
+              <p class="legal-document__number">07</p>
+              <h3 id="privacy-cookies">Cookies und Analyse</h3>
+              <p>Nach aktuellem Stand werden keine nicht erforderlichen Analyse- oder Marketing-Cookies eingesetzt. Falls künftig Consent-Tools, Analyse, externe Medien, Karten, Schriften oder andere Drittanbieter eingebunden werden, müssen diese Verarbeitungsvorgänge hier ergänzt und – soweit erforderlich – eine Einwilligung eingeholt werden.</p>
+              <p><strong class="legal-placeholder">[Künftige Tools, Anbieter, Zwecke und Einwilligungsmechanismus ergänzen]</strong></p>
+            </section>
+
+            <section class="legal-document__section" aria-labelledby="privacy-rechte">
+              <p class="legal-document__number">08</p>
+              <h3 id="privacy-rechte">Rechte betroffener Personen</h3>
+              <p>Betroffene Personen haben – nach den gesetzlichen Voraussetzungen – insbesondere Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung der Verarbeitung, Datenübertragbarkeit und Widerspruch. Eine erteilte Einwilligung kann jederzeit mit Wirkung für die Zukunft widerrufen werden.</p>
+              <p>Außerdem besteht ein Beschwerderecht bei einer Datenschutzaufsichtsbehörde.</p>
+            </section>
+
+            <section class="legal-document__section legal-document__section--wide" aria-labelledby="privacy-aufsicht">
+              <p class="legal-document__number">09</p>
+              <h3 id="privacy-aufsicht">Zuständige Aufsichtsbehörde</h3>
+              <p><strong class="legal-placeholder">[Name, Anschrift, Telefon und E-Mail der zuständigen Landesdatenschutzbehörde ergänzen]</strong></p>
+            </section>
+
+            <section class="legal-document__section legal-document__section--wide" aria-labelledby="privacy-aktualisierung">
+              <p class="legal-document__number">10</p>
+              <h3 id="privacy-aktualisierung">Stand dieser Datenschutzerklärung</h3>
+              <p>Stand: <strong class="legal-placeholder">[Datum der letzten Aktualisierung]</strong></p>
+            </section>
+          </div>
+
+          <p class="legal-document__note"><strong class="legal-placeholder">[Vor Veröffentlichung prüfen]</strong> Die Datenschutzerklärung muss zu den tatsächlich eingesetzten Diensten, Formularwegen, Speicherfristen und technischen Einstellungen passen.</p>
+        </div>
+      </section>
     </main>
 
-    <footer class="site-footer"><div class="container footer-grid"><div class="footer-brand"><a class="wordmark" href="index.html#start" aria-label="Nexus Startseite"><span class="wordmark__mark" aria-hidden="true">N</span><span><span class="wordmark__name">Nexus</span></span></a><p class="footer-copy">Nexus entwickelt klare Firmenwebsites und Landingpages für Unternehmen.</p></div><nav aria-label="Footer Hauptnavigation"><p class="footer-heading">Seiten</p><ul class="footer-links"><li><a href="index.html#start">Start</a></li><li><a href="index.html#leistungen">Leistungen</a></li><li><a href="index.html#ablauf">Ablauf</a></li><li><a href="index.html#pakete">Pakete</a></li><li><a href="index.html#referenzen">Konzeptarbeiten</a></li><li><a href="index.html#faq">FAQ</a></li><li><a href="index.html#ueber-nexus">Über Nexus</a></li><li><a href="index.html#kontakt">Kontakt</a></li></ul></nav><nav aria-label="Footer Rechtliches"><p class="footer-heading">Rechtliches</p><ul class="footer-links"><li><a href="impressum.html">Impressum</a></li><li><a href="datenschutz.html" aria-current="page">Datenschutz</a></li></ul></nav></div></footer>
+    <footer class="site-footer"><div class="container footer-grid"><div class="footer-address"><p class="footer-heading">Adresse</p><address>Beispielstraße 12<br>50667 Köln<br>Deutschland</address></div><nav aria-label="Footer Rechtliches"><p class="footer-heading">Rechtliches</p><ul class="footer-links"><li><a href="impressum.html">Impressum</a></li><li><a href="datenschutz.html" aria-current="page">Datenschutz</a></li></ul></nav><div class="footer-social"><p class="footer-heading">Social</p><div class="footer-social__links"><a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.5" cy="6.7" r="1" class="footer-social__dot"/></svg></a><a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.7 20v-7h2.35l.35-2.7H13.7V8.58c0-.78.22-1.31 1.34-1.31h1.43V4.85c-.25-.04-1.1-.1-2.1-.1-2.08 0-3.51 1.27-3.51 3.6v1.95H8.5V13h2.36v7h2.84Z"/></svg></a><a href="https://www.google.com/" target="_blank" rel="noreferrer" aria-label="Google"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.23c0-.7-.06-1.38-.18-2.03H12v3.84h5.05a4.32 4.32 0 0 1-1.87 2.84v2.36h3.03c1.77-1.63 2.79-4.03 2.79-7.01Z"/><path d="M12 21.2c2.53 0 4.65-.84 6.2-2.28l-3.03-2.36c-.84.56-1.92.9-3.17.84-2.44 0-4.5-1.65-5.24-3.87H3.63v2.44A9.36 9.36 0 0 0 12 21.2Z"/><path d="M6.76 13.59A5.62 5.62 0 0 1 6.47 12c0-.55.1-1.09.29-1.59V7.97H3.63A9.36 9.36 0 0 0 2.64 12c0 1.5.36 2.91.99 4.03l3.13-2.44Z"/><path d="M12 6.54c1.38 0 2.62.47 3.59 1.4l2.69C16.65 3.7 14.53 2.8 12 2.8a9.36 9.36 0 0 0-8.37 5.17l3.13 2.44C7.5 8.19 9.56 6.54 12 6.54Z"/></svg></a></div></div><div class="footer-brand"><a href="index.html#start" aria-label="Nexus Startseite"><img class="footer-brand__logo" src="assets/nexus-logo.svg" alt="Nexus"></a></div></div></footer>
   </body>
 </html>

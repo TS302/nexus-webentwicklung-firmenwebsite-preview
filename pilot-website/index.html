@@ -6,7 +6,7 @@
     <meta name="robots" content="noindex,nofollow,noarchive">
     <meta name="description" content="Nexus entwickelt klare Firmenwebsites und Landingpages für Unternehmen – strukturiert, verständlich und auf den nächsten Schritt ausgerichtet.">
     <title>Nexus Webagentur · Websites und Landingpages</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=20261118o">
     <style id="nexus-hero-override">
       /* Nexus hero direction: full-width sticky navigation and the supplied original asset. */
       .site-header {
@@ -14,7 +14,7 @@
         inset-block-start: 0;
         inline-size: 100%;
         margin-block: 0 -4.5rem;
-        border-block-end: 0;
+        border-block-end: 1px solid rgb(13 35 74 / 0.08);
         background: transparent !important;
         box-shadow: none;
         -webkit-backdrop-filter: none;
@@ -29,7 +29,8 @@
         z-index: 0;
         inline-size: 100vw;
         block-size: 4.5rem;
-        background: transparent;
+        background: rgb(255 255 255 / 1);
+        box-shadow: 0 0.35rem 1rem rgb(13 35 74 / 0.06);
         content: "";
         pointer-events: none;
         transform: translateX(-50%);
@@ -38,20 +39,24 @@
 
       .site-header[data-scrolled] {
         /* The sticky header itself owns the single full-width surface. */
-        background: rgb(245 249 254 / 0.96) !important;
+        background: transparent !important;
         box-shadow: none;
         -webkit-backdrop-filter: none;
         backdrop-filter: none;
       }
 
       .site-header[data-scrolled]::before {
-        background: transparent;
+        background: rgb(255 255 255 / 0.78);
+        box-shadow: 0 0.6rem 1.5rem rgb(13 35 74 / 0.1);
+        -webkit-backdrop-filter: blur(1rem);
+        backdrop-filter: blur(1rem);
       }
 
       .site-header > .header-inner {
         width: min(calc(100% - 2 * var(--gutter)), var(--content-max));
         max-inline-size: var(--content-max);
         margin-inline: auto;
+        padding-inline-end: 0;
         position: relative;
         z-index: 1;
         /* Keep the full-width header as the only translucent surface. */
@@ -72,6 +77,24 @@
         gap: 0.3rem;
       }
 
+      @media (min-width: 901px) {
+        .primary-nav {
+          grid-column: 2 / -1;
+        }
+
+        .primary-nav li:last-child a {
+          padding-inline-end: 0;
+        }
+      }
+
+      .wordmark__logo {
+        display: block;
+        inline-size: clamp(7.5rem, 10vw, 9rem);
+        block-size: auto;
+        max-block-size: 2.35rem;
+        object-fit: contain;
+      }
+
       .section-rail {
         display: none !important;
       }
@@ -82,16 +105,12 @@
 
       .hero {
         background:
-          radial-gradient(circle at 78% 25%, rgb(220 235 255 / 0.95), transparent 30rem),
-          linear-gradient(145deg, var(--color-surface) 0%, #f0f6ff 62%, #e7f0ff 100%);
-      }
-
-      .hero::before {
-        display: block;
+          linear-gradient(90deg, rgb(247 250 255 / 0.96) 0%, rgb(247 250 255 / 0.84) 43%, rgb(247 250 255 / 0.18) 100%),
+          url("assets/hero-background.png") center / cover no-repeat;
       }
 
       .hero-grid {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1fr);
         gap: clamp(2rem, 5vw, 5rem);
         min-block-size: auto;
         padding-block: clamp(5rem, 9vw, 8rem) clamp(4rem, 7vw, 6rem);
@@ -99,7 +118,7 @@
 
       .hero h1 {
         max-width: 20ch;
-        font-size: clamp(2.6rem, 4.1vw, 4.25rem);
+        font-size: var(--type-h1-size);
         line-height: 0.98;
       }
 
@@ -109,7 +128,7 @@
 
       .hero__lead {
         max-width: 34ch;
-        font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+        font-size: var(--type-lead-size);
       }
 
       .hero__actions .button,
@@ -128,11 +147,7 @@
       }
 
       .hero-media {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-inline-size: 0;
-        min-block-size: clamp(20rem, 37vw, 34rem);
+        display: none;
       }
 
       .hero-media img {
@@ -143,6 +158,12 @@
       }
 
       @media (max-width: 900px) {
+        .hero {
+          background:
+            linear-gradient(90deg, rgb(247 250 255 / 0.96) 0%, rgb(247 250 255 / 0.84) 43%, rgb(247 250 255 / 0.18) 100%),
+            url("assets/hero-mobile-code-portrait.png") center / cover no-repeat;
+        }
+
         .site-header {
           margin-block-end: 0;
         }
@@ -157,35 +178,37 @@
         }
 
         .hero-media {
-          min-block-size: clamp(18rem, 76vw, 30rem);
+          display: none;
         }
 
         .hero-media img {
           inline-size: min(100%, 34rem);
         }
+
+        .hero::before {
+          display: none;
+        }
       }
     </style>
-    <script src="site.js" defer></script>
+    <script src="site.js?v=20261117o" defer></script>
   </head>
-  <body>
+  <body class="site-home">
     <a class="skip-link" href="#main">Zum Inhalt springen</a>
 
     <header class="site-header">
       <div class="container header-inner">
         <a class="wordmark" href="#start" aria-label="Nexus Startseite">
-          <span class="wordmark__mark" aria-hidden="true">N</span>
-          <span class="wordmark__name">Nexus</span>
+          <img class="wordmark__logo" src="assets/nexus-logo.svg" alt="Nexus">
         </a>
         <button class="menu-toggle" type="button" data-menu-toggle aria-expanded="false" aria-controls="primary-menu">Menü</button>
         <nav class="primary-nav" id="primary-menu" aria-label="Hauptnavigation" data-content-plan-id="C-002">
           <ul>
             <li><a href="#start" aria-current="location">Start</a></li>
-            <li><a href="#leistungen">Leistungen</a></li>
-            <li><a href="#ablauf">Ablauf</a></li>
-            <li><a href="#pakete">Pakete</a></li>
-            <li><a href="#referenzen">Konzeptarbeiten</a></li>
-            <li><a href="#faq">FAQ</a></li>
             <li><a href="#ueber-nexus">Über Nexus</a></li>
+            <li><a href="#leistungen">Leistungen</a></li>
+            <li><a href="#pakete">Pakete</a></li>
+            <li><a href="#ablauf">Ablauf</a></li>
+            <li><a href="#anfrage">Anfrage</a></li>
           </ul>
         </nav>
       </div>
@@ -194,14 +217,12 @@
     <aside class="section-rail" data-section-rail aria-label="Schnellnavigation">
       <span class="section-rail__label">Abschnitte</span>
       <nav aria-label="Seitenabschnitte">
-        <a href="#start" aria-label="Zum Abschnitt Start" aria-current="location"><span class="section-rail__number">01</span><span class="section-rail__name">Start</span></a>
+        <a href="#start" aria-label="Zum Abschnitt Start" aria-current="location"><span class="section-rail__number">–</span><span class="section-rail__name">Start</span></a>
+        <a href="#ueber-nexus" aria-label="Zum Abschnitt Über Nexus"><span class="section-rail__number">01</span><span class="section-rail__name">Über Nexus</span></a>
         <a href="#leistungen" aria-label="Zum Abschnitt Leistungen"><span class="section-rail__number">02</span><span class="section-rail__name">Leistungen</span></a>
-        <a href="#ablauf" aria-label="Zum Abschnitt Ablauf"><span class="section-rail__number">03</span><span class="section-rail__name">Ablauf</span></a>
-        <a href="#pakete" aria-label="Zum Abschnitt Pakete"><span class="section-rail__number">04</span><span class="section-rail__name">Pakete</span></a>
-        <a href="#referenzen" aria-label="Zum Abschnitt Konzeptarbeiten"><span class="section-rail__number">05</span><span class="section-rail__name">Konzeptarbeiten</span></a>
-        <a href="#faq" aria-label="Zum Abschnitt FAQ"><span class="section-rail__number">06</span><span class="section-rail__name">FAQ</span></a>
-        <a href="#ueber-nexus" aria-label="Zum Abschnitt Über Nexus"><span class="section-rail__number">07</span><span class="section-rail__name">Über Nexus</span></a>
-        <a href="#kontakt" aria-label="Zum Abschnitt Kontakt"><span class="section-rail__number">08</span><span class="section-rail__name">Kontakt</span></a>
+        <a href="#pakete" aria-label="Zum Abschnitt Pakete"><span class="section-rail__number">03</span><span class="section-rail__name">Pakete</span></a>
+        <a href="#ablauf" aria-label="Zum Abschnitt Ablauf"><span class="section-rail__number">04</span><span class="section-rail__name">Ablauf</span></a>
+        <a href="#anfrage" aria-label="Zum Abschnitt Anfrage"><span class="section-rail__number">05</span><span class="section-rail__name">Anfrage</span></a>
       </nav>
     </aside>
 
@@ -209,12 +230,11 @@
       <section class="hero" id="start" aria-labelledby="hero-title">
         <div class="container hero-grid">
           <div class="hero__copy">
-            <p class="eyebrow">WEBAGENTUR / 01</p>
             <h1 id="hero-title">Ihre Website sollte mehr können, als nur <span class="hero-title__accent">gut aussehen.</span></h1>
             <p class="hero__lead">Sie möchten Ihr Angebot online klar zeigen und Interessierte sicher zum nächsten Schritt führen? Nexus entwickelt dafür passende Firmenwebsites und Landingpages.</p>
             <div class="hero__actions">
               <a class="button button--signal" href="#leistungen">Leistungen ansehen <span class="button__arrow" aria-hidden="true">→</span></a>
-              <a class="button button--outline-light" href="#kontakt">Projekt besprechen</a>
+              <a class="button button--outline-light" href="#anfrage">Projekt besprechen</a>
             </div>
             <div class="hero__signal-rail" aria-label="Arbeitsfelder">
               <span>Strategie</span>
@@ -224,307 +244,391 @@
           </div>
 
           <div class="hero-media">
-            <img src="assets/laptop-mit-natuerlichem-bodenschatten.png" alt="Laptop mit Smartphone und Analyse-Karten">
+            <svg class="hero-vector" viewBox="0 0 820 590" role="img" aria-labelledby="hero-vector-title hero-vector-desc">
+              <title id="hero-vector-title">Digitale Website mit mehr Anfragen</title>
+              <desc id="hero-vector-desc">Eine responsive Website auf Laptop und Smartphone mit Anfrage-, Analyse- und Kontaktkarten.</desc>
+              <defs>
+                <linearGradient id="hero-vector-screen" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#f9fbff" />
+                  <stop offset="1" stop-color="#dceaff" />
+                </linearGradient>
+                <linearGradient id="hero-vector-blue" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#1f45a8" />
+                  <stop offset="1" stop-color="#1f45a8" />
+                </linearGradient>
+                <linearGradient id="hero-vector-card" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0" stop-color="#ffffff" />
+                  <stop offset="1" stop-color="#f0f6ff" />
+                </linearGradient>
+                <filter id="hero-vector-shadow" x="-30%" y="-30%" width="160%" height="180%">
+                  <feDropShadow dx="0" dy="14" stdDeviation="13" flood-color="#183861" flood-opacity="0.18" />
+                </filter>
+                <filter id="hero-vector-soft-shadow" x="-30%" y="-30%" width="160%" height="180%">
+                  <feDropShadow dx="0" dy="8" stdDeviation="7" flood-color="#183861" flood-opacity="0.16" />
+                </filter>
+                <clipPath id="hero-vector-screen-clip">
+                  <rect x="190" y="138" width="500" height="276" rx="8" />
+                </clipPath>
+              </defs>
+
+              <g class="hero-vector__ground" aria-hidden="true">
+                <rect x="126" y="500" width="584" height="14" rx="7" fill="#9eb8d8" opacity="0.28" />
+              </g>
+
+              <g class="hero-vector__laptop" filter="url(#hero-vector-shadow)">
+                <rect x="172" y="92" width="536" height="342" rx="24" fill="#f9fbff" stroke="#23344f" stroke-width="7" />
+                <rect x="190" y="111" width="500" height="303" rx="8" fill="url(#hero-vector-screen)" />
+                <g clip-path="url(#hero-vector-screen-clip)">
+                  <rect x="190" y="138" width="80" height="276" fill="#102f61" />
+                  <text x="207" y="166" fill="#a9c8f4" font-family="Avenir Next, Segoe UI, sans-serif" font-size="10" font-weight="700" letter-spacing="1.8">NEXUS / WEB</text>
+                  <rect x="208" y="188" width="44" height="6" rx="3" fill="#ffffff" />
+                  <rect x="208" y="207" width="36" height="5" rx="2.5" fill="#8199ba" />
+                  <rect x="208" y="224" width="48" height="5" rx="2.5" fill="#8199ba" />
+                  <rect x="208" y="241" width="30" height="5" rx="2.5" fill="#8199ba" />
+                  <rect x="202" y="273" width="55" height="24" rx="12" fill="#1f45a8" />
+                  <text x="280" y="161" fill="#5b6f87" font-family="SF Mono, Menlo, monospace" font-size="9" font-weight="700" letter-spacing="1.4">NEXUS / CONVERSION SYSTEM</text>
+                  <text x="280" y="205" fill="#0b2341" font-family="Avenir Next, Segoe UI, sans-serif" font-size="25" font-weight="800" letter-spacing="-0.8">Mehr Anfragen.</text>
+                  <text x="280" y="228" fill="#1f45a8" font-family="Avenir Next, Segoe UI, sans-serif" font-size="15" font-weight="700">Klarer Kontakt.</text>
+                  <rect x="280" y="250" width="154" height="8" rx="4" fill="#8199ba" opacity="0.9" />
+                  <rect x="280" y="266" width="126" height="7" rx="3.5" fill="#bfd0e5" />
+                  <rect x="280" y="282" width="92" height="7" rx="3.5" fill="#d4e0ef" />
+                  <text x="280" y="310" fill="#5b6f87" font-family="SF Mono, Menlo, monospace" font-size="7.5" font-weight="700" letter-spacing="1">STRATEGIE / INTERFACE</text>
+                  <rect x="280" y="322" width="154" height="7" rx="3.5" fill="#a9bfdc" />
+                  <rect x="280" y="338" width="128" height="7" rx="3.5" fill="#d4e0ef" />
+                  <rect x="280" y="358" width="84" height="22" rx="11" fill="url(#hero-vector-blue)" />
+                  <text x="305" y="372" fill="#ffffff" font-family="Avenir Next, Segoe UI, sans-serif" font-size="8.5" font-weight="800">Kontakt</text>
+                  <rect x="464" y="250" width="192" height="144" rx="10" fill="#ffffff" stroke="#bfd2eb" stroke-width="2" />
+                  <rect x="478" y="264" width="164" height="84" rx="7" fill="#edf4ff" stroke="#d1e0f2" stroke-width="1.5" stroke-dasharray="5 4" />
+                  <path d="M493 325l23-28 18 16 24-26 28 28" fill="none" stroke="#1f45a8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="606" cy="287" r="7" fill="#dcebff" />
+                  <path d="M602 287h8m-4-4v8" stroke="#1f45a8" stroke-width="1.7" stroke-linecap="round" />
+                  <rect x="493" y="365" width="76" height="5" rx="2.5" fill="#8199ba" />
+                  <rect x="493" y="378" width="116" height="5" rx="2.5" fill="#d4e0ef" />
+                  <text x="493" y="370" fill="#1f45a8" font-family="SF Mono, Menlo, monospace" font-size="7" font-weight="700" letter-spacing="0.8">BILD / UI</text>
+                </g>
+                <rect x="190" y="111" width="500" height="27" rx="8" fill="#edf2f9" />
+                <circle cx="210" cy="124" r="5" fill="#ef4d4d" />
+                <circle cx="227" cy="124" r="5" fill="#f6b73c" />
+                <circle cx="244" cy="124" r="5" fill="#54a947" />
+                <rect x="275" y="120" width="78" height="8" rx="4" fill="#a9b8ca" />
+                <rect x="602" y="119" width="56" height="10" rx="5" fill="#1f45a8" />
+                <path d="M126 448H712L665 485H174Z" fill="#d8e2ef" stroke="#23344f" stroke-width="5" stroke-linejoin="round" />
+                <path d="M174 485H665" stroke="#9eb1c9" stroke-width="5" stroke-linecap="round" />
+              </g>
+
+              <g class="hero-vector__phone" transform="rotate(-5 175 363)" filter="url(#hero-vector-soft-shadow)">
+                <rect x="96" y="218" width="158" height="292" rx="28" fill="#ffffff" stroke="#23344f" stroke-width="6" />
+                <rect x="110" y="245" width="130" height="245" rx="17" fill="#f4f8ff" />
+                <rect x="151" y="230" width="48" height="8" rx="4" fill="#23344f" />
+                <text x="124" y="271" fill="#1f45a8" font-family="SF Mono, Menlo, monospace" font-size="8" font-weight="700" letter-spacing="1">NEXUS</text>
+                <rect x="124" y="292" width="86" height="8" rx="4" fill="#0b2341" />
+                <rect x="124" y="309" width="66" height="7" rx="3.5" fill="#8199ba" />
+                <rect x="124" y="326" width="77" height="7" rx="3.5" fill="#bfd0e5" />
+                <rect x="124" y="350" width="102" height="62" rx="10" fill="#dcebff" />
+                <path d="M132 399l22-28 20 16 22-24 22 23" fill="none" stroke="#1f45a8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+                <rect x="124" y="430" width="102" height="26" rx="13" fill="#1f45a8" />
+                <text x="139" y="447" fill="#ffffff" font-family="Avenir Next, Segoe UI, sans-serif" font-size="8" font-weight="800" textLength="73" lengthAdjust="spacingAndGlyphs">Anfrage senden</text>
+                <rect x="124" y="467" width="57" height="6" rx="3" fill="#8199ba" />
+                <rect x="124" y="480" width="76" height="6" rx="3" fill="#d0dceb" />
+              </g>
+
+              <g class="hero-vector__float hero-vector__float--analytics" filter="url(#hero-vector-soft-shadow)">
+                <rect x="72" y="86" width="190" height="112" rx="16" fill="url(#hero-vector-card)" stroke="#bfd2eb" stroke-width="2" />
+                <text x="92" y="111" fill="#5b6f87" font-family="Avenir Next, Segoe UI, sans-serif" font-size="12" font-weight="800">Anfragen</text>
+                <text x="92" y="137" fill="#0b2341" font-family="Avenir Next, Segoe UI, sans-serif" font-size="25" font-weight="800">+38%</text>
+                <path d="M94 176c20-25 34-4 49-26s27 9 42-9 31 5 55-30" fill="none" stroke="#1f45a8" stroke-width="4" stroke-linecap="round" />
+                <path d="M94 180H238" stroke="#d7e3f0" stroke-width="2" />
+              </g>
+
+              <g class="hero-vector__float hero-vector__float--inquiry" filter="url(#hero-vector-soft-shadow)">
+                <rect x="656" y="214" width="146" height="137" rx="16" fill="url(#hero-vector-card)" stroke="#bfd2eb" stroke-width="2" />
+                <rect x="672" y="230" width="30" height="30" rx="9" fill="#dcebff" />
+                <path d="M680 241h14m-7-7v14" stroke="#1f45a8" stroke-width="2" stroke-linecap="round" />
+                <text x="712" y="242" fill="#5b6f87" font-family="SF Mono, Menlo, monospace" font-size="7.5" font-weight="700" letter-spacing="0.8">ANFRAGE</text>
+                <text x="672" y="279" fill="#0b2341" font-family="Avenir Next, Segoe UI, sans-serif" font-size="10.5" font-weight="800">Projekt anfragen</text>
+                <rect x="672" y="291" width="114" height="13" rx="6.5" fill="#edf4ff" stroke="#d5e2f2" stroke-width="1" />
+                <rect x="672" y="311" width="114" height="13" rx="6.5" fill="#edf4ff" stroke="#d5e2f2" stroke-width="1" />
+                <rect x="672" y="331" width="114" height="14" rx="7" fill="url(#hero-vector-blue)" />
+                <text x="709" y="341" fill="#ffffff" font-family="Avenir Next, Segoe UI, sans-serif" font-size="7.3" font-weight="800" textLength="40" lengthAdjust="spacingAndGlyphs">STARTEN</text>
+              </g>
+            </svg>
           </div>
         </div>
       </section>
 
-      <section class="section section--surface" id="leistungen" aria-labelledby="leistungen-title" data-content-plan-id="C-104">
+      <section class="section section--dark" id="leistungen" aria-labelledby="leistungen-title" data-content-plan-id="C-104">
         <div class="container">
-          <div class="section-intro">
+          <div class="section-intro section-intro--stacked">
             <div>
-              <p class="section-index">02 / Leistungen</p>
-              <h2 id="leistungen-title">Ein System, das Richtung zeigt.</h2>
+              <p class="section-index">02 / LEISTUNGEN</p>
+              <h2 id="leistungen-title">Websites, die <span class="section-title__accent">Klarheit</span> schaffen.</h2>
             </div>
-            <p class="section-intro__lead">Sie erhalten eine klare Struktur, eine passende Gestaltung und eine saubere technische Umsetzung – abgestimmt auf Ihr Angebot.</p>
+            <p class="section-intro__lead">Nexus verbindet Struktur, Design und technische Umsetzung zu einem Auftritt, der Fragen schnell beantwortet und den nächsten sinnvollen Schritt sichtbar macht.</p>
           </div>
 
-          <div class="capability-list">
-            <article class="capability-row">
-              <span class="capability-row__number">01</span>
-              <h3>Richtung</h3>
-              <p>Wir ordnen Ihre Inhalte so, dass Besucherinnen und Besucher schnell verstehen, was Sie anbieten.</p>
-              <span class="capability-row__status">Konzept</span>
-              <a class="text-link" href="#ablauf">Ablauf ansehen <span aria-hidden="true">↗</span></a>
-            </article>
-            <article class="capability-row">
-              <span class="capability-row__number">02</span>
-              <h3>Interface</h3>
-              <p>Wir gestalten eine eigenständige Oberfläche, die auf jedem Gerät verständlich bleibt.</p>
-              <span class="capability-row__status">Design</span>
-              <a class="text-link" href="#pakete">Pakete ansehen <span aria-hidden="true">↗</span></a>
-            </article>
-            <article class="capability-row">
-              <span class="capability-row__number">03</span>
-              <h3>Übergabe</h3>
-              <p>Wir setzen Ihre Website sauber um und sorgen für nachvollziehbare Linkpfade und Zustände.</p>
-              <span class="capability-row__status">Umsetzung</span>
-              <a class="text-link" href="#kontakt">Kontakt aufnehmen <span aria-hidden="true">↗</span></a>
-            </article>
-          </div>
-
-          <div class="boundary-grid">
-            <article class="boundary-card">
-              <span class="meta-label">Ihr Vorteil</span>
-              <h3>Ihre Inhalte auf den Punkt gebracht.</h3>
-              <p>Leistungen, Ablauf und nächster Schritt finden auf Ihrer Website in einer verständlichen Reihenfolge zusammen.</p>
-            </article>
-            <article class="boundary-card boundary-card--dark">
-              <span class="meta-label">Unser Anspruch</span>
-              <h3>Eine Website mit klarer Aufgabe.</h3>
-              <p>Wir verbinden Inhalt, Gestaltung und Technik so, dass Ihre Website nicht nur gut aussieht, sondern Sie weiterbringt.</p>
-            </article>
-          </div>
-
-          <div class="stack-actions">
-            <a class="button button--signal" href="#ablauf">Ablauf ansehen</a>
-            <a class="button button--outline" href="#kontakt">Kontakt aufnehmen</a>
+          <div class="service-grid">
+            <a class="service-card" href="leistung-konzeption.html">
+              <div class="service-card__top">
+                <span class="service-card__number">01</span>
+                <span class="service-card__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3>Konzeption &amp; Seitenstruktur</h3>
+              <p>Wir ordnen Angebot, Zielgruppe und Nutzerwege so, dass Besucher schnell verstehen, worum es geht.</p>
+              <span class="service-card__tag">Strategie · Struktur · Nutzerweg</span>
+            </a>
+            <a class="service-card" href="leistung-firmenwebsites.html">
+              <div class="service-card__top">
+                <span class="service-card__number">02</span>
+                <span class="service-card__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3>Firmenwebsites</h3>
+              <p>Ein professioneller Auftritt für Ihr Unternehmen – mit sinnvoller Seitenstruktur, klaren Texten und direktem Kontaktweg.</p>
+              <span class="service-card__tag">Vertrauen · Profil · Kontakt</span>
+            </a>
+            <a class="service-card" href="leistung-landingpages.html">
+              <div class="service-card__top">
+                <span class="service-card__number">03</span>
+                <span class="service-card__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3>Landingpages</h3>
+              <p>Eine fokussierte Seite für ein Angebot, eine Dienstleistung oder eine Kampagne. Ein Ziel, eine klare Botschaft.</p>
+              <span class="service-card__tag">Fokus · Botschaft · Conversion</span>
+            </a>
+            <a class="service-card" href="leistung-relaunch.html">
+              <div class="service-card__top">
+                <span class="service-card__number">04</span>
+                <span class="service-card__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3>Relaunch</h3>
+              <p>Bestehende Inhalte prüfen, verbessern und in einen zeitgemäßen Auftritt überführen – ohne Bewährtes leichtfertig zu verlieren.</p>
+              <span class="service-card__tag">Prüfen · Schärfen · Neu aufbauen</span>
+            </a>
+            <a class="service-card" href="leistung-seo.html">
+              <div class="service-card__top">
+                <span class="service-card__number">05</span>
+                <span class="service-card__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3>Sichtbarkeit &amp; SEO</h3>
+              <p>Saubere Überschriften, Meta-Daten, interne Verlinkung und relevante Inhalte schaffen eine verständliche technische Basis.</p>
+              <span class="service-card__tag">Inhalt · Technik · Auffindbarkeit</span>
+            </a>
+            <a class="service-card" href="leistung-pflege.html">
+              <div class="service-card__top">
+                <span class="service-card__number">06</span>
+                <span class="service-card__arrow" aria-hidden="true">→</span>
+              </div>
+              <h3>Pflege &amp; Weiterentwicklung</h3>
+              <p>Nach dem Livegang können Sie Inhalte selbst pflegen oder Änderungen, Updates und Erweiterungen an Nexus übergeben.</p>
+              <span class="service-card__tag">Pflege · Updates · Ausbau</span>
+            </a>
           </div>
         </div>
       </section>
 
       <section class="section section--dark" id="ablauf" aria-labelledby="ablauf-title" data-content-plan-id="C-105">
         <div class="container">
-          <div class="section-intro">
+          <div class="section-intro section-intro--stacked">
             <div>
-              <p class="section-index">03 / Ablauf</p>
-              <h2 id="ablauf-title">Von der ersten Idee zur fertigen Website.</h2>
+              <p class="section-index">04 / ABLAUF</p>
+              <h2 id="ablauf-title">In vier Schritten <span class="section-title__accent">online.</span></h2>
             </div>
-            <p class="section-intro__lead">Sie wissen jederzeit, wo Ihr Projekt steht: von der ersten Idee über die Gestaltung bis zur fertigen Website.</p>
+            <p class="section-intro__lead">Ein fester Ansprechpartner, gebündeltes Feedback und ein klarer nächster Schritt.</p>
           </div>
 
           <ol class="process-rail">
-            <li class="process-step"><span class="process-step__number">01 / Einordnen</span><h3>Verstehen</h3><p>Wir klären Ihr Angebot, Ihre Zielgruppe und das Ziel Ihrer Website.</p></li>
-            <li class="process-step"><span class="process-step__number">02 / Strukturieren</span><h3>Strukturieren</h3><p>Wir bringen Inhalte, Seiten und Navigation in eine klare Reihenfolge.</p></li>
-            <li class="process-step"><span class="process-step__number">03 / Systematisieren</span><h3>Gestalten</h3><p>Wir übersetzen die Struktur in ein eigenständiges und responsives Design.</p></li>
-            <li class="process-step"><span class="process-step__number">04 / Übergeben</span><h3>Umsetzen</h3><p>Wir bauen, prüfen und übergeben Ihre Website nachvollziehbar.</p></li>
+            <li class="process-step"><span class="process-step__number">01</span><h3>Kennenlernen</h3><p>Wir klären Ziel, Zielgruppe, Angebot und den nächsten sinnvollen Schritt.</p></li>
+            <li class="process-step"><span class="process-step__number">02</span><h3>Struktur &amp; Konzept</h3><p>Wir ordnen Inhalte, Seiten und Nutzerwege zu einem verständlichen Konzept.</p></li>
+            <li class="process-step"><span class="process-step__number">03</span><h3>Design &amp; Umsetzung</h3><p>Ihr Auftritt bekommt eine klare visuelle Sprache und wird responsive umgesetzt.</p></li>
+            <li class="process-step"><span class="process-step__number">04</span><h3>Livegang &amp; Übergabe</h3><p>Nach Ihrem Feedback geht die Website online. Auf Wunsch mit Einweisung und Pflege.</p></li>
           </ol>
-
-          <div class="stack-actions">
-            <a class="button button--signal" href="#pakete">Pakete ansehen</a>
-            <a class="button button--outline-light" href="#kontakt">Kontakt aufnehmen</a>
-          </div>
         </div>
       </section>
 
       <section class="section section--surface" id="pakete" aria-labelledby="pakete-title">
         <div class="container">
-          <div class="section-intro">
+          <div class="section-intro section-intro--stacked">
             <div>
-              <p class="section-index">04 / Pakete</p>
-              <h2 id="pakete-title">Das passende Paket für Ihr Vorhaben.</h2>
+              <p class="section-index">03 / PAKETE</p>
+              <h2 id="pakete-title">Ein Paket, das zu Ihrem <span class="section-title__accent">nächsten Schritt passt.</span></h2>
             </div>
-            <p class="section-intro__lead">Drei klare Einstiegspunkte geben Ihnen eine erste Orientierung. Der genaue Umfang richtet sich nach Ihren Inhalten und Anforderungen.</p>
+            <p class="section-intro__lead">Ob Landingpage, Firmenwebseite oder laufende Weiterentwicklung.<br>Unsere Pakete geben Ihnen einen klaren Rahmen für Ihr Vorhaben. Der genaue Umfang und Festpreis entsteht transparent nach einem kurzen Briefing.</p>
           </div>
 
           <div class="package-grid">
             <article class="package-slot">
-              <span class="package-slot__type">Paket 01</span>
-              <span class="status-chip">ab 790 €</span>
-              <h3>Landingpage</h3>
-              <p>Für ein einzelnes Angebot oder eine klar definierte Handlung.</p>
-              <dl class="package-slot__facts">
-                <div><dt>Preis</dt><dd>ab 790 €</dd></div>
-                <div><dt>Passend für</dt><dd>Ein Angebot</dd></div>
-              </dl>
+              <span class="package-slot__type">Nexus Start</span>
+              <p class="package-price">ab 790 €</p>
+              <p class="package-description">Für einen fokussierten, professionellen Auftritt.</p>
+              <ul class="package-features">
+                <li><span aria-hidden="true">✓</span>Onepager oder Landingpage</li>
+                <li><span aria-hidden="true">✓</span>Klare Seitenstruktur</li>
+                <li><span aria-hidden="true">✓</span>Responsive Umsetzung</li>
+                <li><span aria-hidden="true">✓</span>SEO-Basis für die Seite</li>
+              </ul>
+              <a class="package-cta" href="#anfrage">Projekt besprechen <span aria-hidden="true">→</span></a>
+            </article>
+            <article class="package-slot package-slot--featured">
+              <span class="package-badge">Empfohlen</span>
+              <span class="package-slot__type">Nexus Business</span>
+              <p class="package-price">ab 1.490 €</p>
+              <p class="package-description">Für Unternehmen, die Leistungen, Team und Kontakt professionell präsentieren möchten.</p>
+              <ul class="package-features">
+                <li><span aria-hidden="true">✓</span>Bis zu 5 Inhaltsseiten</li>
+                <li><span aria-hidden="true">✓</span>Briefing und Seitenstruktur</li>
+                <li><span aria-hidden="true">✓</span>Individuelles Design</li>
+                <li><span aria-hidden="true">✓</span>Leistungs- und Kontaktseiten</li>
+                <li><span aria-hidden="true">✓</span>SEO-Basis auf allen Seiten</li>
+              </ul>
+              <a class="package-cta" href="#anfrage">Projekt besprechen <span aria-hidden="true">→</span></a>
             </article>
             <article class="package-slot">
-              <span class="package-slot__type">Paket 02</span>
-              <span class="status-chip">ab 1.490 €</span>
-              <h3>Firmenwebsite</h3>
-              <p>Für Unternehmen, die Leistungen, Arbeitsweise und Kontakt übersichtlich zeigen möchten.</p>
-              <dl class="package-slot__facts">
-                <div><dt>Preis</dt><dd>ab 1.490 €</dd></div>
-                <div><dt>Passend für</dt><dd>Ihr Unternehmen</dd></div>
-              </dl>
+              <span class="package-slot__type">Nexus Wachstum</span>
+              <p class="package-price">ab 2.490 €</p>
+              <p class="package-description">Für Unternehmen, die ihren Auftritt systematisch ausbauen möchten.</p>
+              <ul class="package-features">
+                <li><span aria-hidden="true">✓</span>Bis zu 10 Inhaltsseiten</li>
+                <li><span aria-hidden="true">✓</span>Strategische Seitenstruktur</li>
+                <li><span aria-hidden="true">✓</span>Leistungs-, Referenz- und Themenseiten</li>
+                <li><span aria-hidden="true">✓</span>Erweiterte Content-Unterstützung</li>
+                <li><span aria-hidden="true">✓</span>3 Korrekturrunden</li>
+              </ul>
+              <a class="package-cta" href="#anfrage">Projekt besprechen <span aria-hidden="true">→</span></a>
             </article>
-            <article class="package-slot package-slot--dark">
-              <span class="package-slot__type">Paket 03</span>
-              <span class="status-chip">ab 2.490 €</span>
-              <h3>Individuelle Website</h3>
-              <p>Für Ihr Vorhaben, wenn Umfang und Anforderungen über den Standardrahmen hinausgehen.</p>
-              <dl class="package-slot__facts">
-                <div><dt>Preis</dt><dd>ab 2.490 €</dd></div>
-                <div><dt>Passend für</dt><dd>Besondere Anforderungen</dd></div>
-              </dl>
+            <article class="package-slot package-slot--maintenance">
+              <span class="package-slot__type">Nexus Wartung</span>
+              <p class="package-price">ab 149 € <small>/ Monat</small></p>
+              <p class="package-description">Für Websites, die sicher, aktuell und zuverlässig weiterlaufen sollen.</p>
+              <ul class="package-features">
+                <li><span aria-hidden="true">✓</span>Technische Updates und Sicherheitschecks</li>
+                <li><span aria-hidden="true">✓</span>Monatliche Link- und Funktionsprüfung</li>
+                <li><span aria-hidden="true">✓</span>Kleine Inhaltsänderungen bis 30 Min./Monat</li>
+                <li><span aria-hidden="true">✓</span>Backups und kurzer Statusbericht</li>
+              </ul>
+              <a class="package-cta" href="#anfrage">Wartung anfragen <span aria-hidden="true">→</span></a>
             </article>
           </div>
 
-          <div class="stack-actions">
-            <a class="text-link" href="#referenzen">Konzeptarbeiten ansehen <span aria-hidden="true">↗</span></a>
-            <a class="text-link" href="#faq">Häufige Fragen <span aria-hidden="true">↗</span></a>
-          </div>
+          <p class="package-note">Mögliche Zusatzleistungen: zusätzliche Inhaltsseite ab 190 €, Textpaket für eine komplette Firmenwebsite ab 390 € und laufende Pflege nach individuellem Monatskontingent.</p>
         </div>
       </section>
 
-      <section class="section" id="referenzen" aria-labelledby="referenzen-title">
+      <section class="section section--surface inquiry-section" id="anfrage" aria-labelledby="anfrage-title">
         <div class="container">
-          <div class="section-intro">
-            <div>
-              <p class="section-index">05 / Konzeptarbeiten</p>
-              <h2 id="referenzen-title">Unsere Arbeit wird an Konzepten sichtbar.</h2>
+          <div class="inquiry-layout">
+            <div class="inquiry-copy">
+              <p class="section-index">05 / ANFRAGE</p>
+              <h2 id="anfrage-title">Planen wir Ihren nächsten <span class="section-title__accent">Auftritt.</span></h2>
+              <p class="inquiry-copy__lead">Ein paar Eckdaten reichen für den Anfang. Wir melden uns mit einer klaren Einschätzung und dem nächsten sinnvollen Schritt.</p>
+
+              <div class="inquiry-contact" aria-label="Direkter Kontakt">
+                <a class="inquiry-contact__link" href="tel:+4915562171510">
+                  <span class="inquiry-contact__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><path d="M7.2 3.8 9.5 3l1.8 4.2-2 1.4a15.2 15.2 0 0 0 6.1 6.1l1.4-2 4.2 1.8-.8 2.3a2.2 2.2 0 0 1-2.6 1.4A16.7 16.7 0 0 1 5.8 6.4a2.2 2.2 0 0 1 1.4-2.6Z" /></svg>
+                  </span>
+                  <span class="inquiry-contact__copy"><span>Telefon</span><strong>0155 62171510</strong></span>
+                </a>
+                <a class="inquiry-contact__link" href="mailto:info@nexus-webagentur.de">
+                  <span class="inquiry-contact__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false"><path d="m4 6.5 8 6 8-6M5.5 5.5h13A1.5 1.5 0 0 1 20 7v10a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 4 17V7a1.5 1.5 0 0 1 1.5-1.5Z" /></svg>
+                  </span>
+                  <span class="inquiry-contact__copy"><span>E-Mail</span><strong>info@nexus-webagentur.de</strong></span>
+                </a>
+              </div>
             </div>
-            <p class="section-intro__lead">Wir zeigen Konzeptarbeiten, damit Sie unsere Herangehensweise nachvollziehen können.</p>
-          </div>
 
-          <div class="proof-grid">
-            <article class="proof-slot">
-              <span class="proof-slot__type">Konzeptarbeit · Struktur</span>
-              <span class="status-chip">Konzept</span>
-              <h3>Inhalte mit einem klaren Weg.</h3>
-              <p>Ein beispielhafter Seitenaufbau zeigt, wie Leistungen, Ablauf und Kontakt übersichtlich zusammenfinden.</p>
-            </article>
-            <article class="proof-slot">
-              <span class="proof-slot__type">Konzeptarbeit · Oberfläche</span>
-              <span class="status-chip">Konzept</span>
-              <h3>Gestaltung mit Orientierung.</h3>
-              <p>Ein UI-Konzept verbindet Typografie, Farbe und responsive Zustände zu einer ruhigen Oberfläche.</p>
-            </article>
-            <article class="proof-slot proof-slot--dark">
-              <span class="proof-slot__type">Konzeptarbeit · Umsetzung</span>
-              <span class="status-chip">Konzept</span>
-              <h3>Sauber umgesetzt und geprüft.</h3>
-              <p>Semantische Struktur, mobile Bedienung und nachvollziehbare Linkpfade gehören zu unserem technischen Konzept.</p>
-            </article>
-          </div>
+            <div class="inquiry-panel">
+              <div class="inquiry-browser" role="group" aria-label="Anfrageformular">
+                <div class="inquiry-browser__bar">
+                  <div class="inquiry-browser__dots" aria-hidden="true"><span></span><span></span><span></span></div>
+                  <span class="inquiry-browser__title">NEXUS / ANFRAGE</span>
+                </div>
+                <div class="inquiry-browser__body">
+                  <form class="inquiry-form" data-inquiry-form>
+                    <div class="inquiry-fields">
+                      <label class="inquiry-field">
+                        <span>Name</span>
+                        <input name="name" type="text" autocomplete="name" required>
+                      </label>
+                      <label class="inquiry-field">
+                        <span>E-Mail</span>
+                        <input name="email" type="email" autocomplete="email" required>
+                      </label>
+                      <label class="inquiry-field">
+                        <span>Unternehmen</span>
+                        <input name="company" type="text" autocomplete="organization">
+                      </label>
+                      <label class="inquiry-field">
+                        <span>Projektart</span>
+                        <select name="projectType" required>
+                          <option value="" selected disabled>Bitte auswählen</option>
+                          <option>Firmenwebsite</option>
+                          <option>Landingpage</option>
+                          <option>Relaunch</option>
+                          <option>Pflege &amp; Weiterentwicklung</option>
+                        </select>
+                      </label>
+                      <label class="inquiry-field inquiry-field--wide">
+                        <span>Worum geht es bei Ihrem Projekt?</span>
+                        <textarea name="message" rows="6" required></textarea>
+                      </label>
+                    </div>
 
-          <div class="stack-actions">
-            <a class="text-link" href="#ablauf">Ablauf ansehen <span aria-hidden="true">↗</span></a>
-            <a class="text-link" href="#kontakt">Kontakt aufnehmen <span aria-hidden="true">↗</span></a>
+                    <label class="inquiry-consent">
+                      <input name="consent" type="checkbox" required>
+                      <span>Ich stimme der Verarbeitung meiner Angaben zur Bearbeitung der Anfrage zu. <a href="datenschutz.html">Datenschutz</a></span>
+                    </label>
+
+                    <div class="inquiry-form__footer">
+                      <button class="button button--signal" type="submit">Anfrage vorbereiten <span class="button__arrow" aria-hidden="true">→</span></button>
+                      <p class="inquiry-status" data-form-status role="status" aria-live="polite"></p>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section class="section section--surface" id="faq" aria-labelledby="faq-title">
+      <section class="section section--surface about-section" id="ueber-nexus" aria-labelledby="ueber-nexus-title">
         <div class="container">
-          <div class="section-intro">
-            <div>
-              <p class="section-index">06 / FAQ</p>
-              <h2 id="faq-title">Häufige Fragen.</h2>
+          <div class="about-grid">
+            <div class="about-copy">
+              <p class="section-index">01 / ÜBER NEXUS</p>
+              <h2 id="ueber-nexus-title">Webdesign mit Struktur, Klarheit und <span class="section-title__accent">persönlicher Betreuung.</span></h2>
+              <div class="about-copy__text">
+                <p class="about-copy__lead">Nexus Webagentur unterstützt Unternehmen, Selbstständige und Marken dabei, online professionell aufzutreten und ihrer Zielgruppe den Weg zur Anfrage leichter zu machen.</p>
+                <p>Deshalb beginnt jedes Projekt mit Fragen statt mit Farben. Wer soll die Website nutzen? Was soll sie auslösen? Welche Informationen fehlen heute? Erst wenn diese Grundlage klar ist, entstehen Struktur, Design und Umsetzung.</p>
+              </div>
             </div>
-            <p class="section-intro__lead">Hier finden Sie Antworten auf Fragen, die vor dem Start eines Website-Projekts wichtig sein können.</p>
+
+            <div class="about-visual">
+              <div class="about-placeholder" role="img" aria-label="Visueller Platzhalter für eine spätere Bild- oder Grafikdatei">
+                <div class="about-placeholder__chrome"><span></span><span></span><span></span><small>nexus / visual direction</small></div>
+                <div class="about-placeholder__canvas">
+                  <div class="about-placeholder__frame">
+                    <span class="about-placeholder__bar about-placeholder__bar--long"></span>
+                    <span class="about-placeholder__bar about-placeholder__bar--medium"></span>
+                    <span class="about-placeholder__bar about-placeholder__bar--short"></span>
+                    <span class="about-placeholder__label">Bild / Grafik</span>
+                  </div>
+                </div>
+                <div class="about-placeholder__footer"><span>VISUELLE RICHTUNG</span><b>PLATZHALTER</b></div>
+              </div>
+            </div>
           </div>
 
-          <div class="faq-list">
-            <details class="faq-item" open>
-              <summary>Für wen ist das Angebot gedacht?</summary>
-              <div class="faq-item__answer"><p>Für Unternehmen und Selbstständige bundesweit und international, die eine einfache Firmenwebsite oder Landingpage benötigen. Nexus ordnet Leistungen, Ablauf und Kontakt so, dass Interessierte schnell den nächsten Schritt verstehen.</p></div>
-            </details>
-            <details class="faq-item">
-              <summary>Was ist der Unterschied zwischen Firmenwebsite und Landingpage?</summary>
-              <div class="faq-item__answer"><p>Eine Firmenwebsite bündelt mehrere Informationsbereiche. Eine Landingpage konzentriert sich auf eine klar definierte Aufgabe oder ein Angebot. Welche Struktur passt, hängt von Ihrem Vorhaben und den benötigten Inhalten ab.</p></div>
-            </details>
-            <details class="faq-item">
-              <summary>Sind Onlineshops Teil des Standardangebots?</summary>
-              <div class="faq-item__answer"><p>Nein. Das Angebot umfasst einfache Firmenwebsites und Landingpages; Onlineshops gehören nicht dazu.</p></div>
-            </details>
-            <details class="faq-item">
-              <summary>Welche Inhalte werden für den Start benötigt?</summary>
-              <div class="faq-item__answer"><p>Für den Start brauchen wir ein klares Ziel, die gewünschte Zielgruppe, Ihre Leistungen oder Ihr Angebot, einen klaren Kontaktweg sowie die Nutzungsrechte an gelieferten Bildern, Logos und Aussagen. Der genaue Umfang hängt vom Projekt ab.</p></div>
-            </details>
-            <details class="faq-item">
-              <summary>Was zeigen Sie in Ihren Konzeptarbeiten?</summary>
-              <div class="faq-item__answer"><p>Konzeptarbeiten zeigen, wie wir Inhalte, Gestaltung und technische Umsetzung zu einer verständlichen Website verbinden.</p></div>
-            </details>
-            <details class="faq-item">
-              <summary>Was kostet eine Website?</summary>
-              <div class="faq-item__answer"><p>Die Einstiegspreise für die drei Pakete beginnen bei 790 €, 1.490 € und 2.490 €. Welche Variante zu Ihnen passt, hängt von Umfang und Anforderungen Ihres Projekts ab.</p></div>
-            </details>
-            <details class="faq-item">
-              <summary>Wie lange dauert die Umsetzung?</summary>
-              <div class="faq-item__answer"><p>Die Dauer hängt von Umfang, Inhalten und Abstimmung ab. Den passenden Zeitrahmen klären wir zu Beginn des Projekts.</p></div>
-            </details>
-            <details class="faq-item">
-              <summary>Wie kann ich Kontakt aufnehmen?</summary>
-              <div class="faq-item__answer"><p>Sie erreichen Tom Salli telefonisch unter 0155 62171510 oder per E-Mail an info@nexus-webagentur.de.</p></div>
-            </details>
-          </div>
-
-          <div class="stack-actions">
-            <a class="button button--signal" href="#leistungen">Leistungen ansehen</a>
-            <a class="button button--outline" href="#kontakt">Kontakt aufnehmen</a>
-          </div>
         </div>
       </section>
 
-      <section class="section" id="ueber-nexus" aria-labelledby="ueber-nexus-title">
-        <div class="container">
-          <div class="section-intro">
-            <div>
-              <p class="section-index">07 / Über Nexus</p>
-              <h2 id="ueber-nexus-title">Klarheit vor Dekoration.</h2>
-            </div>
-            <p class="section-intro__lead">Nexus entwickelt Websites, die Ihr Unternehmen verständlich präsentieren und Menschen sicher zur passenden Handlung führen.</p>
-          </div>
-
-          <div class="principle-grid">
-            <article class="principle"><span class="principle__number">01 / KLARHEIT</span><h3>Ihre Inhalte zuerst.</h3><p>Typografie und Raster geben Ihren Informationen eine Hierarchie, die auch ohne Bildmaterial funktioniert.</p></article>
-            <article class="principle"><span class="principle__number">02 / HALTUNG</span><h3>Akzente mit Absicht.</h3><p>Farbe dient der Orientierung und gibt Ihrem Auftritt einen eigenen Charakter.</p></article>
-            <article class="principle"><span class="principle__number">03 / NÄHE</span><h3>Zusammenarbeit bleibt nachvollziehbar.</h3><p>Wir erklären Entscheidungen verständlich und halten den Weg von der Idee bis zur fertigen Website offen.</p></article>
-          </div>
-
-          <div class="fit-block">
-            <div class="fit-block__intro">
-              <h3>Für Angebote, die ohne Umwege verstanden werden sollen.</h3>
-              <p>Sie möchten Leistungen, Ablauf und nächsten Schritt auf einer Seite verständlich zusammenbringen? Genau dort setzt Nexus an.</p>
-            </div>
-            <div class="boundary-grid fit-block__grid">
-              <article class="boundary-card"><span class="meta-label">Für Unternehmen</span><h3>Leistungen verständlich zeigen.</h3><p>Wenn Sie Leistungen, Ablauf und nächsten Schritt auf einer Seite sauber zusammenbringen möchten.</p></article>
-              <article class="boundary-card"><span class="meta-label">Für einzelne Angebote</span><h3>Landingpages mit einer klaren Aufgabe.</h3><p>Wenn Sie ein fokussiertes Angebot einordnen und zur passenden Handlung führen möchten.</p></article>
-            </div>
-            <div class="stack-actions fit-block__actions">
-              <a class="text-link" href="#leistungen">Leistungsrahmen prüfen <span aria-hidden="true">↗</span></a>
-              <a class="text-link" href="#kontakt">Kontakt aufnehmen <span aria-hidden="true">↗</span></a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="section" id="kontakt" aria-labelledby="kontakt-title">
-        <div class="container">
-          <div class="cta-band">
-            <div>
-              <p class="eyebrow">08 / Kontakt</p>
-              <h2 id="kontakt-title">Lassen Sie uns über Ihr Projekt sprechen.</h2>
-              <p>Sie planen eine neue Firmenwebsite oder Landingpage? Erzählen Sie uns von Ihrem Angebot und dem Ziel, das Sie online erreichen möchten.</p>
-              <span class="cta-band__label">Ihr Ansprechpartner</span>
-              <dl class="contact-details" id="kontakt-status">
-                <div><dt>Name</dt><dd>Tom Salli</dd></div>
-                <div><dt>Telefon</dt><dd><a href="tel:+4915562171510">0155 62171510</a></dd></div>
-                <div><dt>E-Mail</dt><dd><a href="mailto:info@nexus-webagentur.de">info@nexus-webagentur.de</a></dd></div>
-              </dl>
-            </div>
-            <div class="cta-band__actions">
-              <a class="button button--signal" href="mailto:info@nexus-webagentur.de">E-Mail schreiben</a>
-              <a class="button button--outline-light" href="tel:+4915562171510">Anrufen</a>
-            </div>
-          </div>
-        </div>
-      </section>
     </main>
 
     <footer class="site-footer" data-content-plan-id="C-003">
       <div class="container footer-grid">
-        <div class="footer-brand">
-          <a class="wordmark" href="#start" aria-label="Nexus Startseite">
-            <span class="wordmark__mark" aria-hidden="true">N</span>
-            <span class="wordmark__name">Nexus</span>
-          </a>
-          <p class="footer-copy">Nexus entwickelt klare Firmenwebsites und Landingpages für Unternehmen.</p>
+        <div class="footer-address">
+          <p class="footer-heading">Adresse</p>
+          <address>Beispielstraße 12<br>50667 Köln<br>Deutschland</address>
         </div>
-        <nav aria-label="Footer Hauptnavigation">
-          <p class="footer-heading">Seiten</p>
-          <ul class="footer-links">
-            <li><a href="#start">Start</a></li>
-            <li><a href="#leistungen">Leistungen</a></li>
-            <li><a href="#ablauf">Ablauf</a></li>
-            <li><a href="#pakete">Pakete</a></li>
-            <li><a href="#referenzen">Konzeptarbeiten</a></li>
-            <li><a href="#faq">FAQ</a></li>
-            <li><a href="#ueber-nexus">Über Nexus</a></li>
-            <li><a href="#kontakt">Kontakt</a></li>
-          </ul>
-        </nav>
         <nav aria-label="Footer Rechtliches">
           <p class="footer-heading">Rechtliches</p>
           <ul class="footer-links">
@@ -532,6 +636,25 @@
             <li><a href="datenschutz.html">Datenschutz</a></li>
           </ul>
         </nav>
+        <div class="footer-social">
+          <p class="footer-heading">Social</p>
+          <div class="footer-social__links">
+            <a href="https://www.instagram.com/" target="_blank" rel="noreferrer" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.25" y="3.25" width="17.5" height="17.5" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.5" cy="6.7" r="1" class="footer-social__dot"/></svg>
+            </a>
+            <a href="https://www.facebook.com/" target="_blank" rel="noreferrer" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.7 20v-7h2.35l.35-2.7H13.7V8.58c0-.78.22-1.31 1.34-1.31h1.43V4.85c-.25-.04-1.1-.1-2.1-.1-2.08 0-3.51 1.27-3.51 3.6v1.95H8.5V13h2.36v7h2.84Z"/></svg>
+            </a>
+            <a href="https://www.google.com/" target="_blank" rel="noreferrer" aria-label="Google">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.23c0-.7-.06-1.38-.18-2.03H12v3.84h5.05a4.32 4.32 0 0 1-1.87 2.84v2.36h3.03c1.77-1.63 2.79-4.03 2.79-7.01Z"/><path d="M12 21.2c2.53 0 4.65-.84 6.2-2.28l-3.03-2.36c-.84.56-1.92.9-3.17.9-2.44 0-4.5-1.65-5.24-3.87H3.63v2.44A9.36 9.36 0 0 0 12 21.2Z"/><path d="M6.76 13.59A5.62 5.62 0 0 1 6.47 12c0-.55.1-1.09.29-1.59V7.97H3.63A9.36 9.36 0 0 0 2.64 12c0 1.5.36 2.91.99 4.03l3.13-2.44Z"/><path d="M12 6.54c1.38 0 2.62.47 3.59 1.4l2.69-2.69C16.65 3.7 14.53 2.8 12 2.8a9.36 9.36 0 0 0-8.37 5.17l3.13 2.44C7.5 8.19 9.56 6.54 12 6.54Z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-brand">
+          <a href="#start" aria-label="Nexus Startseite">
+            <img class="footer-brand__logo" src="assets/nexus-logo.svg" alt="Nexus">
+          </a>
+        </div>
       </div>
     </footer>
   </body>
