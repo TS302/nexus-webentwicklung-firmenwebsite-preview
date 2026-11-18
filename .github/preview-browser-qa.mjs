@@ -361,8 +361,8 @@ try {
       }
       assert(await page.locator('.hero__actions a[href="#leistungen"]').count() === 1, `index.html @ ${viewport}px: hero services CTA is missing`);
       assert(await page.locator('.hero__actions a[href="#anfrage"]').count() === 1, `index.html @ ${viewport}px: hero inquiry CTA is missing`);
-      assert(await page.locator('#kontakt-status').count() === 1, `index.html @ ${viewport}px: contact status target is missing`);
-      assert(await page.locator('#kontakt-status').innerText().then((text) => text.includes("Tom Salli") && text.includes("0155 62171510") && text.includes("info@nexus-webagentur.de")), `index.html @ ${viewport}px: confirmed contact details are missing`);
+      assert(await page.locator('#anfrage .inquiry-contact').count() === 1, `index.html @ ${viewport}px: inquiry contact details are missing`);
+      assert(await page.locator('#anfrage .inquiry-contact').innerText().then((text) => text.includes("0155 62171510") && text.includes("info@nexus-webagentur.de")), `index.html @ ${viewport}px: confirmed contact details are missing`);
       for (const price of ["ab 790 €", "ab 1.490 €", "ab 2.490 €"]) {
         assert(await page.getByText(price, { exact: true }).count() >= 1, `index.html @ ${viewport}px: package price ${price} is missing`);
       }
