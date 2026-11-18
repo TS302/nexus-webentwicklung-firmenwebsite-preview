@@ -52,7 +52,7 @@ const expectedHeroCards = [
   { label: "Anfragen gesteigert", value: "+ 800 %", previewOnly: "true" },
   { label: "Klarer nächster Schritt", value: "Von der Idee zur Website", previewOnly: null },
 ];
-const expectedAnchors = ["start", "leistungen", "ablauf", "pakete", "referenzen", "faq", "ueber-nexus", "kontakt"];
+const expectedAnchors = ["start", "ueber-nexus", "leistungen", "pakete", "ablauf", "anfrage"];
 
 fs.mkdirSync(screenshotDir, { recursive: true });
 
