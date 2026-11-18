@@ -5678,6 +5678,13 @@ li {
   }
 }
 
+/* PAP-166: tighten the mobile service-detail intro spacing without changing desktop. */
+@media (max-width: 600px) {
+  .service-detail-hero {
+    padding-block-start: calc(3rem + var(--header-overlap));
+  }
+}
+
 /* PAP-161: compact, aligned footer controls. */
 .site-footer nav[aria-label="Footer Rechtliches"] .footer-heading {
   margin-block-end: 0.55rem;
